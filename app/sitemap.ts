@@ -1,0 +1,1 @@
+import {MetadataRoute} from "next";import {SERVICES}from"../lib/data";export default function sitemap():MetadataRoute.Sitemap{const root="https://egebolgeteknikservis.com";return ["","markalar","hizmet-bolgeleri","hakkimizda","iletisim","kvkk","gizlilik-politikasi","cerez-politikasi",...SERVICES.map(x=>x.slug)].map(x=>({url:`${root}/${x}`,lastModified:new Date()}))}
