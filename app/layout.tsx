@@ -16,9 +16,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: { title: "Ege Bölge Teknik Servis | İzmir Beyaz Eşya ve Teknik Servis", description: "İzmir'de bağımsız özel teknik servis hizmeti.", url: "/", locale: "tr_TR", type: "website", images: [{url:"/og.png",width:1200,height:630,alt:"Ege Bölge Teknik Servis"}] },
   twitter:{card:"summary_large_image",title:"Ege Bölge Teknik Servis | İzmir Beyaz Eşya ve Teknik Servis",description:"İzmir'de bağımsız özel teknik servis hizmeti.",images:["/og.png"]},
+  manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico?v=ege-bolge-20260826", type: "image/x-icon", sizes: "32x32" },
+      { url: "/favicon-16x16.png?v=ege-bolge-20260826", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-32x32.png?v=ege-bolge-20260826", type: "image/png", sizes: "32x32" },
+    ],
+    shortcut: "/favicon.ico?v=ege-bolge-20260826",
+    apple: "/apple-touch-icon.png?v=ege-bolge-20260826",
   },
 };
 

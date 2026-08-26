@@ -83,3 +83,17 @@ test("service request API validates required fields without throwing", async () 
   assert.equal(response.status, 400);
   assert.match(await response.text(), /zorunlu alanları/i);
 });
+
+test("favicon metadata uses the Ege Bölge raster icon set with cache busting", async () => {
+  const [layout, manifest, favicon] = await Promise.all([
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/manifest.ts", import.meta.url), "utf8"),
+    readFile(new URL("../public/favicon.ico", import.meta.url)),
+  ]);
+  assert.match(layout, /favicon\.ico\?v=ege-bolge-20260826/);
+  assert.match(layout, /apple-touch-icon\.png\?v=ege-bolge-20260826/);
+  assert.doesNotMatch(layout, /favicon\.svg/);
+  assert.match(manifest, /icon-192\.png\?v=ege-bolge-20260826/);
+  assert.match(manifest, /icon-512\.png\?v=ege-bolge-20260826/);
+  assert.ok(favicon.byteLength > 0);
+});
