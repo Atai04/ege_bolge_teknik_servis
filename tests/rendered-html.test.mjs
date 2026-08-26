@@ -1,91 +1,85 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
-
-const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
-const templateRoot = new URL("../", import.meta.url);
-const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
 
 async function render() {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
-
-  return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
+  return worker.fetch(new Request("http://localhost/", { headers: { accept: "text/html" } }), {
+    ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
+  }, { waitUntil() {}, passThroughOnException() {} });
 }
 
-test("server-renders the starter loading skeleton", async () => {
+async function fetchRoute(path, init) {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("route", `${process.pid}-${Date.now()}-${path}`);
+  const { default: worker } = await import(workerUrl.href);
+  return worker.fetch(new Request(`http://localhost${path}`, init), {
+    ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
+  }, { waitUntil() {}, passThroughOnException() {} });
+}
+
+test("server-renders the redesigned homepage with the responsive hero image", async () => {
   const response = await render();
   assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
   const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
-  assert.match(html, /<title>Your site is taking shape<\/title>/i);
-  assert.match(html, /Building your site/);
-  assert.match(html, /Your site is taking shape/);
-  assert.match(
-    html,
-    /Your first version will appear here automatically when it’s ready\./,
-  );
-  assert.doesNotMatch(html, /Codex/);
-  assert.match(html, /react-loading-skeleton/);
-  assert.match(html, /role="status"/);
+  assert.match(html, /<title>Ege Bölge Teknik Servis/);
+  assert.match(html, /Evinizdeki Teknolojiye/);
+  assert.match(html, /Güvenilir Servis/);
+  assert.match(html, /teknik-servis-hero\.png/);
+  assert.match(html, /Servis Talep Formu/);
+  assert.doesNotMatch(html, /object-fit:fill/);
 });
 
-test("keeps the loading skeleton scoped and disposable", async () => {
-  const [preview, css, page, layout, packageJson, files] = await Promise.all([
-    readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
-    readFile(new URL("preview.css", previewRoot), "utf8"),
+test("mobile navigation uses real targets and closes accessibly", async () => {
+  const [chrome, home, css] = await Promise.all([
+    readFile(new URL("../components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-    readdir(previewRoot),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
+  for (const target of ["/#hizmetler", "/#hizmet-bolgeleri", "/#sss", "/hakkimizda", "/iletisim"]) assert.match(chrome, new RegExp(`"${target.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+  assert.match(chrome, /aria-expanded=\{open\}/);
+  assert.match(chrome, /event\.key === "Escape"/);
+  assert.match(chrome, /onClick=\{closeMenu\}/);
+  for (const id of ["hizmetler", "servis-talebi", "hizmet-bolgeleri", "sss"]) assert.match(home, new RegExp(`id="${id}"`));
+  assert.match(css, /scroll-margin-top:116px/);
+  assert.match(css, /body\.menu-open\{overflow:hidden\}/);
+});
 
-  assert.deepEqual(files.sort(), ["SkeletonPreview.tsx", "preview.css"]);
-  assert.match(preview, /from "react-loading-skeleton"/);
-  assert.match(preview, /baseColor="#eceae7"/);
-  assert.match(preview, /highlightColor="#f9f8f6"/);
-  assert.match(preview, /duration=\{2\.8\}/);
-  assert.match(preview, /sites-skeleton-search-placeholder/);
-  assert.match(packageJson, /"react-loading-skeleton": "3\.5\.0"/);
+test("service and hero visuals preserve aspect ratios without stretching", async () => {
+  const [visual, data, css] = await Promise.all([
+    readFile(new URL("../components/ServiceVisual.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+  assert.match(visual, /fill priority=\{priority\}/);
+  assert.match(data, /beyaz-esya-servisi\.png/);
+  assert.match(data, /klima-servisi\.png/);
+  assert.match(css, /\.hero-background\{[^}]*object-fit:cover/);
+  assert.match(css, /\.service-sheet\{object-fit:cover/);
+  assert.match(css, /\.service-card \.service-visual\{aspect-ratio:16\/10/);
+  assert.doesNotMatch(css, /object-fit:fill/);
+  assert.doesNotMatch(css, /(?:width|height):300%/);
+});
 
-  const shellIndex = preview.indexOf('className="sites-skeleton-shell"');
-  const statusIndex = preview.indexOf('className="sites-skeleton-status"');
-  assert.ok(shellIndex >= 0 && statusIndex > shellIndex);
-  assert.match(css, /position:\s*fixed/);
-  assert.match(css, /inset:\s*0/);
-  assert.match(css, /opacity:\s*0\.52/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.doesNotMatch(css, /#020617|canvas|pets|progress/i);
-  assert.doesNotMatch(
-    preview,
-    /loading-spinner|status-mark|status-progress|canvas|cookie|random/i,
-  );
+test("responsive layout covers mobile, tablet and desktop breakpoints", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /@media\(max-width:1050px\)/);
+  assert.match(css, /@media\(max-width:800px\).*service-grid\{grid-template-columns:1fr 1fr\}/s);
+  assert.match(css, /@media\(max-width:480px\).*service-grid,.quick-grid\{grid-template-columns:1fr\}/s);
+  assert.match(css, /@media\(max-width:800px\).*\.mobile-bar\{position:fixed/s);
+  assert.match(css, /@media\(max-width:800px\).*\.header-main nav\.open\{position:absolute/s);
+});
 
-  assert.match(page, /export const metadata:\s*Metadata/);
-  assert.match(page, /"codex-preview": "development"/);
-  assert.match(page, /<SkeletonPreview \/>/);
-  assert.match(layout, /title:\s*"Starter Project"/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview|themeColor|\bViewport\b/);
-  assert.doesNotMatch(css, /(^|\s)(html|body)\s*\{/m);
+test("all public service and information routes render successfully", async () => {
+  const routes = ["/", "/beyaz-esya-servisi", "/camasir-makinesi-servisi", "/buzdolabi-servisi", "/bulasik-makinesi-servisi", "/kurutma-makinesi-servisi", "/klima-servisi", "/kombi-servisi", "/tv-tamiri", "/isi-pompasi-servisi", "/vrf-servisi", "/markalar", "/hizmet-bolgeleri", "/hakkimizda", "/iletisim", "/kvkk", "/gizlilik-politikasi", "/cerez-politikasi", "/sitemap.xml", "/robots.txt"];
+  const responses = await Promise.all(routes.map(route => fetchRoute(route)));
+  for (const [index, response] of responses.entries()) assert.equal(response.status, 200, routes[index]);
+});
 
-  await assert.rejects(
-    access(new URL("public/_sites-preview", templateRoot)),
-  );
+test("service request API validates required fields without throwing", async () => {
+  const response = await fetchRoute("/api/service-request", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ phone: "123", district: "", device: "", consent: "" }) });
+  assert.equal(response.status, 400);
+  assert.match(await response.text(), /zorunlu alanları/i);
 });

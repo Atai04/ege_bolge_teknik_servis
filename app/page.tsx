@@ -1,21 +1,60 @@
+import Image from "next/image";
 import Link from "next/link";
-import { COMPANY, SERVICES, BRANDS, AREAS, SERVICE_VISUALS } from "../lib/data";
+import { AREAS, BRANDS, COMPANY, SERVICES, SERVICE_VISUALS } from "../lib/data";
 import { ServiceForm } from "../components/ServiceForm";
 import { Reveal } from "../components/Reveal";
 import { ServiceVisual } from "../components/ServiceVisual";
 
-const problems=["Çalışmıyor","Soğutmuyor","Su almıyor","Su boşaltmıyor","Ses yapıyor","Isıtmıyor","Hata kodu veriyor","Su kaçırıyor"];
-const appliances=[["Çamaşır Makinesi","washingMachine"],["Bulaşık Makinesi","dishwasher"],["Buzdolabı","refrigerator"],["Kurutma Makinesi","dryer"],["Fırın","whiteGoods"]] as const;
-export default function Home(){return <>
-  <section className="hero"><div className="container hero-grid"><Reveal className="hero-copy"><p className="eyebrow">İzmir Teknik Servis</p><h1>Beyaz Eşya, Klima ve Teknik Servis Hizmetleri</h1><p className="lead">Beyaz eşya, klima, kombi, televizyon, ısı pompası ve VRF sistemleri için arıza tespiti, bakım ve onarım hizmeti.</p><div className="actions"><a className="button amber phone-button" href={COMPANY.phoneHref}>☎ Hemen Ara</a><a className="button outline whatsapp-button" href={COMPANY.whatsappUrl}>◉ WhatsApp&apos;tan Yaz</a></div><div className="hero-trust"><span>08:00–19:00 Hizmet</span><span>İzmir&apos;de geniş servis ağı</span><span>Çok markalı özel servis</span></div></Reveal><Reveal variant="fade-left" delay={100} className="hero-visual"><div className="hero-image"><ServiceVisual visual="whiteGoods" priority /></div><div className="floating-card hours"><b>08:00–19:00</b><span>Çalışma Saatleri</span></div><div className="floating-card network"><b>İzmir</b><span>Geniş Servis Ağı</span></div><div className="floating-card private"><b>Özel Servis</b><span>Çok Marka & Model</span></div></Reveal></div></section>
-  <section className="trust-strip"><div className="container">{["08:00–19:00","Telefon & WhatsApp","İzmir Servis Bölgeleri","Çok Markalı Özel Servis"].map(x=><span key={x}>✓ {x}</span>)}</div></section>
-  <section className="section container"><Reveal><div className="section-heading"><p className="eyebrow">Hizmetlerimiz</p><h2>Cihazınıza uygun teknik destek</h2><p>Ev ve iş yerlerindeki temel cihaz ve sistemler için bağımsız özel teknik servis desteği.</p></div></Reveal><div className="service-grid">{SERVICES.map((s,i)=><Reveal key={s.slug} delay={i*65}><Link href={`/${s.slug}`} className="service-card"><ServiceVisual visual={s.visual as keyof typeof SERVICE_VISUALS}/><div className="service-card-copy"><small>Teknik servis</small><h3>{s.name}</h3><p>{s.description}</p><span>Hizmeti incele <b>→</b></span></div></Link></Reveal>)}</div></section>
-  <section className="soft-section"><div className="container"><Reveal><div className="section-heading"><p className="eyebrow">Arıza belirtileri</p><h2>Cihazınızda hangi sorun var?</h2><p>Yaşadığınız sorunu iletin; teknik inceleme sonrası uygun destek planlanır.</p></div></Reveal><div className="chips">{problems.map(p=><a href="#servis-talebi" key={p}><i>+</i>{p}</a>)}</div></div></section>
-  <section className="section container editorial"><Reveal variant="fade-right" className="editorial-image"><ServiceVisual visual="washingMachine"/></Reveal><Reveal variant="fade-left"><div><p className="eyebrow">Beyaz eşya</p><h2>Günlük kullanılan cihazlar için servis</h2><p className="lead small">Çamaşır makinesi, bulaşık makinesi, buzdolabı, kurutma makinesi ve fırın için bağımsız teknik servis desteği.</p><Link className="text-link" href="/beyaz-esya-servisi">Beyaz eşya hizmetini incele →</Link></div></Reveal></section>
-  <section className="soft-section appliance-showcase"><div className="container"><Reveal><div className="section-heading"><p className="eyebrow">Beyaz eşya servisi</p><h2>Her cihaz için net ve ilgili destek</h2></div></Reveal><div className="appliance-grid">{appliances.map(([name,visual],i)=><Reveal key={name} delay={i*60}><Link href="/beyaz-esya-servisi" className={`appliance-card appliance-${i}`}><ServiceVisual visual={visual}/><span>{name}<b>→</b></span></Link></Reveal>)}</div></div></section>
-  <section className="navy-section"><div className="container"><Reveal><div className="section-heading light"><p className="eyebrow">Markalar</p><h2>Birçok marka ve modele özel teknik servis</h2></div><div className="brand-list">{BRANDS.map(x=><span key={x}>{x}</span>)}</div><p className="brand-more">ve diğer birçok marka ve model</p><p className="disclaimer">Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servis hizmeti sunmaktadır. Listelenen markaların yetkili servisi değildir.</p></Reveal></div></section>
-  <section className="section container"><Reveal><div className="section-heading"><p className="eyebrow">Nasıl çalışır?</p><h2>Servis süreci</h2></div></Reveal><ol className="steps">{[["01","Servis Talebi","Telefon veya WhatsApp üzerinden bize ulaşın."],["02","Arıza Bilgisi","Cihaz ve arıza hakkında temel bilgiler alınır."],["03","Teknik Servis","Uygun servis desteği planlanır."],["04","Kontrol","Bakım veya onarım sonrası cihaz kontrol edilir."]].map((x,i)=><Reveal key={x[0]} delay={i*70}><li><b>{x[0]}</b><h3>{x[1]}</h3><p>{x[2]}</p></li></Reveal>)}</ol></section>
-  <section className="premium-cta"><div className="container cta-layout"><Reveal><p className="eyebrow">Kolay iletişim</p><h2>Cihazınız için servis desteğine mi ihtiyacınız var?</h2><p>Telefon veya WhatsApp üzerinden servis talebi oluşturabilirsiniz.</p><div className="actions"><a className="button amber phone-button" href={COMPANY.phoneHref}>☎ {COMPANY.phoneDisplay}</a><a className="button cta-whatsapp" href={COMPANY.whatsappUrl}>WhatsApp&apos;tan Yaz</a></div></Reveal><div className="cta-visual"><ServiceVisual visual="airConditioner"/></div></div></section>
-  <section className="soft-section"><div className="container area-layout"><Reveal><div><p className="eyebrow">Hizmet bölgeleri</p><h2>İzmir&apos;de hizmet verdiğimiz bölgeler</h2><p>İzmir genelinde geniş servis ağıyla birçok ilçede hizmet sunuyoruz.</p><Link href="/hizmet-bolgeleri" className="button outline">Tüm Hizmet Bölgelerini Gör</Link></div></Reveal><Reveal variant="fade-left"><div className="area-list">{AREAS.slice(0,10).map(x=><span key={x}>{x}</span>)}</div></Reveal></div><p className="exclusion">Beydağ, Kiraz ve Ödemiş bölgelerinde şu anda servis hizmeti verilmemektedir.</p></section>
-  <section className="form-section" id="servis-talebi"><div className="container form-layout"><Reveal><div><p className="eyebrow">Servis talebi</p><h2>Size ulaşabilmemiz için bilgilerinizi bırakın</h2><p>Arızayı hızlıca değerlendirebilmemiz için cihaz türü, marka ve yaşadığınız sorunu bize iletebilirsiniz.</p><a href={COMPANY.whatsappUrl} className="text-link">WhatsApp&apos;tan yazın →</a></div></Reveal><Reveal variant="fade-left"><ServiceForm/></Reveal></div></section>
-</>}
+const advantages = [
+  ["01", "Deneyimli Teknik Ekip", "Cihaz türü ve arıza bilgisine göre planlanan teknik destek."],
+  ["02", "Hızlı Servis Yönlendirmesi", "Talebiniz değerlendirilir, uygun yönlendirme süreci başlatılır."],
+  ["03", "Şeffaf Bilgilendirme", "Servis süreci boyunca ihtiyaç duyulan bilgiler net biçimde paylaşılır."],
+  ["04", "İzmir Geneli Hizmet", "İzmir'in birçok ilçesinde bağımsız özel teknik servis desteği."],
+];
+const faq = [
+  ["Servis talebini nasıl oluşturabilirim?", "Telefon, WhatsApp veya servis talep formu üzerinden cihaz ve ilçe bilginizi paylaşabilirsiniz."],
+  ["Hangi cihazlar için hizmet veriyorsunuz?", "Beyaz eşya, klima, kombi, televizyon, ısı pompası ve VRF sistemleri için teknik servis desteği sunuyoruz."],
+  ["İzmir'in hangi bölgelerine hizmet veriyorsunuz?", "Buca, Konak, Karabağlar, Bornova ve diğer listelenen ilçelerde hizmet planlaması yapılmaktadır."],
+  ["Yetkili servis misiniz?", "Hayır. Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servis hizmeti sunar; listelenen markaların yetkili servisi değildir."],
+];
+
+export default function Home() {
+  return <>
+    <section className="hero hero-photo">
+      <Image className="hero-background" src="/images/hero/teknik-servis-hero.png" alt="Klima ünitesinde bakım yapan teknik servis çalışanı" fill priority sizes="100vw" />
+      <div className="hero-shade" />
+      <div className="container hero-content"><Reveal className="hero-copy">
+        <p className="eyebrow eyebrow-light">İzmir Geneli Teknik Servis</p>
+        <h1>Evinizdeki Teknolojiye <em>Güvenilir Servis</em></h1>
+        <p className="lead">Beyaz eşya, klima, kombi ve elektronik cihazlar için arıza tespiti, bakım ve onarım desteği.</p>
+        <div className="actions"><a className="button orange" href="#servis-talebi">Servis Talebi Oluştur</a><a className="button hero-outline" href={COMPANY.phoneHref}>Hemen Ara</a></div>
+        <p className="hero-note">Bağımsız özel teknik servis · {COMPANY.hours}</p>
+      </Reveal></div>
+    </section>
+
+    <section className="brand-support" aria-labelledby="brands-title"><div className="container brand-support-grid"><div><p className="eyebrow">Hizmet verilen markalar</p><h2 id="brands-title">Birçok marka ve model için teknik destek</h2><p>Bu markalara ait cihazlar için bağımsız özel teknik servis hizmeti sunulur.</p></div><div className="brand-list" aria-label="Teknik destek sunulan markalar">{BRANDS.map(brand => <span key={brand}>{brand}</span>)}</div></div><p className="container brand-disclaimer">Belirtilen markalara ait cihazlar için bağımsız özel teknik servis hizmeti sunulur. Yetkili servis değiliz.</p></section>
+
+    <section className="advantage-section"><div className="container advantage-grid">
+      {advantages.map(([number, title, text], index) => <Reveal key={title} delay={index * 55} className="advantage-card"><span className="number-icon">{number}</span><div><h2>{title}</h2><p>{text}</p></div></Reveal>)}
+    </div></section>
+
+    <section className="section services-section" id="hizmetler"><div className="container"><Reveal><div className="section-heading centered"><p className="eyebrow">Hizmetlerimiz</p><h2>Teknik destek sunduğumuz alanlar</h2><p>Ev ve iş yerlerindeki temel cihaz ve sistemler için planlı teknik servis desteği.</p></div></Reveal><div className="service-grid">
+      {SERVICES.map((service, index) => <Reveal key={service.slug} delay={index * 55}><Link href={`/${service.slug}`} className="service-card"><ServiceVisual visual={service.visual as keyof typeof SERVICE_VISUALS} /><div className="service-card-copy"><small>Bağımsız teknik servis</small><h3>{service.name}</h3><p>{service.description}</p><span>Hizmeti incele <b>→</b></span></div></Link></Reveal>)}
+    </div></div></section>
+
+    <section className="dark-service-section" id="servis-talebi"><div className="container dark-service-grid"><Reveal className="dark-service-copy"><p className="eyebrow eyebrow-orange">Servis desteği</p><h2>İhtiyacınızı dinleyip uygun süreci birlikte planlayalım.</h2><p>Cihaz türü, marka ve yaşadığınız sorunla ilgili temel bilgileri paylaşın. Size uygun iletişim ve değerlendirme süreci oluşturulsun.</p><ul className="check-list"><li>Telefon ve WhatsApp üzerinden hızlı iletişim</li><li>İzmir ilçelerine göre servis planlaması</li><li>Çok markalı cihazlar için bağımsız destek</li></ul><div className="actions"><a className="button orange" href={COMPANY.phoneHref}>Hemen Ara</a><a className="text-link light-link" href={COMPANY.whatsappUrl}>WhatsApp&apos;tan yazın →</a></div></Reveal><Reveal variant="fade-left" className="service-request-card"><div className="form-image"><ServiceVisual visual="airConditioner" /></div><div className="form-copy"><p className="form-kicker">Servis Talep Formu</p><h3>Size ulaşalım</h3><p>Bilgilerinizi bırakın, talebiniz değerlendirilsin.</p></div><ServiceForm /></Reveal></div></section>
+
+    <section className="section"><div className="container"><Reveal><div className="section-heading"><p className="eyebrow">Kolay erişim</p><h2>İhtiyacınız olan bilgiye hızlıca ulaşın</h2></div></Reveal><div className="quick-grid">
+      <Link href="#hizmet-bolgeleri" className="quick-card"><span>01</span><h3>Hizmet Bölgeleri</h3><p>İzmir&apos;de destek sunduğumuz ilçeleri inceleyin.</p><b>İlçeleri görüntüle →</b></Link>
+      <a href="#servis-talebi" className="quick-card"><span>02</span><h3>Servis Talebi</h3><p>Cihaz ve arıza detaylarını ileterek süreç başlatın.</p><b>Talep oluştur →</b></a>
+      <Link href="/iletisim" className="quick-card"><span>03</span><h3>İletişim</h3><p>Telefon, e-posta veya iletişim sayfasından bize ulaşın.</p><b>İletişime geç →</b></Link>
+    </div></div></section>
+
+    <section className="soft-section"><div className="container approach-grid"><Reveal><div><p className="eyebrow">Çalışma yaklaşımımız</p><h2>Her talepte sade, anlaşılır ve ilgili bir iletişim</h2><p className="lead">Talep öncesinde cihaz ve arıza bilgisi alınır; teknik destek süreci mümkün olduğunca net şekilde planlanır.</p><Link href="/hakkimizda" className="text-link">Ege Bölge hakkında daha fazla bilgi →</Link></div></Reveal><Reveal variant="fade-left" className="approach-visual"><ServiceVisual visual="washingMachine" /></Reveal></div></section>
+
+    <section className="area-section" id="hizmet-bolgeleri"><div className="container area-layout"><Reveal><div><p className="eyebrow eyebrow-light">Hizmet Bölgeleri</p><h2>İzmir&apos;in birçok ilçesinde teknik servis desteği</h2><p>Geniş hizmet ağımızla talebinizi ilçenize göre değerlendiriyoruz.</p><Link className="button white-outline" href="/hizmet-bolgeleri">Tüm hizmet bölgelerini gör</Link></div></Reveal><Reveal variant="fade-left"><div className="area-list">{AREAS.slice(0, 12).map(area => <span key={area}>{area}</span>)}</div></Reveal></div><p className="container area-note">Beydağ, Kiraz ve Ödemiş bölgelerinde şu anda servis hizmeti verilmemektedir.</p></section>
+
+    <section className="faq-section" id="sss"><div className="container faq-layout"><Reveal><div><p className="eyebrow">Sık sorulan sorular</p><h2>Servis süreci hakkında merak edilenler</h2><p>Ek bilgiye ihtiyacınız olduğunda iletişim kanallarımızdan bize ulaşabilirsiniz.</p></div></Reveal><Reveal variant="fade-left" className="faq-list">{faq.map(([question, answer]) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</Reveal></div></section>
+
+  </>;
+}
