@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { Header, Footer } from "../components/SiteChrome";
 import { COMPANY, AREAS } from "../lib/data";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://egebolgeteknikservis.com"),
+  metadataBase: new URL("https://www.egebolgeteknikservis.com"),
   title: "Ege Bölge Teknik Servis | İzmir Beyaz Eşya ve Teknik Servis",
   description: "İzmir'de beyaz eşya, klima, kombi, TV, ısı pompası ve VRF için bağımsız özel teknik servis.",
   alternates: { canonical: "/" },
@@ -30,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className="antialiased"><Header />
-        <main>{children}</main><Footer /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@type":"LocalBusiness",name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},openingHours:"Mo-Su 08:00-19:00",areaServed:AREAS})}} />
+        <main>{children}</main><Footer /><Script src="https://www.googletagmanager.com/gtag/js?id=AW-18410577740" strategy="afterInteractive" /><Script id="google-ads-tag" strategy="afterInteractive">{"window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18410577740');"}</Script><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@type":"LocalBusiness",name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},openingHours:"Mo-Su 08:00-19:00",areaServed:AREAS})}} />
       </body>
     </html>
   );
