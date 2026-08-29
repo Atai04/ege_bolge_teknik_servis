@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import "./globals.css";
 import { Header, Footer } from "../components/SiteChrome";
 import { COMPANY, AREAS } from "../lib/data";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://egebolgeteknikservis.com"),
@@ -35,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body className={`${geistSans.variable} antialiased`}><Header />
+      <body className="antialiased"><Header />
         <main>{children}</main><Footer /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@type":"LocalBusiness",name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},openingHours:"Mo-Su 08:00-19:00",areaServed:AREAS})}} />
       </body>
     </html>
