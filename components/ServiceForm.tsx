@@ -23,6 +23,16 @@ export function ServiceForm() {
     finally { setSending(false); }
   }
   return <form className="request-form" onFocus={() => trackEvent("service_form_start", { placement: "form" })} onSubmit={submit} noValidate>
+    <div className="form-honeypot" aria-hidden="true">
+      <label htmlFor="service-website">Web sitesi</label>
+      <input
+        id="service-website"
+        name="website"
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+      />
+    </div>
     <div className="two-col"><label>Ad Soyad<input name="name" autoComplete="name" /></label><label>Telefon *<input name="phone" inputMode="tel" autoComplete="tel" required /></label></div>
     <div className="two-col"><label>İlçe *<select name="district" required defaultValue=""><option value="" disabled>İlçe seçin</option>{AREAS.map(x => <option key={x}>{x}</option>)}</select></label><label>Cihaz Türü *<select name="device" required defaultValue=""><option value="" disabled>Cihaz seçin</option>{SERVICES.map(x => <option key={x.slug}>{x.name}</option>)}</select></label></div>
     <label>Marka<input name="brand" /></label><label>Arıza Açıklaması<textarea name="description" rows={4} /></label>
