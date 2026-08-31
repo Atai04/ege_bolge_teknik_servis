@@ -11,7 +11,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://egebolgeteknikservis.com"),
+  metadataBase: new URL("https://www.egebolgeteknikservis.com"),
   title: "Ege Bölge Teknik Servis | İzmir Beyaz Eşya ve Teknik Servis",
   description: "İzmir'de beyaz eşya, klima, kombi, TV, ısı pompası ve VRF için bağımsız özel teknik servis.",
   alternates: { canonical: "/" },
