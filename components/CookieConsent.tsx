@@ -38,11 +38,11 @@ export function CookieConsent() {
       <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_TAG_ID}`} strategy="afterInteractive" />
       <Script id="google-ads-tag" strategy="afterInteractive">{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GOOGLE_ADS_TAG_ID}');`}</Script>
     </>}
-    {open && <section className="cookie-consent" role="dialog" aria-modal="true" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-description">
+    {open && <section className="cookie-consent" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-description">
       <div className="cookie-consent__content">
         <h2 id="cookie-consent-title">Çerez tercihleri</h2>
         <p id="cookie-consent-description">Zorunlu olmayan Google Ads çerezleri yalnızca izin verirseniz kullanılır. Tercihinizi dilediğiniz zaman footer’daki Çerez Tercihleri bağlantısından değiştirebilirsiniz.</p>
-        <div className="cookie-consent__actions"><button className="button orange" type="button" onClick={() => choose("accepted")}>Kabul Et</button><button className="button outline" type="button" onClick={() => choose("rejected")}>Reddet</button></div>
+        <div className="cookie-consent__actions"><button className="button orange" type="button" onClick={() => choose("accepted")}>Tümünü Kabul Et</button><button className="button outline" type="button" onClick={() => choose("rejected")}>Reddet</button></div>
       </div>
     </section>}
   </>;
