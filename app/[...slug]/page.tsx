@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { AREAS, BRANDS, COMPANY, SERVICES, SERVICE_VISUALS } from "../../lib/data";
+import { AREAS, COMPANY, SERVICES, SERVICE_VISUALS } from "../../lib/data";
 import { ServiceVisual } from "../../components/ServiceVisual";
+import { BrandDirectory } from "../../components/BrandDirectory";
 
 const pageMeta: Record<string, [string, string]> = {
   "markalar": ["Hizmet Verilen Markalar | Ege Bölge Teknik Servis", "İzmir'de birçok beyaz eşya ve elektronik marka cihazı için bağımsız özel teknik servis desteği."],
@@ -35,7 +36,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
   const path = slug.join("/");
   if (path === "gizlilik-politikasi") return <PrivacyPolicy />;
   if (path === "cerez-politikasi") return <CookiePolicy />;
-  if (path === "markalar") return <Article title="Hizmet Verilen Markalar" text="Aşağıdaki markalara ait cihazlar için bağımsız özel teknik servis desteği sunulur. Ege Bölge Teknik Servis Hizmetleri listelenen markaların yetkili servisi değildir." chips={BRANDS} />;
+  if (path === "markalar") return <section className="section container"><BrandDirectory /></section>;
   if (path === "hizmet-bolgeleri") return <Article title="İzmir Hizmet Bölgeleri" text="İzmir'in birçok ilçesinde servis hizmeti sunuyoruz. Beydağ, Kiraz ve Ödemiş bölgelerinde şu anda servis hizmeti verilmemektedir." chips={AREAS} />;
   if (path === "hakkimizda") return <Article title="Hakkımızda" text="Ege Bölge Teknik Servis Hizmetleri; İzmir'de beyaz eşya, klima, kombi, TV, ısı pompası ve VRF sistemleri için bağımsız özel teknik servis hizmeti sunar. Cihaz türü ve arıza bilgisine göre uygun teknik destek planlanır." />;
   if (path === "iletisim") return <Contact />;
