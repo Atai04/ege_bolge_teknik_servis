@@ -9,22 +9,15 @@
 ## Yapı
 
 - `lib/data.ts`: şirket, hizmet, marka ve bölge için tek veri kaynağı
-- `components/`: ortak header, footer ve servis talep formu
+- `components/`: ortak header, footer, görsel ve çerez tercih bileşenleri
 - `app/[...slug]/page.tsx`: hizmet, iletişim, marka, bölge ve yasal sayfalar
 - `app/sitemap.ts` ve `app/robots.ts`: arama motoru yapılandırması
-- `lib/analytics.ts`: telefon, WhatsApp, form ve yol tarifi olayları için ortak takip arayüzü
+- `lib/analytics.ts`: izin verildikten sonra telefon ve WhatsApp olayları için takip arayüzü
 
-## Ortam değişkenleri
+## İletişim ve çerezler
 
-`.env.example` dosyasını `.env.local` olarak kopyalayın. GTM/GA4 kimliklerini yalnızca yayın öncesinde ekleyin. Form göndermek için seçilen e-posta/CRM sağlayıcısına ait sunucu tarafı entegrasyonu ve `RESEND_API_KEY` gibi gerekli değerler eklenmelidir.
+Site çevrimiçi servis talep formu toplamaz. İletişim e-posta, telefon ve WhatsApp üzerinden sağlanır. Google Ads etiketi (`AW-18410577740`) yalnızca kullanıcı açık çerez tercihi verdikten sonra yüklenir; tercih tarayıcı yerel depolamasında tutulur.
 
 ## Yayın
 
-Vercel'e bağlayın, ortam değişkenlerini ekleyin ve alan adını `egebolgeteknikservis.com` olarak ilişkilendirin. Yayından sonra Search Console'a sitemap URL'sini gönderin: `/sitemap.xml`.
-
-## Manuel tamamlanacaklar
-
-- Servis talep formunu Resend, Telegram, Supabase veya CRM sunucu entegrasyonuna bağlayın.
-- Gerçek işletme fotoğraflarını `public/` altına ekleyip yerleştirin.
-- KVKK metnindeki teyit gerektiren veri sorumlusu/başvuru detaylarını hukuk danışmanıyla tamamlayın.
-- GTM içinde `phone_click`, `whatsapp_click`, `service_form_start`, `service_form_submit` ve `directions_click` olaylarını dönüşüme bağlayın.
+Vercel’de `www.egebolgeteknikservis.com` birincil domain olarak yapılandırılmalıdır. Kök domain yönlendirmesini Vercel domain ayarları yönetir; uygulama içinde ayrıca redirect kuralı eklemeyin. Search Console için sitemap adresi: `https://www.egebolgeteknikservis.com/sitemap.xml`.
