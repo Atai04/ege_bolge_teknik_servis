@@ -50,6 +50,28 @@ export function CookieConsent() {
     document.head.appendChild(script);
   }, [preference, ready]);
 
+  useEffect(() => {
+    if (!ready || preference !== "accepted") return;
+
+    const trackWhatsAppConversion = (event: MouseEvent) => {
+      if (!(event.target instanceof Element)) return;
+
+      const link = event.target.closest<HTMLAnchorElement>(
+        'a[href^="https://wa.me/"]',
+      );
+      if (!link) return;
+
+      window.gtag?.("event", "conversion", {
+        send_to: "AW-18410577740/KMaDCPKv-fIcEMy-7MpE",
+        value: 1.0,
+        currency: "TRY",
+      });
+    };
+
+    document.addEventListener("click", trackWhatsAppConversion);
+    return () => document.removeEventListener("click", trackWhatsAppConversion);
+  }, [preference, ready]);
+
   function choose(nextPreference: Exclude<Preference, null>) {
     const changedFromAccepted =
       preference === "accepted" && nextPreference === "rejected";
