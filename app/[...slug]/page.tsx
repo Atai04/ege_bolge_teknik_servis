@@ -93,6 +93,15 @@ function Service({ service }: { service: (typeof SERVICES)[number] }) {
 
     {landing ? <>
       <section className="section container" aria-labelledby="service-issues-title">
+        {landing.serviceGroup && <div className="service-options">
+          <div className="section-heading"><h2>{landing.serviceGroup.title}</h2></div>
+          <ul className="service-issues">
+            {landing.serviceGroup.slugs.map(slug => {
+              const item = SERVICES.find(candidate => candidate.slug === slug);
+              return item && <li key={item.slug}><a href={`/${item.slug}`}>{item.name}<span aria-hidden="true"> →</span></a></li>;
+            })}
+          </ul>
+        </div>}
         <div className="section-heading">
           <h2 id="service-issues-title">{landing.issuesTitle}</h2>
           <p>{landing.issuesIntro}</p>
