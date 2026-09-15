@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AREAS, COMPANY, SERVICES, SERVICE_VISUALS } from "../../lib/data";
+import { SERVICE_LANDINGS } from "../../lib/service-landings";
 import { ServiceVisual } from "../../components/ServiceVisual";
 import { BrandDirectory } from "../../components/BrandDirectory";
 
@@ -23,8 +24,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const service = SERVICES.find(item => item.slug === path);
   if (service) {
     const visual = SERVICE_VISUALS[service.visual];
-    const title = `İzmir ${service.name} | Ege Bölge Teknik Servis`;
-    const description = `${service.description} Buca ve İzmir genelinde iletişim için bize ulaşın.`;
+    const landing = SERVICE_LANDINGS[service.slug];
+    const title = landing?.title ?? `İzmir ${service.name} | Ege Bölge Teknik Servis`;
+    const description = landing?.description ?? `${service.description} Buca ve İzmir genelinde iletişim için bize ulaşın.`;
     return { title, description, alternates: { canonical: `/${service.slug}` }, openGraph: { title, description, images: [{ url: visual.src, alt: visual.alt }] }, twitter: { title, description, images: [visual.src] } };
   }
   const meta = pageMeta[path];
@@ -62,7 +64,84 @@ function CookiePolicy() {
   return <section className="section container article"><p className="eyebrow">Çerezler</p><h1>Çerez Politikası</h1><p className="lead small">Site, çerez tercihinizi tarayıcınızın yerel depolamasında saklar. Bu tercih, zorunlu olmayan Google Ads etiketinin yüklenip yüklenmeyeceğini belirler.</p><h2>Tercih yönetimi</h2><p>İlk ziyaretinizde Kabul Et veya Reddet seçeneklerinden birini seçebilirsiniz. Tercihinizi footer’daki Çerez Tercihleri düğmesinden istediğiniz zaman değiştirebilirsiniz.</p><h2>Google Ads</h2><p>Google Ads etiketi yalnızca açık izninizden sonra yüklenir. Reddetmeniz halinde etiket yüklenmez; daha sonra reddetmeniz gerektiğinde sayfa yenilenerek bu tercih uygulanır.</p><p>Bu metin genel bilgilendirme amacı taşır; hukukî danışmanlık değildir.</p></section>;
 }
 
+function ServiceActions({ whatsappLabel }: { whatsappLabel: string }) {
+  return <div className="actions">
+    <a className="button amber" href={COMPANY.phoneHref}>Hemen Ara</a>
+    <a className="button outline" href={COMPANY.whatsappUrl} target="_blank" rel="noopener noreferrer">{whatsappLabel}</a>
+  </div>;
+}
+
 function Service({ service }: { service: (typeof SERVICES)[number] }) {
+  const landing = SERVICE_LANDINGS[service.slug];
   const related = SERVICES.filter(item => item.slug !== service.slug).slice(0, 5);
-  return <><section className="service-hero"><div className="container service-hero-grid"><div><p className="eyebrow">İzmir Bağımsız Teknik Servis</p><p className="breadcrumb"><a href="/">Ana Sayfa</a> / {service.name}</p><h1>İzmir {service.name}</h1><p className="lead">{service.description} Cihazınızdaki arıza belirtisi için WhatsApp veya telefon üzerinden bize ulaşabilirsiniz.</p><div className="actions"><a className="button amber" href={COMPANY.phoneHref}>Hemen Ara</a><a className="button outline" href={COMPANY.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp&apos;tan Yaz</a></div></div><div className="service-hero-image"><ServiceVisual visual={service.visual} priority /></div></div></section><section className="section container split"><div><h2>{service.name} hakkında</h2><p>Arıza, bakım veya onarım ihtiyacınız için cihaz ve yaşadığınız sorun hakkında temel bilgiyi WhatsApp veya telefon üzerinden iletebilirsiniz.</p><h2>Yaygın sorunlar</h2><div className="chips"><span>Çalışmıyor</span><span>Ses yapıyor</span><span>Hata kodu veriyor</span><span>Program tamamlamıyor</span></div></div><div><h2>Servis bölgeleri</h2><p>İzmir&apos;in birçok ilçesinde hizmet verilmektedir. Beydağ, Kiraz ve Ödemiş kapsam dışıdır.</p><a href="/hizmet-bolgeleri" className="text-link">Hizmet bölgelerini incele →</a><h2 className="related-title">Diğer hizmetler</h2><div className="related-links">{related.map(item => <a key={item.slug} href={`/${item.slug}`}>{item.short} →</a>)}</div></div></section><section className="contact-section"><div className="container contact-section__inner"><div><p className="eyebrow">İletişim</p><h2>{service.name} için bize ulaşın</h2><p>WhatsApp veya telefon üzerinden doğrudan iletişime geçebilirsiniz.</p></div><div className="actions"><a className="button amber" href={COMPANY.phoneHref}>Hemen Ara</a><a className="button outline" href={COMPANY.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp&apos;tan Yaz</a></div></div></section></>;
+  const whatsappLabel = landing ? "WhatsApp'tan Ulaşın" : "WhatsApp'tan Yaz";
+
+  return <div className={landing ? "service-landing" : undefined}>
+    <section className="service-hero">
+      <div className="container service-hero-grid">
+        <div>
+          <p className="eyebrow">{landing?.eyebrow ?? "İzmir Bağımsız Teknik Servis"}</p>
+          <p className="breadcrumb"><a href="/">Ana Sayfa</a> / {service.name}</p>
+          <h1>{landing?.heading ?? `İzmir ${service.name}`}</h1>
+          <p className="lead">{landing?.intro ?? `${service.description} Cihazınızdaki arıza belirtisi için WhatsApp veya telefon üzerinden bize ulaşabilirsiniz.`}</p>
+          <ServiceActions whatsappLabel={whatsappLabel} />
+          {landing && <p className="disclaimer light-disclaimer">Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servistir. Listelenen markaların yetkili servisi değildir.</p>}
+        </div>
+        <div className="service-hero-image"><ServiceVisual visual={service.visual} priority /></div>
+      </div>
+    </section>
+
+    {landing ? <>
+      <section className="section container" aria-labelledby="service-issues-title">
+        <div className="section-heading">
+          <h2 id="service-issues-title">{landing.issuesTitle}</h2>
+          <p>{landing.issuesIntro}</p>
+        </div>
+        <ul className="service-issues">{landing.issues.map(issue => <li key={issue}>{issue}</li>)}</ul>
+      </section>
+      <section className="service-details" aria-labelledby="service-details-title">
+        <div className="container service-details-copy">
+          <h2 id="service-details-title">{landing.detailsTitle}</h2>
+          {landing.details.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+        </div>
+      </section>
+      <section className="area-section" aria-labelledby="service-areas-title">
+        <div className="container">
+          <div className="area-layout">
+            <div>
+              <h2 id="service-areas-title">{landing.areasTitle}</h2>
+              <p>Hizmet verilen ilçelerimizi aşağıda bulabilirsiniz. Bulunduğunuz ilçeyi ve cihazınızdaki sorunu paylaşarak servis talebiniz hakkında bilgi alabilirsiniz.</p>
+            </div>
+            <ul className="service-areas">{AREAS.map(area => <li key={area}>{area}</li>)}</ul>
+          </div>
+          <p className="area-note">Beydağ, Kiraz ve Ödemiş ilçelerine servis verilmemektedir.</p>
+        </div>
+      </section>
+    </> : <section className="section container split">
+      <div>
+        <h2>{service.name} hakkında</h2>
+        <p>Arıza, bakım veya onarım ihtiyacınız için cihaz ve yaşadığınız sorun hakkında temel bilgiyi WhatsApp veya telefon üzerinden iletebilirsiniz.</p>
+        <h2>Yaygın sorunlar</h2>
+        <div className="chips"><span>Çalışmıyor</span><span>Ses yapıyor</span><span>Hata kodu veriyor</span><span>Program tamamlamıyor</span></div>
+      </div>
+      <div>
+        <h2>Servis bölgeleri</h2>
+        <p>İzmir&apos;in birçok ilçesinde hizmet verilmektedir. Beydağ, Kiraz ve Ödemiş kapsam dışıdır.</p>
+        <a href="/hizmet-bolgeleri" className="text-link">Hizmet bölgelerini incele →</a>
+        <h2 className="related-title">Diğer hizmetler</h2>
+        <div className="related-links">{related.map(item => <a key={item.slug} href={`/${item.slug}`}>{item.short} →</a>)}</div>
+      </div>
+    </section>}
+
+    <section className="contact-section">
+      <div className="container contact-section__inner">
+        <div>
+          <p className="eyebrow">İletişim</p>
+          <h2>{landing?.contactTitle ?? `${service.name} için bize ulaşın`}</h2>
+          <p>{landing?.contactText ?? "WhatsApp veya telefon üzerinden doğrudan iletişime geçebilirsiniz."}</p>
+        </div>
+        <ServiceActions whatsappLabel={whatsappLabel} />
+      </div>
+    </section>
+  </div>;
 }
