@@ -1,4 +1,4 @@
-export const COMPANY={name:"Ege Bölge Teknik Servis Hizmetleri",phoneDisplay:"0850 302 24 36",phoneHref:"tel:+908503022436",whatsappUrl:"https://wa.me/905076509807",email:"info@egebolgeteknikservis.com",address:"Fırat Mah. 289/59 Sk. No:7/A, 35380 Buca / İzmir",hours:"08:00–19:00",website:"https://www.egebolgeteknikservis.com"};
+export const COMPANY={name:"Ege Bölge Teknik Servis Hizmetleri",phoneDisplay:"0533 231 9469",phoneHref:"tel:+905332319469",whatsappUrl:"https://wa.me/905076509807",email:"info@egebolgeteknikservis.com",address:"Fırat Mah. 289/59 Sk. No:7/A, 35380 Buca / İzmir",hours:"08:00–19:00",website:"https://www.egebolgeteknikservis.com"};
 /** Individual appliance visuals support the relevant service card. The hero photograph
  * is generic illustrative imagery and does not represent an Ege Bölge employee. */
 export const SERVICE_VISUALS={
