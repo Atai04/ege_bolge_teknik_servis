@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "ege-bolge-cookie-preference";
 const GOOGLE_ADS_TAG_ID = "AW-18410577740";
+
 type Preference = "accepted" | "rejected" | null;
 
 export function CookieConsent() {
@@ -13,9 +14,14 @@ export function CookieConsent() {
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
+
     const timer = window.setTimeout(() => {
-      if (stored === "accepted" || stored === "rejected") setPreference(stored);
-      else setOpen(true);
+      if (stored === "accepted" || stored === "rejected") {
+        setPreference(stored);
+      } else {
+        setOpen(true);
+      }
+
       setReady(true);
     }, 0);
 
@@ -45,8 +51,7 @@ export function CookieConsent() {
     const script = document.createElement("script");
     script.id = "google-ads-gtag";
     script.async = true;
-    script.src =
-      `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_TAG_ID}`;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_TAG_ID}`;
     document.head.appendChild(script);
   }, [preference, ready]);
 
@@ -59,17 +64,21 @@ export function CookieConsent() {
       const link = event.target.closest<HTMLAnchorElement>(
         'a[href^="https://wa.me/"]',
       );
+
       if (!link) return;
 
       window.gtag?.("event", "conversion", {
-        send_to: "AW-18410577740/KMaDCPKv-fIcEMy-7MpE",
+        send_to: "AW-18410577740/uKj5CPvXwooDEMy-7MpE",
         value: 1.0,
         currency: "TRY",
       });
     };
 
     document.addEventListener("click", trackWhatsAppConversion);
-    return () => document.removeEventListener("click", trackWhatsAppConversion);
+
+    return () => {
+      document.removeEventListener("click", trackWhatsAppConversion);
+    };
   }, [preference, ready]);
 
   function choose(nextPreference: Exclude<Preference, null>) {
@@ -80,7 +89,9 @@ export function CookieConsent() {
     setPreference(nextPreference);
     setOpen(false);
 
-    if (changedFromAccepted) window.location.reload();
+    if (changedFromAccepted) {
+      window.location.reload();
+    }
   }
 
   return (
@@ -93,11 +104,13 @@ export function CookieConsent() {
         >
           <div className="cookie-consent__content">
             <h2 id="cookie-consent-title">Çerez tercihleri</h2>
+
             <p id="cookie-consent-description">
               Zorunlu olmayan Google Ads çerezleri yalnızca izin verirseniz
               kullanılır. Tercihinizi dilediğiniz zaman footer’daki Çerez
               Tercihleri bağlantısından değiştirebilirsiniz.
             </p>
+
             <div className="cookie-consent__actions">
               <button
                 className="button orange"
@@ -106,6 +119,7 @@ export function CookieConsent() {
               >
                 Tümünü Kabul Et
               </button>
+
               <button
                 className="button outline"
                 type="button"
