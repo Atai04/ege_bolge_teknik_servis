@@ -45,13 +45,16 @@ export function CookieConsent() {
         window.dataLayer?.push(args);
       });
 
-    window.gtag("js", new Date());
-    window.gtag("config", GOOGLE_ADS_TAG_ID);
-
     const script = document.createElement("script");
     script.id = "google-ads-gtag";
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_TAG_ID}`;
+
+    script.addEventListener("load", () => {
+      window.gtag?.("js", new Date());
+      window.gtag?.("config", GOOGLE_ADS_TAG_ID);
+    });
+
     document.head.appendChild(script);
   }, [preference, ready]);
 
