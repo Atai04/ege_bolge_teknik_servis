@@ -68,7 +68,7 @@ export function CookieConsent() {
       if (!link) return;
 
       window.gtag?.("event", "conversion", {
-        send_to: "AW-18410577740/uKj5CPvXwooDEMy-7MpE",
+        send_to: "AW-18410577740/3sszCK2N7Y0dEMy-7MpE",
         value: 1.0,
         currency: "TRY",
       });
