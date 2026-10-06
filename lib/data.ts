@@ -26,4 +26,5 @@ export const SERVICES=[
   {slug:"vrf-servisi",name:"VRF Klima Sistemleri",short:"VRF Sistemleri",visual:"vrf",description:"VRF sistemlerinde bakım ve teknik destek."}
 ] as const;
 export { BRAND_DIRECTORY } from "./brands";
-export const AREAS=["Buca","Konak","Karabağlar","Bornova","Bayraklı","Gaziemir","Balçova","Narlıdere","Güzelbahçe","Karşıyaka","Çiğli","Menemen","Torbalı","Kemalpaşa","Menderes","Seferihisar","Urla","Foça","Aliağa","Selçuk"];
+// Legacy consumers remain scoped to the original İzmir districts.
+export { IZMIR_SERVICE_AREAS as AREAS } from "./regions";

@@ -135,3 +135,18 @@ footer{padding:58px 0 22px;background:#031426;color:#c9d8e4}footer .logo b{color
 
 /* Keep off-screen reveal offsets within the mobile container gutters. */
 @media(max-width:800px) and (prefers-reduced-motion:no-preference){.reveal-fade-left:not(.is-visible){transform:translateX(12px)}.reveal-fade-right:not(.is-visible){transform:translateX(-12px)}}
+
+/* Province coverage: district labels are plain text, not landing-page links. */
+.service-regions>h1{max-width:900px;overflow-wrap:anywhere}
+.service-regions>.lead{max-width:850px}
+.province-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:36px}
+.province-card{min-width:0;padding:28px;border:1px solid var(--line);border-top:3px solid var(--orange);border-radius:7px;background:var(--surface)}
+.province-districts{display:flex;flex-wrap:wrap;gap:9px;list-style:none;margin:24px 0 0;padding:0}
+.province-districts li{max-width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--blue);font-size:.9rem;font-weight:700;overflow-wrap:anywhere}
+.province-exclusions{font-size:.85rem;margin:20px 0 0;line-height:1.65}
+.province-summary{display:grid;gap:24px;min-width:0}
+.province-summary>div{border-left:3px solid var(--orange);padding-left:18px}
+.province-summary h3{margin:0 0 8px}
+.province-summary p{margin:0}
+.province-summary .province-exclusions{margin-top:10px}
+@media(max-width:800px){.province-grid{grid-template-columns:minmax(0,1fr);gap:20px}.province-card{padding:22px}}

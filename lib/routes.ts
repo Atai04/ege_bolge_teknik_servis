@@ -3,7 +3,7 @@ import { BRAND_DIRECTORY, type Brand } from "./brands";
 
 export const INFORMATION_PAGES = {
   "markalar": ["Hizmet Verilen Markalar | Ege Bölge Teknik Servis", "İzmir'de birçok beyaz eşya ve elektronik marka cihazı için bağımsız özel teknik servis desteği."],
-  "hizmet-bolgeleri": ["İzmir Hizmet Bölgeleri | Ege Bölge Teknik Servis", "Buca ve İzmir'in birçok ilçesinde bağımsız özel teknik servis hizmet bölgeleri."],
+  "hizmet-bolgeleri": ["İzmir ve Aydın Teknik Servis Hizmet Bölgeleri | Ege Bölge Teknik Servis", "İzmir’de listelenen 20 ilçede ve Aydın’ın 17 ilçesinde bağımsız özel teknik servis. Ege Bölge Teknik Servis hizmet bölgelerini inceleyin."],
   "hakkimizda": ["Hakkımızda | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis Hizmetleri hakkında bilgi ve İzmir'deki bağımsız özel teknik servis yaklaşımı."],
   "iletisim": ["İletişim | Ege Bölge Teknik Servis", "İzmir Buca'da Ege Bölge Teknik Servis iletişim bilgileri."],
   "gizlilik-politikasi": ["Gizlilik Politikası | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis gizlilik politikası."],

@@ -1,9 +1,10 @@
+import { SERVICE_AREA_SCHEMA } from "../lib/regions";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import { Header, Footer } from "../components/SiteChrome";
 import { CookieConsent } from "../components/CookieConsent";
-import { COMPANY, AREAS } from "../lib/data";
+import { COMPANY } from "../lib/data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={`${geistSans.variable} antialiased`}><Header />
-        <main>{children}</main><Footer /><CookieConsent /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeJsonLd({"@context":"https://schema.org","@type":"LocalBusiness",name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},openingHours:"Mo-Su 08:00-19:00",areaServed:AREAS})}} />
+        <main>{children}</main><Footer /><CookieConsent /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeJsonLd({"@context":"https://schema.org","@type":"LocalBusiness",name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},openingHours:"Mo-Su 08:00-19:00",areaServed:SERVICE_AREA_SCHEMA})}} />
       </body>
     </html>
   );
