@@ -10,6 +10,8 @@ import { PAGE_ROUTES, resolvePageRoute } from "../../lib/routes";
 import { getBrandsForService } from "../../lib/brands";
 import { BrandPage } from "../../components/BrandPage";
 import { ServiceActions } from "../../components/ServiceActions";
+import { buildPageMetadata } from "../../lib/seo";
+import { ServiceSchema } from "../../components/ServiceSchema";
 
 export function generateStaticParams() {
   return PAGE_ROUTES.map(route => ({ slug: route.slug.split("/") }));
@@ -22,23 +24,25 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!route) notFound();
   if (route.kind === "brand") {
     const { brand } = route;
-    const title = brand.seoTitle;
-    const description = brand.seoDescription;
-    const canonical = `/${brand.slug}`;
-    return { title, description, alternates: { canonical },
-      openGraph: { title, description, url: canonical, type: "website", locale: "tr_TR", images: [{ url: "/og.png", width: 1200, height: 630, alt: COMPANY.name }] },
-      twitter: { card: "summary_large_image", title, description, images: ["/og.png"] } };
+    return buildPageMetadata({
+      title: brand.seoTitle,
+      description: brand.seoDescription,
+      path: `/${brand.slug}`,
+    });
   }
   if (route.kind === "service") {
     const { service } = route;
     const visual = SERVICE_VISUALS[service.visual];
     const landing = SERVICE_LANDINGS[service.slug];
-    const title = landing?.title ?? `İzmir ${service.name} | Ege Bölge Teknik Servis`;
-    const description = landing?.description ?? `${service.description} Buca ve İzmir genelinde iletişim için bize ulaşın.`;
-    return { title, description, alternates: { canonical: `/${service.slug}` }, openGraph: { title, description, images: [{ url: visual.src, alt: visual.alt }] }, twitter: { title, description, images: [visual.src] } };
+    return buildPageMetadata({
+      title: landing?.title ?? `İzmir ${service.name} | Ege Bölge Teknik Servis`,
+      description: landing?.description ?? `${service.description} Buca ve İzmir genelinde iletişim için bize ulaşın.`,
+      path: `/${service.slug}`,
+      image: { url: visual.src, alt: visual.alt },
+    });
   }
   const meta = route.metadata;
-  return meta ? { title: meta[0], description: meta[1], alternates: { canonical: `/${path}` }, openGraph: { title: meta[0], description: meta[1] } } : {};
+  return buildPageMetadata({ title: meta[0], description: meta[1], path: `/${path}` });
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
@@ -80,6 +84,7 @@ function Service({ service }: { service: (typeof SERVICES)[number] }) {
   const related = SERVICES.filter(item => item.slug !== service.slug).slice(0, 5);
 
   return <div className={landing ? "service-landing" : undefined}>
+    <ServiceSchema service={service} />
     <section className="service-hero">
       <div className="container service-hero-grid">
         <div>

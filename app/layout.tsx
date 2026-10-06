@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={`${geistSans.variable} antialiased`}><Header />
-        <main>{children}</main><Footer /><CookieConsent /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeJsonLd({"@context":"https://schema.org","@type":"LocalBusiness",name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},openingHours:COMPANY.openingHours,areaServed:SERVICE_AREA_SCHEMA})}} />
+        <main>{children}</main><Footer /><CookieConsent /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeJsonLd({"@context":"https://schema.org","@type":"LocalBusiness","@id":`${COMPANY.website}/#business`,image:`${COMPANY.website}/og.png`,name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},openingHours:COMPANY.openingHours,areaServed:SERVICE_AREA_SCHEMA})}} />
       </body>
     </html>
   );
