@@ -15,8 +15,9 @@ export function BrandDirectory({ brands = BRAND_DIRECTORY, theme = "light", head
   return <section className={`brand-directory brand-directory--${theme}`} aria-label={heading}>
     <p className={`eyebrow${theme === "dark" ? " eyebrow-light" : ""}`}>Cihaz desteği</p>
     <Heading>{heading}</Heading>
-    <p>Listelenen marka adları yalnızca hizmet verilen cihazları tanımlamak için kullanılır.</p>
-    <ul className="brand-directory__links">{sortedBrands.map(brand => <li key={brand.slug}><a href={`/${brand.slug}`}>{brand.name}<span aria-hidden="true"> →</span></a></li>)}</ul>
-    <p className={`disclaimer${theme === "light" ? " light-disclaimer" : ""}`}>Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servistir. Listelenen markaların yetkili servisi değildir.</p>
+    <p className="brand-directory__disclosure">Ege Bölge Teknik Servis bağımsız özel teknik servistir. Listelenen markaların yetkili servisi değildir.</p>
+    <ul className="brand-directory__links">{sortedBrands.map(brand => <li key={brand.slug}>
+      <a href={`/${brand.slug}`}><span className="brand-directory__name">{brand.name}</span></a>
+    </li>)}</ul>
   </section>;
 }

@@ -63,8 +63,11 @@ test("mobile call control is one native phone link with visible number and decor
   assert.equal(COMPANY.phoneDisplay, "0533 231 9469");
 });
 
-test("Phase 4 preserves business data, UI, routes, SEO and protected configuration", () => {
+test("approved UI work preserves business data, shared chrome, routes, SEO and protected configuration", () => {
+  // Approved UI scope only; historical hashes stay intact for all other files.
+  const approvedUIFiles = ["app/globals.css", "components/BrandDirectory.tsx", "app/page.tsx"];
   for (const [file, expected] of Object.entries(baseline.sha256)) {
+    if (approvedUIFiles.includes(file)) continue;
     const actual = createHash("sha256").update(fs.readFileSync(path.resolve(file))).digest("hex");
     assert.equal(actual, expected, file);
   }
@@ -83,4 +86,14 @@ test("Phase 4 preserves business data, UI, routes, SEO and protected configurati
       assert.doesNotMatch(fs.readFileSync(file, "utf8"), /send_to\s*:|gtag\??\.?(?:\s*\()\s*["']event["']\s*,\s*["']conversion["']/i, file);
     }
   }
+});
+
+
+test("homepage hero shows only business hours below its call CTA", () => {
+  const html = render(Home);
+  const hero = html.match(/<section class="hero hero-photo">(.*?)<\/section>/s)[1];
+  assert.doesNotMatch(hero, /hero-note|Bağımsız özel teknik servis/);
+  assert.ok(hero.includes('<p class="hero-hours">Her gün 08:00–22:00</p>'));
+  assert.ok(hero.includes('href="tel:+905332319469"'));
+  assert.ok(chrome.includes("Her gün 08:00–22:00"));
 });

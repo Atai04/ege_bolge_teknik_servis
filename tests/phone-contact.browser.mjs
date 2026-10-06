@@ -52,6 +52,23 @@ try {
     for (let i = 0; i < 3; i++) { await preferences(); await page.getByRole("button", { name: "Tümünü Kabul Et", exact: true }).click(); }
     assert.equal(tagRequests, 1); assert.equal(await page.locator("#google-ads-gtag").count(), 1);
     assert.deepEqual(await page.evaluate(() => window.dataLayer.filter(v => Array.isArray(v) && v[0] === "config").map(v => v[1])), ["AW-18410577740"]);
+    if (width === 393 && path === "/") {
+      // Logo/card links must not dispatch telephone conversions.
+      await page.evaluate(() => {
+        window.__preventBrandNavigation = event => {
+          if (event.target instanceof Element && event.target.closest(".brand-directory__links a")) event.preventDefault();
+        };
+        window.addEventListener("click", window.__preventBrandNavigation);
+      });
+      await page.locator(".brand-directory__links a").first().click();
+      await page.locator(".brand-directory__links a").evaluateAll(links => links.forEach(link => link.click()));
+      assert.equal((await conversions()).length, 0);
+      await page.evaluate(() => window.removeEventListener("click", window.__preventBrandNavigation));
+      // A full attention-animation cycle must not synthesize clicks or analytics.
+      await page.waitForTimeout(8200);
+      assert.equal((await conversions()).length, 0);
+      assert.equal(await internal(), 0);
+    }
     await phone().focus(); await page.keyboard.press("Enter");
     assert.equal((await conversions()).length, 1); assert.equal(await internal(), 1);
     // All visible placements, including each homepage service card and nested icon/text.

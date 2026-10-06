@@ -1,0 +1,758 @@
+[
+  {
+    "file": "Altus-Logo.png",
+    "format": "PNG",
+    "w": 1883,
+    "h": 582,
+    "bytes": 10322,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      1883,
+      582
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      0
+    ],
+    "sha256": "1167287b34892979b872f14be880bd7dabae1ca0e5cee3c432a1405d00513ef2",
+    "brand": "Altus",
+    "slug": "altus-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "Bosch-Logo.png",
+    "format": "PNG",
+    "w": 3840,
+    "h": 2160,
+    "bytes": 31178,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      30,
+      663,
+      3800,
+      1462
+    ],
+    "corner": [
+      71,
+      112,
+      76,
+      0
+    ],
+    "sha256": "d176904c2cf0441d05669d30e6f85c3d862e588f6dcd9fe400615944f86b2767",
+    "brand": "Bosch",
+    "slug": "bosch-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "LG-logo.png",
+    "format": "PNG",
+    "w": 600,
+    "h": 600,
+    "bytes": 9465,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      600,
+      600
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "ce43686d9b497f7d0a8adcd68db6f65e05b4fa90b3e482e0abe9ef09d2f0f0a4",
+    "brand": "LG",
+    "slug": "lg-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "Profilo-Logo.png",
+    "format": "PNG",
+    "w": 1875,
+    "h": 571,
+    "bytes": 10829,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      1875,
+      571
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      0
+    ],
+    "sha256": "a51fe89f49fccc378af218b75dbd3b8c36579711bbf5d72234f63f1ee356a4f0",
+    "brand": "Profilo",
+    "slug": "profilo-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "Samsung-logo.png",
+    "format": "PNG",
+    "w": 304,
+    "h": 166,
+    "bytes": 2830,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      304,
+      166
+    ],
+    "corner": [
+      247,
+      247,
+      247,
+      255
+    ],
+    "sha256": "8b78ea62d9495f132d2644a04de8cdea00d2252f823eced3ab52794272070555",
+    "brand": "Samsung",
+    "slug": "samsung-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "Siemens-Logo.png",
+    "format": "PNG",
+    "w": 3000,
+    "h": 2000,
+    "bytes": 24142,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      346,
+      816,
+      2654,
+      1184
+    ],
+    "corner": [
+      71,
+      112,
+      76,
+      0
+    ],
+    "sha256": "79e42371cf3cf104961fdf8dbf619cd5887fe8fb990fff0c50f8f130368b1a25",
+    "brand": "Siemens",
+    "slug": "siemens-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "amana-vector-logo.png",
+    "format": "PNG",
+    "w": 900,
+    "h": 500,
+    "bytes": 8957,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      900,
+      500
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "c6a7e2c0d7878d31316eeb7a6a8d194dada18f3f80bc59908fb95d18c4f5dd21",
+    "brand": "Amana",
+    "slug": "amana-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "arcelik_marka_logo.png",
+    "format": "PNG",
+    "w": 1000,
+    "h": 1000,
+    "bytes": 32195,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      9,
+      379,
+      991,
+      621
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      0
+    ],
+    "sha256": "a3505e72db5c6e14ad647065c906a5029beabdb51ef0ed1b27497b163b0f8060",
+    "brand": "Arçelik",
+    "slug": "arcelik-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "baymak-logo.jpg",
+    "format": "JPEG",
+    "w": 866,
+    "h": 650,
+    "bytes": 30674,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      866,
+      650
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "d881c7c923df00c34648060496f88fc0b80897321c7067d8b38c0d63c1063ca2",
+    "brand": "Baymak",
+    "slug": "baymak-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "beko_logo.png",
+    "format": "PNG",
+    "w": 1000,
+    "h": 1000,
+    "bytes": 30954,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      12,
+      220,
+      992,
+      779
+    ],
+    "corner": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "sha256": "420944c3ae0fd6c97a530bc4f96abd04fb9d59253f6cb1ca182d513692e79015",
+    "brand": "Beko",
+    "slug": "beko-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "buderus-logo.png",
+    "format": "PNG",
+    "w": 840,
+    "h": 859,
+    "bytes": 51929,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      840,
+      859
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "b3f0a7ea04b947621b9e6ecf58e25ad79a7d20f599743f76b20d275a1c7a6cc2",
+    "brand": "Buderus",
+    "slug": "buderus-servisi",
+    "background": "Baked-in checkerboard"
+  },
+  {
+    "file": "daikin-logo.png",
+    "format": "PNG",
+    "w": 348,
+    "h": 261,
+    "bytes": 3069,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      348,
+      261
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "eb2d47e00dc7ea9643637392bd7a4e0a4356bc5f0e196a6ec4211a240ebe9ec7",
+    "brand": "Daikin",
+    "slug": "daikin-servisi",
+    "background": "Baked-in checkerboard"
+  },
+  {
+    "file": "demirdokum.png",
+    "format": "JPEG",
+    "w": 594,
+    "h": 336,
+    "bytes": 30584,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      594,
+      336
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "7bfffd069f0598530499c931cf4c095447e7e605c63adf857f9c5f427c89e882",
+    "brand": "DemirDöküm",
+    "slug": "demirdokum-servisi",
+    "background": "Baked-in checkerboard"
+  },
+  {
+    "file": "eca-logo.png",
+    "format": "PNG",
+    "w": 600,
+    "h": 600,
+    "bytes": 3526,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      600,
+      600
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "c58d834229bc37d5cc679e273cfa9fe210ec4db0bdc027096f543ec4a11e6402",
+    "brand": "E.C.A.",
+    "slug": "eca-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "elektrolux.png",
+    "format": "JPEG",
+    "w": 594,
+    "h": 336,
+    "bytes": 30896,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      594,
+      336
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "a5afacf8b27b147ab82771db60c90b850b1a11771c6323c9affcaf27c4da7c4c",
+    "brand": "Electrolux",
+    "slug": "electrolux-servisi",
+    "background": "Baked-in checkerboard"
+  },
+  {
+    "file": "gaggenau-logo.png",
+    "format": "PNG",
+    "w": 1024,
+    "h": 512,
+    "bytes": 64790,
+    "alpha": [
+      2,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      1024,
+      512
+    ],
+    "corner": [
+      0,
+      0,
+      0,
+      2
+    ],
+    "sha256": "8135fd8c5603a9b020865291712e325ad6820595910a4ce13991a8e46863d5d8",
+    "brand": "Gaggenau",
+    "slug": "gaggenau-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "grundig-logo.png",
+    "format": "PNG",
+    "w": 320,
+    "h": 320,
+    "bytes": 2238,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      16,
+      144,
+      304,
+      175
+    ],
+    "corner": [
+      71,
+      112,
+      76,
+      0
+    ],
+    "sha256": "b97917a3876859a4d01b196cb7e7a3405bcec0b1bbbd58c11122f0f85b63b5cc",
+    "brand": "Grundig",
+    "slug": "grundig-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "hoover-logo.png",
+    "format": "PNG",
+    "w": 554,
+    "h": 554,
+    "bytes": 22118,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      554,
+      554
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "98e76bf8dc6dca717ac5915ea16ff2129ff53708e90da9d2a3e38631cf30df56",
+    "brand": "Hoover",
+    "slug": "hoover-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "indesit-logo.png",
+    "format": "PNG",
+    "w": 320,
+    "h": 320,
+    "bytes": 2758,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      320,
+      320
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "40dd56ef292a6546fe37b64c6d9ff6dda8f02cda5576805c16153f54e3ff2c69",
+    "brand": "Indesit",
+    "slug": "indesit-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "mitsubishi-electric-logo.png",
+    "format": "PNG",
+    "w": 738,
+    "h": 219,
+    "bytes": 11457,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      738,
+      219
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "e9eae4a3f58197f3df8cfb2898a0ff636cc06dd1618afd8ce94bc348da2268e4",
+    "brand": "Mitsubishi Electric",
+    "slug": "mitsubishi-electric-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "mitsubishi_heavy_industries-logo.png",
+    "format": "PNG",
+    "w": 512,
+    "h": 512,
+    "bytes": 9139,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      32,
+      214,
+      480,
+      298
+    ],
+    "corner": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "sha256": "fd8e16389202fa354acc674438b069710a4655d088bae115634be7ebecffd58e",
+    "brand": "Mitsubishi Heavy Industries",
+    "slug": "mitsubishi-heavy-industries-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "regal-yeni-logo.png",
+    "format": "JPEG",
+    "w": 866,
+    "h": 650,
+    "bytes": 15256,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      866,
+      650
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "971ad74dd1f85314a216304cca152daa3936f754f38aee40adef03140ba2284f",
+    "brand": "Regal",
+    "slug": "regal-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "sub-zero-logo.png",
+    "format": "PNG",
+    "w": 320,
+    "h": 320,
+    "bytes": 3663,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      16,
+      143,
+      304,
+      177
+    ],
+    "corner": [
+      71,
+      112,
+      76,
+      0
+    ],
+    "sha256": "a1ea9210eed4f700d740067a3ffbb27c70c4274e436b89656d0660af53481d23",
+    "brand": "Sub-Zero",
+    "slug": "sub-zero-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "toshiba-logo.png",
+    "format": "PNG",
+    "w": 800,
+    "h": 800,
+    "bytes": 58963,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      800,
+      800
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "e1eda3176fa00c9c60f4f14c10511bb3ba50f145249d5973d9966b83ecf9a734",
+    "brand": "Toshiba",
+    "slug": "toshiba-servisi",
+    "background": "Baked-in checkerboard"
+  },
+  {
+    "file": "vaillant-logo.png",
+    "format": "JPEG",
+    "w": 515,
+    "h": 388,
+    "bytes": 11583,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      515,
+      388
+    ],
+    "corner": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "sha256": "4951eed333099b7eae83d3c447341eca08348a02c094f4c85fc6841873654faf",
+    "brand": "Vaillant",
+    "slug": "vaillant-servisi",
+    "background": "Opaque light background"
+  },
+  {
+    "file": "vestel-kirmizi-logo.png",
+    "format": "PNG",
+    "w": 1920,
+    "h": 496,
+    "bytes": 27452,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      27,
+      48,
+      1892,
+      452
+    ],
+    "corner": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "sha256": "b6e9dd7f2c28c092fd1e3cbe9aec23371cb2aa2d673ee6984aee85b2745eb608",
+    "brand": "Vestel",
+    "slug": "vestel-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "viessman-logo.png",
+    "format": "PNG",
+    "w": 320,
+    "h": 320,
+    "bytes": 3134,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      16,
+      129,
+      304,
+      190
+    ],
+    "corner": [
+      71,
+      112,
+      76,
+      0
+    ],
+    "sha256": "03bbff581f816fc9c672fe040ec7726305774ee71d8964b6fce876a0b0455c1e",
+    "brand": "Viessmann",
+    "slug": "viessmann-servisi",
+    "background": "Transparent"
+  },
+  {
+    "file": "whirlpool-logo.png",
+    "format": "PNG",
+    "w": 960,
+    "h": 319,
+    "bytes": 18074,
+    "alpha": [
+      255,
+      255
+    ],
+    "bbox": [
+      0,
+      0,
+      960,
+      319
+    ],
+    "corner": [
+      252,
+      254,
+      255,
+      255
+    ],
+    "sha256": "3a330f7027a8f2088a3a2e701b5c4f7db54e3691c47512237c418ad8ad970519",
+    "brand": "Whirlpool",
+    "slug": "whirlpool-servisi",
+    "background": "Opaque light background"
+  }
+]

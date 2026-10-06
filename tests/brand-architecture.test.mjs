@@ -1,5 +1,6 @@
 // Run: node --test tests/brand-architecture.test.mjs
 // Optional pre-change snapshot: EBTS_BASELINE=/tmp/ebts-brand-route-baseline.json
+import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -124,5 +125,32 @@ test("pre-change baseline retains metadata and contact link counts", { skip: !pr
     assert.equal(meta.title, previous.title, url);
     assert.equal(meta.description, previous.description, url);
     assert.deepEqual(counts(render(await Page({ params }))), { phoneLinks: previous.phoneLinks, whatsappLinks: previous.whatsappLinks }, url);
+  }
+});
+
+
+const logoInventory = JSON.parse(fs.readFileSync(new URL("./fixtures/brand-logo-assets.json", import.meta.url), "utf8"));
+
+test("user logo assets remain unchanged on disk and are not runtime dependencies", () => {
+  assert.equal(logoInventory.length, 28);
+  assert.deepEqual(fs.readdirSync("public/brands").filter(name => !name.startsWith(".")).sort(), logoInventory.map(row => row.file).sort());
+  for (const row of logoInventory) {
+    assert.equal(createHash("sha256").update(fs.readFileSync(`public/brands/${row.file}`)).digest("hex"), row.sha256);
+  }
+  assert.equal(fs.existsSync("lib/brand-logos.ts"), false);
+});
+
+test("brand cards contain only all 28 brand names, with one central disclosure before the grid", () => {
+  for (const theme of ["light", "dark"]) {
+    const html = render(createElement(BrandDirectory, { theme }));
+    assert.equal((html.match(/brand-directory__disclosure/g) || []).length, 1);
+    assert.ok(html.indexOf("markaların yetkili servisi değildir.") < html.indexOf('<ul'));
+    assert.doesNotMatch(html, /<img|<svg|brand-directory__logo|\/brands\//);
+    const cards = [...html.matchAll(/<a href="\/([^"]+)"[^>]*>(.*?)<\/a>/gs)];
+    assert.equal(cards.length, 28);
+    for (const [, slug, content] of cards) {
+      const name = BRAND_DIRECTORY.find(brand => brand.slug === slug).name;
+      assert.equal(content, `<span class="brand-directory__name">${name}</span>`);
+    }
   }
 });
