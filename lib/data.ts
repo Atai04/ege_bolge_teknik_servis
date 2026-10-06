@@ -1,4 +1,5 @@
-export const COMPANY={name:"Ege Bölge Teknik Servis Hizmetleri",phoneDisplay:"0533 231 9469",phoneHref:"tel:+905332319469",whatsappUrl:"https://wa.me/905076509807",email:"info@egebolgeteknikservis.com",address:"Fırat Mah. 289/59 Sk. No:7/A, 35380 Buca / İzmir",hours:"08:00–19:00",website:"https://www.egebolgeteknikservis.com"};
+export const BUSINESS_HOURS = { opens: "08:00", closes: "22:00" } as const;
+export const COMPANY={name:"Ege Bölge Teknik Servis Hizmetleri",phoneDisplay:"0533 231 9469",phoneHref:"tel:+905332319469",whatsappUrl:"https://wa.me/905076509807",email:"info@egebolgeteknikservis.com",address:"Fırat Mah. 289/59 Sk. No:7/A, 35380 Buca / İzmir",hours:`Her gün ${BUSINESS_HOURS.opens}–${BUSINESS_HOURS.closes}`,openingHours:`Mo-Su ${BUSINESS_HOURS.opens}-${BUSINESS_HOURS.closes}`,website:"https://www.egebolgeteknikservis.com"};
 /** Individual appliance visuals support the relevant service card. The hero photograph
  * is generic illustrative imagery and does not represent an Ege Bölge employee. */
 export const SERVICE_VISUALS={
@@ -26,5 +27,5 @@ export const SERVICES=[
   {slug:"vrf-servisi",name:"VRF Klima Sistemleri",short:"VRF Sistemleri",visual:"vrf",description:"VRF sistemlerinde bakım ve teknik destek."}
 ] as const;
 export { BRAND_DIRECTORY } from "./brands";
-// Legacy consumers remain scoped to the original İzmir districts.
+// Legacy consumers remain scoped to confirmed İzmir service districts.
 export { IZMIR_SERVICE_AREAS as AREAS } from "./regions";

@@ -76,9 +76,9 @@ test("brand pages render disclosure, unique metadata, breadcrumbs and native con
     assert.equal((html.match(/<h1>/g) || []).length, 1);
     assert.ok(html.includes(`${brand.name} Özel Servisi</h1>`));
     assert.ok(html.includes(`Bağımsız özel servistir. ${brand.name} markasının yetkili servisi değildir.`));
-    assert.deepEqual(counts(html), { phoneLinks: 2, whatsappLinks: 2 });
+    assert.deepEqual(counts(html), { phoneLinks: 2, whatsappLinks: 0 });
     assert.ok(html.includes(`href="${COMPANY.phoneHref}"`));
-    assert.ok(html.includes(`href="${COMPANY.whatsappUrl}"`));
+    assert.ok(!html.includes(`href="${COMPANY.whatsappUrl}"`));
     assert.ok(!html.includes("brand-services-title"));
     for (const service of SERVICES) assert.ok(!html.includes(`href="/${service.slug}"`));
     const schema = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);

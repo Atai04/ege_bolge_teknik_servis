@@ -1,0 +1,27 @@
+{
+  "commit": "c780bf3620bf09912d7e99197eda1b9dd4cb5930",
+  "sha256": {
+    "components/CookieConsent.tsx": "d9657f22afa7c2da9b004ca64accbdf2a0007d65b657a540d931e20e18df475c",
+    "lib/analytics.ts": "4054b922447fa8214344dc3b9f29dd6f222411835ecc183ad7f7cdf1a7af9db0",
+    "lib/regions.ts": "faac01f7eea3e9c6f558709196590684915837def9a0bfd6434631477c5cf095",
+    "lib/data.ts": "24d8c7ac1b104b5cd6a7a755d9a7e09b40f8bfb93f75016a252e6a29b895b658",
+    "app/layout.tsx": "5689ed5084d99a020ccfb2714fc0488d4fd97b68c249d60aa82f98184dce167a",
+    "lib/routes.ts": "206d761dd7d18c3ff2feb14633470b8bad2f78b991a90b2734480fd976db492d",
+    "app/sitemap.ts": "05f47f030739662921f1f6b97bcc777452707a0af4797dd301f51b55a5bce8ef",
+    "app/robots.ts": "c3b91f41a8f7b4dcf4433d5c4f986caee7ff490dc0fe44aeeaa324aee0ae529e",
+    "next.config.ts": "c6d99af67a7191149e6b4c1cf42ff151e106a68820baed740410c256b14954a1",
+    "package.json": "16d1c3064edb9bf07bed79ba5cf52919eff55908c6be4b2bc4ddb3db7643e5aa",
+    "package-lock.json": "8a395f463468da9f4d8ddd283375dc46afef01158bb17c602ca69a9055d964c3",
+    "components/ServiceAreas.tsx": "d8d2bd04f46e1cb2b5f0b898a677faf38908b6d956eddf5d974fea2ed3d24693"
+  },
+  "approvedBusinessCorrections": {
+    "files": [
+      "lib/regions.ts",
+      "lib/data.ts",
+      "app/layout.tsx",
+      "lib/routes.ts",
+      "components/ServiceAreas.tsx"
+    ],
+    "reason": "Approved correction: 27 İzmir service districts, 3 exclusions, and daily 08:00–22:00. Covered by semantic region/hour tests; tracking baseline remains unchanged."
+  }
+}

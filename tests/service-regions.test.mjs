@@ -20,17 +20,23 @@ for (const extension of [".ts", ".tsx"]) {
   };
 }
 
-const { IZMIR_SERVICE_AREAS, AYDIN_SERVICE_AREAS, SERVICE_PROVINCES, SERVICE_AREA_SCHEMA } = require("../lib/regions.ts");
+const { IZMIR_SERVICE_AREAS, IZMIR_EXCLUDED_AREAS, IZMIR_ADMINISTRATIVE_DISTRICTS, AYDIN_SERVICE_AREAS, SERVICE_PROVINCES, SERVICE_AREA_SCHEMA } = require("../lib/regions.ts");
 const { AREAS, COMPANY } = require("../lib/data.ts");
 const { PAGE_ROUTES, getCanonicalPaths, resolvePageRoute } = require("../lib/routes.ts");
 const { default: Page, generateMetadata } = require("../app/[...slug]/page.tsx");
 const { ServiceAreas, ProvinceSummary } = require("../components/ServiceAreas.tsx");
-const expectedIzmir = ["Buca","Konak","Karabağlar","Bornova","Bayraklı","Gaziemir","Balçova","Narlıdere","Güzelbahçe","Karşıyaka","Çiğli","Menemen","Torbalı","Kemalpaşa","Menderes","Seferihisar","Urla","Foça","Aliağa","Selçuk"];
+const expectedIzmir = ["Buca","Konak","Karabağlar","Bornova","Bayraklı","Gaziemir","Balçova","Narlıdere","Güzelbahçe","Karşıyaka","Çiğli","Menemen","Torbalı","Kemalpaşa","Menderes","Seferihisar","Urla","Foça","Aliağa","Selçuk","Bayındır","Bergama","Çeşme","Dikili","Karaburun","Kınık","Tire"];
 const expectedAydin = ["Bozdoğan","Buharkent","Çine","Didim","Efeler","Germencik","İncirliova","Karacasu","Karpuzlu","Koçarlı","Köşk","Kuşadası","Kuyucak","Nazilli","Söke","Sultanhisar","Yenipazar"];
 
 test("confirmed province coverage preserves İzmir order and all 17 Aydın districts", () => {
   assert.deepEqual(IZMIR_SERVICE_AREAS, expectedIzmir);
   assert.deepEqual(AREAS, expectedIzmir);
+  assert.equal(IZMIR_SERVICE_AREAS.length, 27);
+  assert.deepEqual(IZMIR_EXCLUDED_AREAS, ["Beydağ", "Kiraz", "Ödemiş"]);
+  const administrative = ["Aliağa","Balçova","Bayındır","Bayraklı","Bergama","Beydağ","Bornova","Buca","Çeşme","Çiğli","Dikili","Foça","Gaziemir","Güzelbahçe","Karabağlar","Karaburun","Karşıyaka","Kemalpaşa","Kınık","Kiraz","Konak","Menderes","Menemen","Narlıdere","Ödemiş","Seferihisar","Selçuk","Tire","Torbalı","Urla"];
+  assert.equal(IZMIR_ADMINISTRATIVE_DISTRICTS.length, 30);
+  assert.equal(new Set(IZMIR_ADMINISTRATIVE_DISTRICTS).size, 30);
+  assert.deepEqual([...IZMIR_ADMINISTRATIVE_DISTRICTS].sort(), administrative.sort());
   assert.deepEqual(AYDIN_SERVICE_AREAS, expectedAydin);
   assert.deepEqual(SERVICE_PROVINCES.map(p => p.id), ["izmir", "aydin"]);
   assert.deepEqual(SERVICE_PROVINCES[0].exclusions, ["Beydağ", "Kiraz", "Ödemiş"]);
@@ -42,15 +48,17 @@ test("confirmed province coverage preserves İzmir order and all 17 Aydın distr
   }
 });
 
-test("region page renders 37 plain district labels; exclusion stays within İzmir", async () => {
+test("region page renders 44 plain district labels; exclusion stays within İzmir", async () => {
   const html = renderToStaticMarkup(createElement(ServiceAreas));
   assert.ok(html.includes("İzmir ve Aydın Hizmet Bölgeleri</h1>"));
-  assert.equal((html.match(/<li>/g) || []).length, 37);
+  assert.equal((html.match(/<li>/g) || []).length, 44);
   assert.ok(!html.includes("<a "));
   assert.ok(!html.includes("<details"));
   const aydinSection = html.slice(html.indexOf('aria-labelledby="province-aydin"'));
   assert.ok(!aydinSection.includes("Beydağ"));
   assert.ok(aydinSection.includes("Bozdoğan"));
+  for (const name of IZMIR_EXCLUDED_AREAS) assert.ok(!html.includes(`<li>${name}</li>`));
+  assert.ok(html.includes("Hizmet kapsamı dışında: Beydağ, Kiraz ve Ödemiş."));
   const summary = renderToStaticMarkup(createElement(ProvinceSummary));
   assert.ok(summary.includes("İzmir")); assert.ok(summary.includes("Aydın"));
   assert.ok(!summary.includes("Bozdoğan"));
@@ -69,7 +77,8 @@ test("canonical route set stays exactly at Phase 1: no province, district or nei
 });
 
 test("structured service areas are districts nested under the correct province", () => {
-  assert.equal(SERVICE_AREA_SCHEMA.length, 37);
+  assert.equal(SERVICE_AREA_SCHEMA.length, 44);
+  assert.ok(SERVICE_AREA_SCHEMA.every(area => !IZMIR_EXCLUDED_AREAS.includes(area.name)));
   assert.deepEqual(SERVICE_AREA_SCHEMA.filter(a => a.containedInPlace.name === "İzmir").map(a => a.name), expectedIzmir);
   assert.deepEqual(SERVICE_AREA_SCHEMA.filter(a => a.containedInPlace.name === "Aydın").map(a => a.name), expectedAydin);
   assert.ok(SERVICE_AREA_SCHEMA.every(a => a["@type"] === "AdministrativeArea" && !("address" in a)));
@@ -92,6 +101,9 @@ test("actual layout keeps one LocalBusiness and the exact Buca physical address"
     assert.equal(businesses.length, 1);
     assert.deepEqual(businesses[0].address, {"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"});
     assert.deepEqual(businesses[0].areaServed, SERVICE_AREA_SCHEMA);
+    assert.equal(COMPANY.hours, "Her gün 08:00–22:00");
+    assert.equal(COMPANY.openingHours, "Mo-Su 08:00-22:00");
+    assert.equal(businesses[0].openingHours, "Mo-Su 08:00-22:00");
     assert.equal(COMPANY.address, "Fırat Mah. 289/59 Sk. No:7/A, 35380 Buca / İzmir");
   } finally {
     Module._load = originalLoad;

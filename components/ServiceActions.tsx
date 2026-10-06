@@ -1,9 +1,8 @@
 import { COMPANY } from "../lib/data";
+import { PhoneIcon } from "./PhoneIcon";
 
-// Preserve native links: the existing consent-gated WhatsApp listener handles clicks.
-export function ServiceActions({ whatsappLabel }: { whatsappLabel: string }) {
-  return <div className="actions">
-    <a className="button amber" href={COMPANY.phoneHref}>Hemen Ara</a>
-    <a className="button outline" href={COMPANY.whatsappUrl} target="_blank" rel="noopener noreferrer">{whatsappLabel}</a>
+export function ServiceActions() {
+  return <div className="actions phone-actions">
+    <a className="button phone-button" href={COMPANY.phoneHref}><PhoneIcon />Hemen Ara</a>
   </div>;
 }

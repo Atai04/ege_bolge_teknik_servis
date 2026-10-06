@@ -6,14 +6,17 @@ export interface ServiceProvince {
   readonly exclusions: readonly string[];
 }
 
-export const IZMIR_SERVICE_AREAS = ["Buca","Konak","Karabağlar","Bornova","Bayraklı","Gaziemir","Balçova","Narlıdere","Güzelbahçe","Karşıyaka","Çiğli","Menemen","Torbalı","Kemalpaşa","Menderes","Seferihisar","Urla","Foça","Aliağa","Selçuk"] as const;
+export const IZMIR_SERVICE_AREAS = ["Buca","Konak","Karabağlar","Bornova","Bayraklı","Gaziemir","Balçova","Narlıdere","Güzelbahçe","Karşıyaka","Çiğli","Menemen","Torbalı","Kemalpaşa","Menderes","Seferihisar","Urla","Foça","Aliağa","Selçuk","Bayındır","Bergama","Çeşme","Dikili","Karaburun","Kınık","Tire"] as const;
+export const IZMIR_EXCLUDED_AREAS = ["Beydağ", "Kiraz", "Ödemiş"] as const;
+// All 30 administrative districts are accounted for; exclusions are never service areas.
+export const IZMIR_ADMINISTRATIVE_DISTRICTS = [...IZMIR_SERVICE_AREAS, ...IZMIR_EXCLUDED_AREAS] as const;
 export const AYDIN_SERVICE_AREAS = [
   "Bozdoğan", "Buharkent", "Çine", "Didim", "Efeler", "Germencik",
   "İncirliova", "Karacasu", "Karpuzlu", "Koçarlı", "Köşk", "Kuşadası",
   "Kuyucak", "Nazilli", "Söke", "Sultanhisar", "Yenipazar",
 ] as const;
 export const SERVICE_PROVINCES: readonly ServiceProvince[] = [
-  { id: "izmir", name: "İzmir", districts: IZMIR_SERVICE_AREAS, exclusions: ["Beydağ", "Kiraz", "Ödemiş"] },
+  { id: "izmir", name: "İzmir", districts: IZMIR_SERVICE_AREAS, exclusions: IZMIR_EXCLUDED_AREAS },
   { id: "aydin", name: "Aydın", districts: AYDIN_SERVICE_AREAS, exclusions: [] },
 ];
 
