@@ -1,0 +1,147 @@
+import type { SERVICES } from "./data";
+
+export type ServiceSlug = (typeof SERVICES)[number]["slug"];
+
+export type Brand = {
+  name: string;
+  slug: string;
+  supportedServices: readonly ServiceSlug[];
+  shortDescription: string;
+  preparation: { title: string; text: string };
+  seoTitle: string;
+  seoDescription: string;
+};
+
+// All 28 brands were confirmed by EBTS. Category-level coverage was NOT confirmed.
+// Empty supportedServices means unverified, not unsupported. Add only approved mappings.
+// Slugs are explicit editorial values: never derive or rename them from display names.
+function brand(
+  name: string,
+  slug: string,
+  shortDescription: string,
+  preparation: Brand["preparation"],
+  seoDescription: string,
+  supportedServices: readonly ServiceSlug[] = [],
+): Brand {
+  return { name, slug, supportedServices, shortDescription, preparation,
+    seoTitle: `${name} Özel Servisi | İzmir | Ege Bölge Teknik Servis`, seoDescription };
+}
+
+export const BRAND_DIRECTORY: readonly Brand[] = [
+  brand("Altus", "altus-servisi",
+    "Altus cihazınız için teknik destek talebinizi Ege Bölge Teknik Servis'e iletebilirsiniz. Cihaz türünü, modelini ve bulunduğunuz ilçeyi paylaşarak talebinize uygun işlem kapsamı hakkında bilgi alın.",
+    { title: "Talebinizi cihaz bilgisiyle başlatın", text: "Model bilgisini biliyorsanız ilk görüşmede belirtin. Bilmiyorsanız cihaz türünü ve gözlemlediğiniz durumu anlatmanızla iletişime başlayabiliriz; bilgi bulmak için cihazı sökmeyin." },
+    "Altus cihazınız için İzmir'de bağımsız özel servis iletişimi. Model ve ilçe bilgisiyle talebinizi paylaşın; işlem kapsamını görüşün."),
+  brand("Amana", "amana-servisi",
+    "Amana markalı cihazınızla ilgili servis ihtiyacını telefon veya WhatsApp üzerinden paylaşabilirsiniz. Model ve arıza belirtisi, cihazınıza ilişkin talebin değerlendirilmesine yardımcı olur.",
+    { title: "Model bilgisini doğru aktarın", text: "Elinizdeki kullanım belgesinde model adı varsa görüşmeye hazırlayabilirsiniz. Harf ve rakamları tam aktarmak, farklı cihazların birbirine karıştırılmasını önlemeye yardımcı olur." },
+    "Amana özel servis talebiniz için Ege Bölge ile iletişim kurun. İzmir hizmet bölgelerini ve cihaz bilgisiyle başvuru adımlarını inceleyin."),
+  brand("Arçelik", "arcelik-servisi",
+    "Arçelik cihazınızla ilgili yaşadığınız durumu EBTS'ye anlatarak özel servis talebinizi iletebilirsiniz. Hangi işlemin uygun olduğu, cihaz bilgisi ve ihtiyacınız değerlendirilerek netleştirilir.",
+    { title: "Sorunun ne zaman başladığını belirtin", text: "Sorunu ilk fark ettiğiniz zamanı ve o sırada cihazın ne yaptığını not edin. Yalnızca gözlemlediğiniz belirtileri paylaşın; bir parçanın arızalı olduğunu tahmin etmeniz gerekmez." },
+    "İzmir Arçelik özel servis iletişimi: arıza belirtinizi, modelinizi ve ilçenizi paylaşın. EBTS bağımsızdır; Arçelik yetkili servisi değildir."),
+  brand("Baymak", "baymak-servisi",
+    "Baymak markalı cihazınız için EBTS üzerinden teknik servis talebi oluşturabilirsiniz. Önce cihazın türünü ve ihtiyacınızı paylaşarak hizmetin kapsamı hakkında bilgi edinin.",
+    { title: "Ekrandaki mesajı olduğu gibi paylaşın", text: "Cihazınızda bir ekran mesajı varsa harf ve rakamları değiştirmeden not edin. Bir mesaj tek başına arızanın nedenini belirlemez; gözlemlediğiniz durumla birlikte aktarın." },
+    "Baymak cihazınız için İzmir'de özel servis talebi ve iletişim bilgileri. Cihaz türü, model ve varsa ekran mesajıyla EBTS'ye ulaşın."),
+  brand("Beko", "beko-servisi",
+    "Beko cihazınız için bağımsız teknik servis desteği hakkında EBTS ile görüşebilirsiniz. Talebinizde cihaz bilgisine ve yaşadığınız soruna yer vermeniz, ihtiyacın anlaşılmasını kolaylaştırır.",
+    { title: "Belirtinin tekrarını tarif edin", text: "Sorunun her kullanımda mı yoksa zaman zaman mı ortaya çıktığını belirtin. Sırf sorunu yeniden göstermek için cihazı çalıştırmanız gerekmez; önceki gözleminizi anlatabilirsiniz." },
+    "Beko özel servisi için EBTS iletişim kanalları ve İzmir kapsamı. Cihazınızdaki belirtinin ne zaman ortaya çıktığını paylaşarak bilgi alın."),
+  brand("Bosch", "bosch-servisi",
+    "Bosch markalı cihazınıza ilişkin servis ihtiyacını EBTS'ye telefonla veya WhatsApp'tan iletebilirsiniz. Modeliniz ve bulunduğunuz ilçe üzerinden talebin ayrıntılarını birlikte netleştirebiliriz.",
+    { title: "Önce cihaz türünü ve modeli belirtin", text: "Marka adı tek başına cihaz türünü açıklamaz. Görüşmede hangi cihaz için destek istediğinizi, varsa model bilgisini ve temel arıza belirtisini birlikte paylaşın." },
+    "Bosch cihazınız için İzmir özel servis başvurusu. Cihaz türü ve modelinizi paylaşın; EBTS'nin bağımsız hizmet yaklaşımını inceleyin."),
+  brand("Buderus", "buderus-servisi",
+    "Buderus cihazınızla ilgili teknik destek ihtiyacınızı EBTS'ye aktarabilirsiniz. Cihazın durumunu ve talebinizin ayrıntılarını görüşerek yapılabilecek işlemler hakkında bilgi alın.",
+    { title: "Önceki işlemler hakkında bilgi verin", text: "Cihaza daha önce bir işlem yapıldıysa bildiğiniz kadarıyla paylaşın. Tarih veya işlem ayrıntısından emin değilseniz bunu belirtin; tahminde bulunmanız gerekmez." },
+    "Buderus özel servis iletişimi ve İzmir hizmet alanı. Mevcut durumu ve bilinen işlem geçmişini EBTS ile paylaşarak talebinizi iletin."),
+  brand("Daikin", "daikin-servisi",
+    "Daikin markalı cihazınıza yönelik servis talebinizi Ege Bölge Teknik Servis'e iletebilirsiniz. Cihaz türünü ve ihtiyacınızı belirtmeniz, görüşmenin doğru bilgilerle başlamasını sağlar.",
+    { title: "Bakım talebi ile arıza belirtisini ayırın", text: "Talebiniz düzenli bakım hakkında bilgi almaksa bunu belirtin. Bir çalışma sorunu yaşıyorsanız bakım talebinden ayrı olarak gözlemlediğiniz durumu da anlatın." },
+    "Daikin cihazları için EBTS özel servis iletişim sayfası. İzmir'de cihazınıza ilişkin bakım veya arıza talebinin kapsamını görüşün."),
+  brand("DemirDöküm", "demirdokum-servisi",
+    "DemirDöküm cihazınız için bağımsız özel servis talebinizi EBTS'ye yöneltebilirsiniz. Yaşadığınız durumun kısa açıklaması, model ve ilçe bilgisiyle görüşmeye başlayabilirsiniz.",
+    { title: "Görüşme için kısa bir özet hazırlayın", text: "Cihazın hangi durumda olduğunu, sorunun başlangıcını ve varsa görünen mesajı birkaç cümleyle anlatın. Uzaktan paylaşılan bilgi, tek başına kesin arıza tespiti anlamına gelmez." },
+    "DemirDöküm özel servis talebinizi EBTS'ye iletin. İzmir kapsamı, iletişim seçenekleri ve ilk görüşmede paylaşılabilecek bilgiler."),
+  brand("E.C.A.", "eca-servisi",
+    "E.C.A. markalı cihazınızla ilgili servis ihtiyacını EBTS ile paylaşabilirsiniz. Telefon veya WhatsApp görüşmesinde cihaz türü ve model bilgisiyle işlem kapsamını sorabilirsiniz.",
+    { title: "Cihaz adını belgelerinizle karşılaştırın", text: "Kullanım belgesi elinizdeyse cihazın modelini buradan kontrol edebilirsiniz. Benzer adlar yerine belgedeki tam ifadeyi paylaşmanız, talebi açıklamaya yardımcı olur." },
+    "E.C.A. cihazınız için İzmir'de bağımsız servis iletişimi. Model bilgisi, hizmet bölgeleri ve EBTS'ye talep iletme seçenekleri."),
+  brand("Electrolux", "electrolux-servisi",
+    "Electrolux cihazınız için özel servis ihtiyacınızı EBTS'ye iletebilirsiniz. Belirtinin hangi aşamada ortaya çıktığını anlatmanız, cihazınızla ilgili görüşmeyi daha anlaşılır kılar.",
+    { title: "Çalışmanın hangi aşamasında olduğunu anlatın", text: "Sorunu başlangıçta, kullanım sırasında veya işlem bittikten sonra mı fark ettiğinizi belirtin. Bu bilgi bir teşhis değildir; talebinizin açıklanmasına yardımcı olur." },
+    "Electrolux özel servis talebi için EBTS'ye ulaşın. İzmir kapsamını inceleyin ve sorunun hangi aşamada görüldüğünü paylaşın."),
+  brand("Gaggenau", "gaggenau-servisi",
+    "Gaggenau markalı cihazınızla ilgili teknik servis talebinde EBTS ile iletişime geçebilirsiniz. Cihazın modeli ve bulunduğu ilçe, ilk görüşmede paylaşabileceğiniz temel bilgilerdir.",
+    { title: "Cihaza erişim durumunu bildirin", text: "Cihazın bulunduğu yere erişimle ilgili bir kısıt varsa görüşmede belirtin. Model etiketini görmek için cihazı yerinden çıkarmak veya bağlantılarını ayırmak gerekmez." },
+    "Gaggenau cihazınız için bağımsız EBTS özel servis iletişimi. İzmir hizmet alanı ve talep öncesinde hazırlanabilecek cihaz bilgileri."),
+  brand("Grundig", "grundig-servisi",
+    "Grundig cihazınızla ilgili destek talebini EBTS'ye aktarabilirsiniz. Hangi cihaz için başvurduğunuzu ve sorunun nasıl ortaya çıktığını paylaşarak hizmet kapsamını görüşün.",
+    { title: "Gözleminizi kendi sözcüklerinizle aktarın", text: "Teknik terim kullanmanız gerekmez. Cihazın önce nasıl çalıştığını ve şimdi neyin değiştiğini tarif etmeniz, talebin anlaşılmasına yardımcı olur." },
+    "Grundig özel servis başvurusu ve İzmir iletişim bilgileri. Cihazınızdaki değişikliği anlatın, talebinizin kapsamını EBTS ile görüşün."),
+  brand("Hoover", "hoover-servisi",
+    "Hoover markalı cihazınızın servis ihtiyacı için EBTS ile görüşebilirsiniz. Cihaz türünü, modelini ve gözlemlediğiniz durumu paylaşarak talebinizi iletebilirsiniz.",
+    { title: "Birden fazla belirtiyi ayrı ayrı belirtin", text: "Aynı cihazda birden fazla değişiklik fark ettiyseniz her birini kısaca anlatın. Belirtilerin aynı anda mı yoksa farklı zamanlarda mı görüldüğünü de paylaşabilirsiniz." },
+    "Hoover cihazınız için İzmir özel servis iletişimi. Gözlemlediğiniz belirtileri paylaşın; EBTS ile talep ve işlem kapsamını netleştirin."),
+  brand("Indesit", "indesit-servisi",
+    "Indesit cihazınıza ilişkin özel servis talebini telefon veya WhatsApp üzerinden EBTS'ye iletebilirsiniz. Görüşmede cihaz bilgileri ve arıza açıklaması birlikte değerlendirilir.",
+    { title: "Varsa fotoğrafla açıklamayı destekleyin", text: "Güvenle görülebilen ekran mesajının veya model bilgisinin fotoğrafını WhatsApp'tan paylaşabilirsiniz. Fotoğraf çekmek için kapağı sökmeyin veya iç parçalara erişmeye çalışmayın." },
+    "Indesit özel servis talebinizi EBTS'ye telefon veya WhatsApp ile iletin. İzmir bölgeleri ve cihaz bilgisini paylaşma önerileri."),
+  brand("LG", "lg-servisi",
+    "LG markalı cihazınız için EBTS'den teknik servis talebiniz hakkında bilgi alabilirsiniz. Önce cihaz türünü ve modelini belirterek hangi konuda destek istediğinizi açıklayın.",
+    { title: "Birden fazla cihaz için ayrı bilgi paylaşın", text: "Birden fazla cihazınız hakkında görüşecekseniz her cihazın modelini ve belirtisini ayrı aktarın. Böylece farklı taleplerin bilgileri birbirine karışmaz." },
+    "LG cihazınız için İzmir'de bağımsız özel servis iletişimi. Model ve talep bilgilerinizi EBTS ile paylaşın, hizmet kapsamını sorun."),
+  brand("Mitsubishi Electric", "mitsubishi-electric-servisi",
+    "Mitsubishi Electric markalı cihazınız için servis talebinizi EBTS'ye iletebilirsiniz. Görüşmede marka adını tam olarak belirtmeniz, talebin doğru cihaz bilgisiyle ele alınmasına yardımcı olur.",
+    { title: "Tam marka adını kontrol edin", text: "Bu sayfa Mitsubishi Electric talepleri içindir. Elinizdeki belgede Mitsubishi Heavy Industries yazıyorsa marka dizinindeki ayrı kaydı kullanın; iki kaydın cihaz bilgilerini birbirinin yerine paylaşmayın." },
+    "Mitsubishi Electric özel servis talepleri için EBTS iletişimi. Tam marka ve model bilgisiyle İzmir'deki talebinizin kapsamını görüşün."),
+  brand("Mitsubishi Heavy Industries", "mitsubishi-heavy-industries-servisi",
+    "Mitsubishi Heavy Industries cihazınızla ilgili servis ihtiyacını EBTS ile görüşebilirsiniz. Cihaz belgesindeki tam marka adı ve model, talebinizin açıklanmasında önemlidir.",
+    { title: "Marka kaydını doğru seçin", text: "Bu sayfa Mitsubishi Heavy Industries talepleri içindir. Cihaz belgesinde Mitsubishi Electric yazıyorsa marka dizininde o adı seçin; destek talebinde belgedeki ifadeyi esas alın." },
+    "Mitsubishi Heavy Industries cihazınız için EBTS özel servis iletişimi. İzmir bölgelerini inceleyin, tam marka ve modelle bilgi alın."),
+  brand("Profilo", "profilo-servisi",
+    "Profilo markalı cihazınızın teknik servis ihtiyacını EBTS'ye anlatabilirsiniz. Cihazın türünü, bulunduğunuz ilçeyi ve sorunu paylaşarak başvurunuza ilişkin bilgi alın.",
+    { title: "İlçe bilgisini ilk görüşmede paylaşın", text: "Cihazın bulunduğu ilçeyi belirtin ve hizmet bölgeleri listesini kontrol edin. Listelenmeyen bir yer için görüşmeden servis planlaması yapılacağını varsaymayın." },
+    "Profilo özel servis iletişimi ve İzmir hizmet bölgeleri. Cihaz türü ve ilçe bilginizi paylaşarak EBTS'den talebiniz hakkında bilgi alın."),
+  brand("Regal", "regal-servisi",
+    "Regal cihazınız için teknik destek talebinizi EBTS'ye telefon veya WhatsApp yoluyla iletebilirsiniz. Model ve belirti bilgisine göre görüşmenin ayrıntılarını netleştirin.",
+    { title: "Talebinizi açık bir soruyla iletin", text: "Cihazınız için hangi konuda bilgi almak istediğinizi belirtin. İşlem kapsamı, değerlendirme süreci veya bölge bilgisiyle ilgili sorularınızı ilk görüşmede sorabilirsiniz." },
+    "Regal cihazınız için EBTS özel servis sayfası. İzmir kapsamı, başvuru bilgileri ve telefonla ya da WhatsApp'tan iletişim seçenekleri."),
+  brand("Samsung", "samsung-servisi",
+    "Samsung markalı cihazınız için özel servis talebini EBTS ile paylaşabilirsiniz. Cihazın türünü ve modelini söyleyerek sorununuzu ve hizmete ilişkin sorularınızı aktarın.",
+    { title: "Kişisel bilgiler yerine cihaz bilgisine odaklanın", text: "İlk mesajınızda cihaz türü, model ve belirti yeterli bir başlangıçtır. Cihaz hesabınıza ait şifreleri veya ilgisiz kişisel belgeleri göndermeyin." },
+    "Samsung özel servis iletişimi: İzmir'deki talebiniz için cihaz türünü ve modeli EBTS'ye bildirin. Bağımsız hizmet bilgilerini inceleyin."),
+  brand("Siemens", "siemens-servisi",
+    "Siemens cihazınıza ilişkin servis ihtiyacı hakkında EBTS'ye ulaşabilirsiniz. Gözlemlediğiniz belirti ve model bilgisiyle talebinizi paylaşarak yapılabilecek işlemlerin kapsamını sorun.",
+    { title: "Parça tahmini yerine belirtiyi anlatın", text: "Bir parçanın değişmesi gerektiğini önceden belirlemeniz gerekmez. Cihazın ne yaptığını veya yapmadığını anlatın; gerekli işlemler cihazın durumu değerlendirilerek belirlenir." },
+    "Siemens cihazınız için İzmir bağımsız özel servis iletişimi. Arıza belirtinizi aktarın ve işlem kapsamı hakkında EBTS'den bilgi alın."),
+  brand("Sub-Zero", "sub-zero-servisi",
+    "Sub-Zero markalı cihazınız için teknik servis talebini EBTS'ye iletebilirsiniz. Modeli ve yaşadığınız durumu paylaşmanız, başvurunuzun ayrıntılarının anlaşılmasına yardımcı olur.",
+    { title: "Bilmediğiniz ayrıntıları belirtmeniz yeterlidir", text: "Model veya cihaz geçmişi hakkında bilgiye ulaşamıyorsanız bunu görüşmede söyleyin. Tahmini bilgi vermek yerine mevcut gözleminizle talebinizi açıklayabilirsiniz." },
+    "Sub-Zero özel servis talebiniz için İzmir'de EBTS ile görüşün. Model bilgisi, başvuru hazırlığı ve mevcut hizmet bölgeleri."),
+  brand("Toshiba", "toshiba-servisi",
+    "Toshiba cihazınızla ilgili servis talebinizi Ege Bölge Teknik Servis'e aktarabilirsiniz. Cihaz türü, model ve arıza belirtisiyle iletişime geçerek talebin kapsamını öğrenin.",
+    { title: "Belirtinin görüldüğü koşulları paylaşın", text: "Sorunu hangi kullanım sırasında fark ettiğinizi ve tekrar edip etmediğini anlatın. Cihazı yeniden denemek yerine daha önce gördüğünüz durumu tarif edebilirsiniz." },
+    "Toshiba cihazınız için özel servis iletişimi ve İzmir kapsamı. Kullanım sırasında gözlemlediğiniz durumu EBTS ile paylaşın."),
+  brand("Vaillant", "vaillant-servisi",
+    "Vaillant markalı cihazınız için bağımsız servis talebinizi EBTS'ye iletebilirsiniz. Model ve mevcut durum hakkında bilgi vererek teknik destek ihtiyacınızı görüşün.",
+    { title: "Talebinizin kapsamını görüşmede netleştirin", text: "İlk iletişimde hangi işlemler hakkında bilgi istediğinizi sorun. Cihaz değerlendirilmeden kesin onarım, parça ihtiyacı veya tamamlanma süresi varsaymayın." },
+    "Vaillant özel servis talebi için EBTS iletişim bilgileri. İzmir hizmet bölgeleri ve cihaz değerlendirmesi öncesinde sorulabilecek konular."),
+  brand("Vestel", "vestel-servisi",
+    "Vestel cihazınız için teknik servis ihtiyacını telefonla veya WhatsApp üzerinden EBTS ile paylaşabilirsiniz. Hangi cihaz için destek aradığınızı ve yaşadığınız durumu belirtin.",
+    { title: "Mesajınıza cihaz ve ilçe bilgisini ekleyin", text: "WhatsApp üzerinden yazarken marka ve modelin yanında cihaz türünü ve ilçeyi de ekleyin. Kısa bir belirti açıklaması, talebin ilk görüşmede anlaşılmasını kolaylaştırır." },
+    "Vestel özel servis başvurusu için EBTS'ye ulaşın. İzmir'de cihaz ve ilçe bilgisiyle telefon veya WhatsApp üzerinden talebinizi paylaşın."),
+  brand("Viessmann", "viessmann-servisi",
+    "Viessmann cihazınızla ilgili servis ihtiyacınızı EBTS'ye aktarabilirsiniz. Cihazınızın bilgilerini ve talebinizi paylaşarak değerlendirme süreci hakkında bilgi edinin.",
+    { title: "Mevcut belgeleri hazır bulundurun", text: "Kullanım belgesi veya önceki işlem kaydı elinizdeyse ilgili cihaz bilgilerini görüşmede aktarabilirsiniz. Belgenin tamamını göndermek yerine ihtiyaç duyulan kısmı paylaşın." },
+    "Viessmann cihazınız için İzmir özel servis iletişimi. EBTS ile talebinizi, cihaz bilgilerini ve varsa önceki işlem kaydını görüşün."),
+  brand("Whirlpool", "whirlpool-servisi",
+    "Whirlpool markalı cihazınızın servis ihtiyacı için EBTS ile iletişim kurabilirsiniz. Model, belirti ve konum bilgilerini paylaşarak talebinizle ilgili ayrıntıları öğrenin.",
+    { title: "İlk görüşmede sorularınızı birlikte iletin", text: "Hizmet bölgesi, cihazın değerlendirilmesi ve iletişim süreciyle ilgili sorularınızı not edebilirsiniz. Parça ve işlem ayrıntıları hakkında kesin bilgi için cihaz durumunun değerlendirilmesi gerekir." },
+    "Whirlpool özel servis talebiniz için EBTS iletişimi. İzmir kapsamını inceleyin; model, belirti ve süreçle ilgili sorularınızı paylaşın."),
+];
+
+export function getBrandsForService(slug: ServiceSlug): readonly Brand[] {
+  return BRAND_DIRECTORY.filter(brand => brand.supportedServices.includes(slug));
+}

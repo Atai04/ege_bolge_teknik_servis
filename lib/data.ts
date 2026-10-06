@@ -25,7 +25,5 @@ export const SERVICES=[
   {slug:"isi-pompasi-servisi",name:"Isı Pompası Servisi",short:"Isı Pompası",visual:"heatPump",description:"Bakım, arıza tespiti ve onarım."},
   {slug:"vrf-servisi",name:"VRF Klima Sistemleri",short:"VRF Sistemleri",visual:"vrf",description:"VRF sistemlerinde bakım ve teknik destek."}
 ] as const;
-export const BRAND_DIRECTORY = [
-  { name: "Altus" }, { name: "Amana" }, { name: "Arçelik" }, { name: "Baymak" }, { name: "Beko" }, { name: "Bosch" }, { name: "Buderus" }, { name: "Daikin" }, { name: "DemirDöküm" }, { name: "E.C.A." }, { name: "Electrolux" }, { name: "Gaggenau" }, { name: "Grundig" }, { name: "Hoover" }, { name: "Indesit" }, { name: "LG" }, { name: "Mitsubishi Electric" }, { name: "Mitsubishi Heavy Industries" }, { name: "Profilo" }, { name: "Regal" }, { name: "Samsung" }, { name: "Siemens" }, { name: "Sub-Zero" }, { name: "Toshiba" }, { name: "Vaillant" }, { name: "Vestel" }, { name: "Viessmann" }, { name: "Whirlpool" },
-];
+export { BRAND_DIRECTORY } from "./brands";
 export const AREAS=["Buca","Konak","Karabağlar","Bornova","Bayraklı","Gaziemir","Balçova","Narlıdere","Güzelbahçe","Karşıyaka","Çiğli","Menemen","Torbalı","Kemalpaşa","Menderes","Seferihisar","Urla","Foça","Aliağa","Selçuk"];

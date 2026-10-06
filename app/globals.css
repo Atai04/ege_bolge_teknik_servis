@@ -111,3 +111,27 @@ footer{padding:58px 0 22px;background:#031426;color:#c9d8e4}footer .logo b{color
 .service-options a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;height:100%;padding:18px 20px;color:var(--blue)}
 .service-options a:hover{color:var(--orange-dark)}
 .service-options a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+
+/* Brand pages share EBTS colors and remain server-rendered. */
+.brand-directory__links{display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:22px 0;list-style:none}
+.brand-directory__links li{max-width:100%}
+.brand-directory__links a{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:48px;padding:11px 17px;border:1px solid var(--line);border-radius:5px;color:var(--blue);font-size:.9rem;font-weight:700;overflow-wrap:anywhere}
+.brand-directory__links a:hover{background:var(--pale);border-color:var(--blue)}
+.brand-directory__links a:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+.brand-directory--dark .brand-directory__links a{color:#e4eff7;border-color:#52758e}
+.brand-directory--dark .brand-directory__links a:hover{background:#16415e;border-color:#b7e4eb}
+.brand-page__hero{max-width:980px}
+.brand-page h1{overflow-wrap:anywhere}
+.brand-page .brand-page__disclosure{margin:0 0 24px;font-weight:700;color:var(--ink)}
+.brand-page__preparation{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.brand-page__checklist{padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.brand-page__checklist ul{padding-left:22px}
+.brand-page__checklist p,.brand-process p{color:var(--muted);margin-bottom:0}
+.brand-page__process{padding-bottom:72px}
+.brand-process{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;padding-left:24px;margin-top:28px}
+.brand-process li{padding-left:6px}
+.brand-process li::marker{color:var(--orange-dark);font-weight:800}
+@media(max-width:800px){.brand-page__preparation{grid-template-columns:1fr;gap:20px}.brand-process{grid-template-columns:1fr;gap:24px}.brand-page .actions{grid-template-columns:1fr}.brand-directory__links a{padding:11px 13px}}
+
+/* Keep off-screen reveal offsets within the mobile container gutters. */
+@media(max-width:800px) and (prefers-reduced-motion:no-preference){.reveal-fade-left:not(.is-visible){transform:translateX(12px)}.reveal-fade-right:not(.is-visible){transform:translateX(-12px)}}

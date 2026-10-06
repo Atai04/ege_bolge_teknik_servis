@@ -1,1 +1,7 @@
-import {MetadataRoute} from "next";import {SERVICES}from"../lib/data";export default function sitemap():MetadataRoute.Sitemap{const root="https://www.egebolgeteknikservis.com";return ["","markalar","hizmet-bolgeleri","hakkimizda","iletisim","gizlilik-politikasi","cerez-politikasi",...SERVICES.map(x=>x.slug)].map(x=>({url:`${root}/${x}`,lastModified:new Date()}))}
+import type { MetadataRoute } from "next";
+import { COMPANY } from "../lib/data";
+import { getCanonicalPaths } from "../lib/routes";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return getCanonicalPaths().map(path => ({ url: `${COMPANY.website}${path}`, lastModified: new Date() }));
+}

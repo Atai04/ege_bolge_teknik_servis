@@ -5,46 +5,55 @@ import { SERVICE_LANDINGS } from "../../lib/service-landings";
 import { ServiceVisual } from "../../components/ServiceVisual";
 import { BrandDirectory } from "../../components/BrandDirectory";
 
-const pageMeta: Record<string, [string, string]> = {
-  "markalar": ["Hizmet Verilen Markalar | Ege Bölge Teknik Servis", "İzmir'de birçok beyaz eşya ve elektronik marka cihazı için bağımsız özel teknik servis desteği."],
-  "hizmet-bolgeleri": ["İzmir Hizmet Bölgeleri | Ege Bölge Teknik Servis", "Buca ve İzmir'in birçok ilçesinde bağımsız özel teknik servis hizmet bölgeleri."],
-  "hakkimizda": ["Hakkımızda | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis Hizmetleri hakkında bilgi ve İzmir'deki bağımsız özel teknik servis yaklaşımı."],
-  "iletisim": ["İletişim | Ege Bölge Teknik Servis", "İzmir Buca'da Ege Bölge Teknik Servis iletişim bilgileri."],
-  "gizlilik-politikasi": ["Gizlilik Politikası | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis gizlilik politikası."],
-  "cerez-politikasi": ["Çerez Politikası | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis çerez politikası."],
-};
+import { PAGE_ROUTES, resolvePageRoute } from "../../lib/routes";
+import { getBrandsForService } from "../../lib/brands";
+import { BrandPage } from "../../components/BrandPage";
+import { ServiceActions } from "../../components/ServiceActions";
 
 export function generateStaticParams() {
-  return ["markalar", "hizmet-bolgeleri", "hakkimizda", "iletisim", "gizlilik-politikasi", "cerez-politikasi", ...SERVICES.map(service => service.slug)].map(slug => ({ slug: [slug] }));
+  return PAGE_ROUTES.map(route => ({ slug: route.slug.split("/") }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
   const { slug } = await params;
   const path = slug.join("/");
-  const service = SERVICES.find(item => item.slug === path);
-  if (service) {
+  const route = resolvePageRoute(path);
+  if (!route) notFound();
+  if (route.kind === "brand") {
+    const { brand } = route;
+    const title = brand.seoTitle;
+    const description = brand.seoDescription;
+    const canonical = `/${brand.slug}`;
+    return { title, description, alternates: { canonical },
+      openGraph: { title, description, url: canonical, type: "website", locale: "tr_TR", images: [{ url: "/og.png", width: 1200, height: 630, alt: COMPANY.name }] },
+      twitter: { card: "summary_large_image", title, description, images: ["/og.png"] } };
+  }
+  if (route.kind === "service") {
+    const { service } = route;
     const visual = SERVICE_VISUALS[service.visual];
     const landing = SERVICE_LANDINGS[service.slug];
     const title = landing?.title ?? `İzmir ${service.name} | Ege Bölge Teknik Servis`;
     const description = landing?.description ?? `${service.description} Buca ve İzmir genelinde iletişim için bize ulaşın.`;
     return { title, description, alternates: { canonical: `/${service.slug}` }, openGraph: { title, description, images: [{ url: visual.src, alt: visual.alt }] }, twitter: { title, description, images: [visual.src] } };
   }
-  const meta = pageMeta[path];
+  const meta = route.metadata;
   return meta ? { title: meta[0], description: meta[1], alternates: { canonical: `/${path}` }, openGraph: { title: meta[0], description: meta[1] } } : {};
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
   const path = slug.join("/");
+  const route = resolvePageRoute(path);
+  if (!route) notFound();
+  if (route.kind === "brand") return <BrandPage brand={route.brand} />;
+  if (route.kind === "service") return <Service service={route.service} />;
   if (path === "gizlilik-politikasi") return <PrivacyPolicy />;
   if (path === "cerez-politikasi") return <CookiePolicy />;
-  if (path === "markalar") return <section className="section container"><BrandDirectory /></section>;
+  if (path === "markalar") return <section className="section container"><BrandDirectory headingLevel={1} /></section>;
   if (path === "hizmet-bolgeleri") return <Article title="İzmir Hizmet Bölgeleri" text="İzmir'in birçok ilçesinde servis hizmeti sunuyoruz. Beydağ, Kiraz ve Ödemiş bölgelerinde şu anda servis hizmeti verilmemektedir." chips={AREAS} />;
   if (path === "hakkimizda") return <Article title="Hakkımızda" text="Ege Bölge Teknik Servis Hizmetleri; İzmir'de beyaz eşya, klima, kombi, TV, ısı pompası ve VRF sistemleri için bağımsız özel teknik servis hizmeti sunar. Cihaz türü ve arıza bilgisine göre uygun teknik destek planlanır." />;
   if (path === "iletisim") return <Contact />;
-  const service = SERVICES.find(item => item.slug === path);
-  if (!service) notFound();
-  return <Service service={service} />;
+  notFound();
 }
 
 function Contact() {
@@ -64,15 +73,9 @@ function CookiePolicy() {
   return <section className="section container article"><p className="eyebrow">Çerezler</p><h1>Çerez Politikası</h1><p className="lead small">Site, çerez tercihinizi tarayıcınızın yerel depolamasında saklar. Bu tercih, zorunlu olmayan Google Ads etiketinin yüklenip yüklenmeyeceğini belirler.</p><h2>Tercih yönetimi</h2><p>İlk ziyaretinizde Kabul Et veya Reddet seçeneklerinden birini seçebilirsiniz. Tercihinizi footer’daki Çerez Tercihleri düğmesinden istediğiniz zaman değiştirebilirsiniz.</p><h2>Google Ads</h2><p>Google Ads etiketi yalnızca açık izninizden sonra yüklenir. Reddetmeniz halinde etiket yüklenmez; daha sonra reddetmeniz gerektiğinde sayfa yenilenerek bu tercih uygulanır.</p><p>Bu metin genel bilgilendirme amacı taşır; hukukî danışmanlık değildir.</p></section>;
 }
 
-function ServiceActions({ whatsappLabel }: { whatsappLabel: string }) {
-  return <div className="actions">
-    <a className="button amber" href={COMPANY.phoneHref}>Hemen Ara</a>
-    <a className="button outline" href={COMPANY.whatsappUrl} target="_blank" rel="noopener noreferrer">{whatsappLabel}</a>
-  </div>;
-}
-
 function Service({ service }: { service: (typeof SERVICES)[number] }) {
   const landing = SERVICE_LANDINGS[service.slug];
+  const brands = getBrandsForService(service.slug);
   const related = SERVICES.filter(item => item.slug !== service.slug).slice(0, 5);
   const whatsappLabel = landing ? "WhatsApp'tan Ulaşın" : "WhatsApp'tan Yaz";
 
@@ -141,6 +144,8 @@ function Service({ service }: { service: (typeof SERVICES)[number] }) {
         <div className="related-links">{related.map(item => <a key={item.slug} href={`/${item.slug}`}>{item.short} →</a>)}</div>
       </div>
     </section>}
+
+    {brands.length > 0 && <section className="section container"><BrandDirectory brands={brands} heading="Servis Verdiğimiz Markalar" /></section>}
 
     <section className="contact-section">
       <div className="container contact-section__inner">
