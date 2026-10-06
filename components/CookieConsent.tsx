@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { COMPANY } from "../lib/data";
 
 const STORAGE_KEY = "ege-bolge-cookie-preference";
 const GOOGLE_ADS_TAG_ID = "AW-18410577740";
@@ -61,26 +62,23 @@ export function CookieConsent() {
   useEffect(() => {
     if (!ready || preference !== "accepted") return;
 
-    const trackWhatsAppConversion = (event: MouseEvent) => {
+    const trackPhoneConversion = (event: MouseEvent) => {
       if (!(event.target instanceof Element)) return;
 
-      const link = event.target.closest<HTMLAnchorElement>(
-        'a[href^="https://wa.me/"]',
-      );
-
-      if (!link) return;
+      const link = event.target.closest<HTMLAnchorElement>("a");
+      if (link?.getAttribute("href") !== COMPANY.phoneHref) return;
+      // Check the current preference too, including before effect cleanup on withdrawal.
+      if (window.localStorage.getItem(STORAGE_KEY) !== "accepted") return;
 
       window.gtag?.("event", "conversion", {
-        send_to: "AW-18410577740/3sszCK2N7Y0dEMy-7MpE",
-        value: 1.0,
-        currency: "TRY",
+        send_to: "AW-18410577740/WXDGCL6J55IdEMy-7MpE",
       });
     };
 
-    document.addEventListener("click", trackWhatsAppConversion);
+    document.addEventListener("click", trackPhoneConversion);
 
     return () => {
-      document.removeEventListener("click", trackWhatsAppConversion);
+      document.removeEventListener("click", trackPhoneConversion);
     };
   }, [preference, ready]);
 

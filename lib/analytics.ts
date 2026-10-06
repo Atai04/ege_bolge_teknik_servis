@@ -1,4 +1,4 @@
-export type EventName = "phone_click" | "whatsapp_click";
+export type EventName = "phone_click";
 
 export function trackEvent(
   name: EventName,

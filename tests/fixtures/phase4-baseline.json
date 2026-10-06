@@ -1,0 +1,29 @@
+{
+  "commit": "d3810d964e86571137d06265dd64b9f73a95b6a9",
+  "sha256": {
+    "app/robots.ts": "c3b91f41a8f7b4dcf4433d5c4f986caee7ff490dc0fe44aeeaa324aee0ae529e",
+    "app/sitemap.ts": "05f47f030739662921f1f6b97bcc777452707a0af4797dd301f51b55a5bce8ef",
+    "app/layout.tsx": "e0fea239a00b959c4facbb46f2e6fd02fd382985c3cbcdab145db4b70225dfdf",
+    "app/manifest.ts": "1fac494bac5b981757eac35e9881463268086c7224ce7bc844a8fb8eb0c012c8",
+    "app/page.tsx": "4b3c1bb9a66f8606cdfe1024ece6384cc6994fe4340613221fc4ae35e1f5d71b",
+    "app/globals.css": "3bdc6fdec87cd716c4acae123eaef63fdfeb6405553438e6a479ec697443cc15",
+    "app/not-found.tsx": "ffaa3cce979c5468631880c10ec32162ccb64b0619d6e5b27992f37e1db8513b",
+    "app/[...slug]/page.tsx": "66db6494ea8ba964c353cd433c5a6fa62d688ee20d5ce1068d1f0c77614ba44e",
+    "components/BrandPage.tsx": "b7337a9d805e99e1fbc2937a1be56ea831a29bbfcdc10d9be8d58e9a31c7fd17",
+    "components/BrandDirectory.tsx": "6f19e1c1d5bcd8c492de8e8c478906616565a235072ca91fb96cbd1a68a1bcb4",
+    "components/SiteChrome.tsx": "ffa843acd8eae640bf23ab9e89133d446b9c95d38091cdeb4b291acc7c55b6a5",
+    "components/PhoneIcon.tsx": "1f2da15814c33a1a5a27bd0a62df4a447a279d2ea49fc1004191a636a895e58c",
+    "components/ServiceActions.tsx": "1ed205658cd5184fecd4f8aac40e933bac788e9a75e53d70223539d73ed2298f",
+    "components/ServiceAreas.tsx": "638c69e9e70d1fe3eebe9ab3138bc5d98680ecf50cac02139dae467fe3e62312",
+    "components/ServiceVisual.tsx": "2bf4a797fc649f54f35ec579cbc3b212654844d2bd51edd61b2e52e90ad71ab3",
+    "components/Reveal.tsx": "ac93e106f0ce24027531f052605b143952a5afd4497e91b1b7e8808ba14fddd5",
+    "lib/routes.ts": "61f2936df846c5b9c51e639b1f0abbfe75f28e553c389dd7193137e1f67b90d7",
+    "lib/brands.ts": "05031b0de7ef94a77c61d3d469a195f8fa9c25596c7f5794c9e5a10a3712c4d5",
+    "lib/regions.ts": "66d696525894ac4c7e9b7d183eb9ff3e3e538e1bf336f8e0985a1efa04d95b9d",
+    "lib/service-landings.ts": "543d3cfb37a556606b21f1164f510db854d49f58e167e7847b6d97e0f8db7b8d",
+    "package.json": "16d1c3064edb9bf07bed79ba5cf52919eff55908c6be4b2bc4ddb3db7643e5aa",
+    "package-lock.json": "8a395f463468da9f4d8ddd283375dc46afef01158bb17c602ca69a9055d964c3",
+    "next.config.ts": "c6d99af67a7191149e6b4c1cf42ff151e106a68820baed740410c256b14954a1"
+  },
+  "dataWithoutObsoleteFieldSha256": "c3c265094a2d63976b3ca0e0009710c406a3dc87e5cbcadde8b4338de79147a6"
+}

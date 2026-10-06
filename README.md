@@ -12,7 +12,7 @@
 - `components/`: ortak header, footer, görsel ve çerez tercih bileşenleri
 - `app/[...slug]/page.tsx`: hizmet, iletişim, marka, bölge ve yasal sayfalar
 - `app/sitemap.ts` ve `app/robots.ts`: arama motoru yapılandırması
-- `lib/analytics.ts`: izin verildikten sonra telefon ve WhatsApp olayları için takip arayüzü
+- `lib/analytics.ts`: izin verildikten sonra iç `phone_click` olayları için takip arayüzü
 
 ## Marka sayfaları
 
@@ -32,11 +32,15 @@ Marka ve rota regresyon kontrolleri: `node --test tests/brand-architecture.test.
 
 ## İletişim ve çerezler
 
-Site çevrimiçi servis talep formu toplamaz. Birincil iletişim telefon, ikincil iletişim e-postadır. WhatsApp arayüzden kaldırılmıştır; eski dönüşüm dinleyicisi ve şirket verisi Phase 4 değerlendirmesine kadar korunur. Telefon tıklamalarına Google Ads dönüşümü eklenmemiştir. Google Ads etiketi (`AW-18410577740`) yalnızca kullanıcı açık çerez tercihi verdikten sonra yüklenir; tercih tarayıcı yerel depolamasında tutulur.
+Site çevrimiçi servis talep formu toplamaz. Birincil iletişim telefon, ikincil iletişim e-postadır. WhatsApp arayüzü, eski dönüşüm dinleyicisi ve kullanılmayan şirket verisi kaldırılmıştır. Google Ads etiketi (`AW-18410577740`) yalnızca kullanıcı açık çerez tercihi verdikten sonra yüklenir; tercih tarayıcı yerel depolamasında tutulur.
+
+Kabul edilmiş izinle tam olarak `tel:+905332319469` bağlantısına tıklamak, merkezi dinleyicide bir `conversion` olayı üretir: `send_to: AW-18410577740/WXDGCL6J55IdEMy-7MpE` (Web Sitesi Telefon Araması). Bu olay tıklamayı ölçer; görüşmenin gerçekleştiğini doğrulamaz. Sabit 1 TRY değeri Google Ads işlem ayarlarından gelir; olayda `value` veya `currency` gönderilmez. Telefon bağlantısının varsayılan davranışı değiştirilmez.
+
+İzin verilmeden, ret durumunda veya izin geri alındığında dönüşüm gönderilmez. Geri alma mevcut yeniden yükleme davranışını korur; dinleyici her tıklamada güncel tercihi de kontrol eder. Üst şerit ve mobil butondaki iç `phone_click` olayları ayrı kalır. Etiket ve dinleyici çoğaltılmaz; React effect temizliği dinleyiciyi kaldırır.
 
 ## Telefon arayüzü kontrolleri
 
-`node --test tests/*.test.mjs` tüm kaynak regresyonlarını çalıştırır. `tests/fixtures/phase3-baseline.json`, Phase 3 öncesindeki takip/izin ve kapsam dosyalarının doğrulama özetlerini tutar.
+`node --test tests/*.test.mjs` tüm kaynak regresyonlarını çalıştırır. `tests/fixtures/phase4-baseline.json`, Phase 4 öncesindeki korunan kaynakların doğrulama özetlerini tutar; şirket verisinde yalnızca kullanılmayan WhatsApp alanının kaldırılmasına izin verir. Phase 3 özeti tarihsel kayıt olarak korunur.
 
 `tests/phone-contact.browser.mjs`, yerel üretim sunucusunda çerez kabul/ret ve telefon bağlantılarını kontrol eder. Mevcut haricî Playwright kurulumu `PLAYWRIGHT_MODULE`, tarayıcı dizini `PLAYWRIGHT_BROWSERS_PATH`, yerel sunucu `EBTS_QA_URL` ile belirtilebilir. Test Ads isteklerini taklit eder ve `tel:` navigasyonunu engeller; gerçek arama veya dönüşüm göndermez. Projeye tarayıcı bağımlılığı eklenmemiştir.
 

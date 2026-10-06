@@ -25,7 +25,7 @@ const { Header, Footer } = require("../components/SiteChrome.tsx");
 const { default: Home } = require("../app/page.tsx");
 const { default: Page, generateMetadata } = require("../app/[...slug]/page.tsx");
 const { getCanonicalPaths } = require("../lib/routes.ts");
-const baseline = JSON.parse(fs.readFileSync(new URL("./fixtures/phase3-baseline.json", import.meta.url), "utf8"));
+const baseline = JSON.parse(fs.readFileSync(new URL("./fixtures/phase4-baseline.json", import.meta.url), "utf8"));
 const render = component => renderToStaticMarkup(createElement(component));
 const chrome = render(Header) + render(Footer);
 
@@ -63,21 +63,23 @@ test("mobile call control is one native phone link with visible number and decor
   assert.equal(COMPANY.phoneDisplay, "0533 231 9469");
 });
 
-test("pre-Phase-3 tracking, consent and protected configuration remain byte-identical", () => {
+test("Phase 4 preserves business data, UI, routes, SEO and protected configuration", () => {
   for (const [file, expected] of Object.entries(baseline.sha256)) {
-    if (baseline.approvedBusinessCorrections.files.includes(file)) continue;
     const actual = createHash("sha256").update(fs.readFileSync(path.resolve(file))).digest("hex");
     assert.equal(actual, expected, file);
   }
   const consent = fs.readFileSync("components/CookieConsent.tsx", "utf8");
-  assert.ok(consent.includes('send_to: "AW-18410577740/3sszCK2N7Y0dEMy-7MpE"'));
-  assert.ok(consent.includes('a[href^="https://wa.me/"]'));
-  assert.ok(!consent.includes('tel:'));
+  assert.ok(consent.includes('send_to: "AW-18410577740/WXDGCL6J55IdEMy-7MpE"'));
+  assert.ok(consent.includes('const GOOGLE_ADS_TAG_ID = "AW-18410577740"'));
+  assert.equal(createHash("sha256").update(fs.readFileSync("lib/data.ts")).digest("hex"), baseline.dataWithoutObsoleteFieldSha256);
+  assert.equal("whatsappUrl" in COMPANY, false);
   // No other application file may introduce a conversion call or destination.
   for (const directory of ["app", "components", "lib"]) {
     for (const entry of fs.readdirSync(directory, {recursive: true})) {
       const file = path.join(directory, entry);
-      if (!/\.tsx?$/.test(file) || file === path.join("components", "CookieConsent.tsx")) continue;
+      if (!/\.tsx?$/.test(file)) continue;
+      assert.doesNotMatch(fs.readFileSync(file, "utf8"), /3sszCK2N7Y0dEMy-7MpE|wa\.me|whatsapp/i, file);
+      if (file === path.join("components", "CookieConsent.tsx")) continue;
       assert.doesNotMatch(fs.readFileSync(file, "utf8"), /send_to\s*:|gtag\??\.?(?:\s*\()\s*["']event["']\s*,\s*["']conversion["']/i, file);
     }
   }
