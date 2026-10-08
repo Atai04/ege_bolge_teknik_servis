@@ -3,10 +3,10 @@ import { SERVICES } from "./data";
 import { BRAND_DIRECTORY, type Brand } from "./brands";
 
 export const INFORMATION_PAGES = {
-  "markalar": ["Hizmet Verilen Markalar | Ege Bölge Teknik Servis", "İzmir'de birçok beyaz eşya ve elektronik marka cihazı için bağımsız özel teknik servis desteği."],
+  "markalar": ["Hizmet Verilen Markalar | Ege Bölge Teknik Servis", "İzmir ve Aydın’da hizmet verilen markaları inceleyin. EBTS bağımsız özel teknik servistir; markaların yetkili servisi değildir."],
   "hizmet-bolgeleri": ["İzmir ve Aydın Teknik Servis Hizmet Bölgeleri | Ege Bölge Teknik Servis", `İzmir’de listelenen ${IZMIR_SERVICE_AREAS.length} ilçede ve Aydın’ın ${AYDIN_SERVICE_AREAS.length} ilçesinde bağımsız özel teknik servis. Ege Bölge Teknik Servis hizmet bölgelerini inceleyin.`],
-  "hakkimizda": ["Hakkımızda | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis Hizmetleri hakkında bilgi ve İzmir'deki bağımsız özel teknik servis yaklaşımı."],
-  "iletisim": ["İletişim | Ege Bölge Teknik Servis", "İzmir Buca'da Ege Bölge Teknik Servis iletişim bilgileri."],
+  "hakkimizda": ["Hakkımızda | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis’in bağımsız özel servis yaklaşımı, İzmir ve Aydın hizmet kapsamı ve telefonla iletişim süreci."],
+  "iletisim": ["İletişim | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis 7/24 çağrı merkezi ve Buca / İzmir iletişim adresi. İzmir ve Aydın hizmet bölgeleri için bize ulaşın."],
   "gizlilik-politikasi": ["Gizlilik Politikası | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis gizlilik politikası."],
   "cerez-politikasi": ["Çerez Politikası | Ege Bölge Teknik Servis", "Ege Bölge Teknik Servis çerez politikası."],
 } as const;

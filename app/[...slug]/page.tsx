@@ -1,7 +1,7 @@
-import { ServiceAreas } from "../../components/ServiceAreas";
+import { ServiceAreas, ProvinceSummary } from "../../components/ServiceAreas";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { AREAS, COMPANY, SERVICES, SERVICE_VISUALS } from "../../lib/data";
+import { COMPANY, SERVICES, SERVICE_VISUALS } from "../../lib/data";
 import { SERVICE_LANDINGS } from "../../lib/service-landings";
 import { ServiceVisual } from "../../components/ServiceVisual";
 import { BrandDirectory } from "../../components/BrandDirectory";
@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const visual = SERVICE_VISUALS[service.visual];
     const landing = SERVICE_LANDINGS[service.slug];
     return buildPageMetadata({
-      title: landing?.title ?? `İzmir ${service.name} | Ege Bölge Teknik Servis`,
-      description: landing?.description ?? `${service.description} Buca ve İzmir genelinde iletişim için bize ulaşın.`,
+      title: landing.title,
+      description: landing.description,
       path: `/${service.slug}`,
       image: { url: visual.src, alt: visual.alt },
     });
@@ -56,18 +56,28 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
   if (path === "cerez-politikasi") return <CookiePolicy />;
   if (path === "markalar") return <section className="section container"><BrandDirectory headingLevel={1} /></section>;
   if (path === "hizmet-bolgeleri") return <ServiceAreas />;
-  if (path === "hakkimizda") return <Article title="Hakkımızda" text="Ege Bölge Teknik Servis Hizmetleri; İzmir'de beyaz eşya, klima, kombi, TV, ısı pompası ve VRF sistemleri için bağımsız özel teknik servis hizmeti sunar. Cihaz türü ve arıza bilgisine göre uygun teknik destek planlanır." />;
+  if (path === "hakkimizda") return <About />;
   if (path === "iletisim") return <Contact />;
   notFound();
 }
 
 function Contact() {
   const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(COMPANY.address)}`;
-  return <section className="section container"><div className="section-heading"><p className="eyebrow">İletişim</p><h1>Servis için bize ulaşın</h1><p className="lead">Servis hakkında bilgi almak için bizi arayabilirsiniz. E-posta ikincil iletişim seçeneğidir.</p></div><div className="contact-card"><p><strong>Telefon:</strong> <a className="text-link" href={COMPANY.phoneHref}>{COMPANY.phoneDisplay}</a></p><p><strong>E-posta:</strong> <a className="text-link" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></p><p><strong>Adres:</strong> {COMPANY.address}</p><p><strong>Çalışma saatleri:</strong> {COMPANY.hours}</p><a className="button outline" href={directionsUrl}>Yol Tarifi Al</a></div></section>;
+  return <section className="section container"><div className="section-heading"><p className="eyebrow">İletişim</p><h1>Servis için bize ulaşın</h1><p className="lead">Servis hakkında bilgi almak için bizi arayabilirsiniz. E-posta ikincil iletişim seçeneğidir.</p></div><div className="contact-card"><p><strong>Telefon:</strong> <a className="text-link" href={COMPANY.phoneHref}>{COMPANY.phoneDisplay}</a></p><p><strong>E-posta:</strong> <a className="text-link" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></p><p><strong>Adres:</strong> {COMPANY.address}</p><p><strong>{COMPANY.contactAvailability}</strong></p><p>İşletme adresimiz Buca / İzmir’dedir. Aydın hizmet bölgemizdir; Aydın’da şubemiz bulunmamaktadır.</p><p><a className="text-link" href="/hizmet-bolgeleri">İzmir ve Aydın hizmet bölgelerini inceleyin</a></p><a className="button outline" href={directionsUrl}>Yol Tarifi Al</a></div></section>;
 }
 
-function Article({ title, text, chips }: { title: string; text: string; chips?: readonly string[] }) {
-  return <section className="section container article"><p className="eyebrow">Ege Bölge Teknik Servis</p><h1>{title}</h1><p className="lead small">{text}</p>{chips && <div className="chips">{chips.map(item => <span key={item}>{item}</span>)}</div>}<p className="disclaimer light-disclaimer">Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servis hizmeti sunmaktadır. Listelenen markaların yetkili servisi değildir.</p></section>;
+function About() {
+  return <section className="section container article">
+    <p className="eyebrow">Ege Bölge Teknik Servis</p><h1>Hakkımızda</h1>
+    <p className="lead small">Ege Bölge Teknik Servis Hizmetleri, İzmir ve Aydın’da bağımsız özel teknik servis hizmeti sunar. İşletme adresimiz Buca / İzmir’dedir; Aydın’da şubemiz bulunmamaktadır.</p>
+    <h2>Hangi cihazlar için bize ulaşabilirsiniz?</h2>
+    <p>Beyaz eşya, klima, kombi, televizyon, ısı pompası ve VRF sistemleri için servis talebinizi paylaşabilirsiniz. Cihazınıza ilişkin yapılabilecek işlemler, cihaz bilgisi ve durumu değerlendirilerek netleştirilir.</p>
+    <p><a className="text-link" href="/#hizmetler">Hizmetlerimizi inceleyin</a> veya <a className="text-link" href="/hizmet-bolgeleri">hizmet bölgelerimizi kontrol edin</a>.</p>
+    <h2>İletişim ve bilgilendirme</h2>
+    <p>7/24 çağrı merkezimize cihazınızın marka/modelini, arıza belirtisini ve bulunduğunuz ilçeyi iletebilirsiniz. Görüşmede servis talebinizin kapsamını ve sonraki adımları sorabilirsiniz. E-posta ikincil iletişim seçeneğidir.</p>
+    <ServiceActions /><p><a className="text-link" href="/iletisim">İletişim bilgilerimiz</a></p>
+    <p className="disclaimer light-disclaimer">Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servistir. Listelenen markaların yetkili servisi değildir.</p>
+  </section>;
 }
 
 function PrivacyPolicy() {
@@ -81,25 +91,28 @@ function CookiePolicy() {
 function Service({ service }: { service: (typeof SERVICES)[number] }) {
   const landing = SERVICE_LANDINGS[service.slug];
   const brands = getBrandsForService(service.slug);
-  const related = SERVICES.filter(item => item.slug !== service.slug).slice(0, 5);
+  const applianceSlugs: readonly string[] = ["beyaz-esya-servisi", "buzdolabi-servisi", "camasir-makinesi-servisi", "bulasik-makinesi-servisi", "kurutma-makinesi-servisi"];
+  const related = applianceSlugs.includes(service.slug)
+    ? SERVICES.filter(item => applianceSlugs.includes(item.slug) && item.slug !== service.slug)
+    : [];
 
-  return <div className={landing ? "service-landing" : undefined}>
+  return <div className="service-landing">
     <ServiceSchema service={service} />
     <section className="service-hero">
       <div className="container service-hero-grid">
         <div>
-          <p className="eyebrow">{landing?.eyebrow ?? "İzmir Bağımsız Teknik Servis"}</p>
+          <p className="eyebrow">{landing.eyebrow}</p>
           <p className="breadcrumb"><a href="/">Ana Sayfa</a> / {service.name}</p>
-          <h1>{landing?.heading ?? `İzmir ${service.name}`}</h1>
-          <p className="lead">{landing?.intro ?? `${service.description} Cihazınızdaki arıza belirtisi için Telefonla bize ulaşabilirsiniz.`}</p>
+          <h1>{landing.heading}</h1>
+          <p className="lead">{landing.intro}</p>
           <ServiceActions />
-          {landing && <p className="disclaimer light-disclaimer">Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servistir. Listelenen markaların yetkili servisi değildir.</p>}
+          <p className="disclaimer light-disclaimer">Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servistir. Listelenen markaların yetkili servisi değildir.</p>
         </div>
         <div className="service-hero-image"><ServiceVisual visual={service.visual} priority /></div>
       </div>
     </section>
 
-    {landing ? <>
+    <>
       <section className="section container" aria-labelledby="service-issues-title">
         {landing.serviceGroup && <div className="service-options">
           <div className="section-heading"><h2>{landing.serviceGroup.title}</h2></div>
@@ -123,31 +136,17 @@ function Service({ service }: { service: (typeof SERVICES)[number] }) {
         </div>
       </section>
       <section className="area-section" aria-labelledby="service-areas-title">
-        <div className="container">
-          <div className="area-layout">
-            <div>
-              <h2 id="service-areas-title">{landing.areasTitle}</h2>
-              <p>Hizmet verilen ilçelerimizi aşağıda bulabilirsiniz. Bulunduğunuz ilçeyi ve cihazınızdaki sorunu paylaşarak servis talebiniz hakkında bilgi alabilirsiniz.</p>
-            </div>
-            <ul className="service-areas">{AREAS.map(area => <li key={area}>{area}</li>)}</ul>
-          </div>
-          <p className="area-note">Beydağ, Kiraz ve Ödemiş ilçelerine servis verilmemektedir.</p>
+        <div className="container area-layout">
+          <div><h2 id="service-areas-title">{landing.areasTitle}</h2>
+            <p>Bulunduğunuz il ve ilçeyi, cihazınızı ve yaşadığınız sorunu paylaşarak servis talebinizi iletebilirsiniz.</p>
+            <a className="button white-outline" href="/hizmet-bolgeleri">Tüm hizmet bölgelerini incele</a>
+          </div><ProvinceSummary />
         </div>
       </section>
-    </> : <section className="section container split">
-      <div>
-        <h2>{service.name} hakkında</h2>
-        <p>Arıza, bakım veya onarım ihtiyacınız için cihaz ve yaşadığınız sorun hakkında temel bilgiyi Telefonla iletebilirsiniz.</p>
-        <h2>Yaygın sorunlar</h2>
-        <div className="chips"><span>Çalışmıyor</span><span>Ses yapıyor</span><span>Hata kodu veriyor</span><span>Program tamamlamıyor</span></div>
-      </div>
-      <div>
-        <h2>Servis bölgeleri</h2>
-        <p>İzmir&apos;in birçok ilçesinde hizmet verilmektedir. Beydağ, Kiraz ve Ödemiş kapsam dışıdır.</p>
-        <a href="/hizmet-bolgeleri" className="text-link">Hizmet bölgelerini incele →</a>
-        <h2 className="related-title">Diğer hizmetler</h2>
-        <div className="related-links">{related.map(item => <a key={item.slug} href={`/${item.slug}`}>{item.short} →</a>)}</div>
-      </div>
+    </>
+    {related.length > 0 && !landing.serviceGroup && <section className="section container" aria-labelledby="related-services-title">
+      <h2 id="related-services-title">Diğer beyaz eşya hizmetleri</h2>
+      <div className="related-links">{related.map(item => <a key={item.slug} href={`/${item.slug}`}>{item.name} →</a>)}</div>
     </section>}
 
     {brands.length > 0 && <section className="section container"><BrandDirectory brands={brands} heading="Servis Verdiğimiz Markalar" /></section>}
@@ -156,8 +155,8 @@ function Service({ service }: { service: (typeof SERVICES)[number] }) {
       <div className="container contact-section__inner">
         <div>
           <p className="eyebrow">İletişim</p>
-          <h2>{landing?.contactTitle ?? `${service.name} için bize ulaşın`}</h2>
-          <p>{landing?.contactText ?? "Telefonla doğrudan iletişime geçebilirsiniz."}</p>
+          <h2>{landing.contactTitle}</h2>
+          <p>{landing.contactText}</p>
         </div>
         <ServiceActions />
       </div>

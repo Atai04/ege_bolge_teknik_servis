@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Ege Bölge Teknik Servis Hizmetleri",
     short_name: "Ege Bölge",
-    description: "İzmir'de bağımsız özel teknik servis hizmeti.",
+    description: "İzmir ve Aydın’da bağımsız özel teknik servis hizmeti.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

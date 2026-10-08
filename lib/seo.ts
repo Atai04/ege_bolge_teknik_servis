@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { COMPANY } from "./data";
 
-export const DEFAULT_OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: COMPANY.name };
+export const DEFAULT_OG_IMAGE = { url: "/og.png", width: 1731, height: 909, alt: COMPANY.name };
 
 export function serializeJsonLd(value: unknown): string {
   return JSON.stringify(value).replace(/</g, "\\u003c");

@@ -1,15 +1,10 @@
 import { SERVICE_AREA_SCHEMA } from "../lib/regions";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import "./globals.css";
 import { Header, Footer } from "../components/SiteChrome";
 import { CookieConsent } from "../components/CookieConsent";
-import { COMPANY } from "../lib/data";
+import { COMPANY, CONTACT_AVAILABILITY } from "../lib/data";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 const serializeJsonLd = (value: unknown) =>
   JSON.stringify(value)
@@ -18,11 +13,11 @@ const serializeJsonLd = (value: unknown) =>
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.egebolgeteknikservis.com"),
-  title: "Ege Bölge Teknik Servis | İzmir Beyaz Eşya ve Teknik Servis",
-  description: "İzmir'de beyaz eşya, klima, kombi, TV, ısı pompası ve VRF için bağımsız özel teknik servis.",
+  title: "Ege Bölge Teknik Servis | Beyaz Eşya, Klima, Kombi ve TV",
+  description: "İzmir ve Aydın’da beyaz eşya, klima, kombi ve TV için bağımsız özel teknik servis. Servis talebinizi 7/24 çağrı merkezimize iletin.",
   alternates: { canonical: "/" },
-  openGraph: { title: "Ege Bölge Teknik Servis | İzmir Beyaz Eşya ve Teknik Servis", description: "İzmir'de bağımsız özel teknik servis hizmeti.", url: "/", locale: "tr_TR", type: "website", images: [{url:"/og.png",width:1200,height:630,alt:"Ege Bölge Teknik Servis"}] },
-  twitter:{card:"summary_large_image",title:"Ege Bölge Teknik Servis | İzmir Beyaz Eşya ve Teknik Servis",description:"İzmir'de bağımsız özel teknik servis hizmeti.",images:["/og.png"]},
+  openGraph: { title: "Ege Bölge Teknik Servis | Beyaz Eşya, Klima, Kombi ve TV", description: "İzmir ve Aydın’da bağımsız özel teknik servis. 7/24 Çağrı Merkezi.", url: "/", locale: "tr_TR", type: "website", images: [{url:"/og.png",width:1731,height:909,alt:"Ege Bölge Teknik Servis"}] },
+  twitter:{card:"summary_large_image",title:"Ege Bölge Teknik Servis | Beyaz Eşya, Klima, Kombi ve TV",description:"İzmir ve Aydın’da bağımsız özel teknik servis. 7/24 Çağrı Merkezi.",images:["/og.png"]},
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
@@ -42,8 +37,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body className={`${geistSans.variable} antialiased`}><Header />
-        <main>{children}</main><Footer /><CookieConsent /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeJsonLd({"@context":"https://schema.org","@type":"LocalBusiness","@id":`${COMPANY.website}/#business`,image:`${COMPANY.website}/og.png`,name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},openingHours:COMPANY.openingHours,areaServed:SERVICE_AREA_SCHEMA})}} />
+      <body className="antialiased"><Header />
+        <main>{children}</main><Footer /><CookieConsent /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeJsonLd({"@context":"https://schema.org","@type":"LocalBusiness","@id":`${COMPANY.website}/#business`,image:`${COMPANY.website}/og.png`,name:COMPANY.name,url:COMPANY.website,telephone:COMPANY.phoneDisplay,email:COMPANY.email,address:{"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"},contactPoint:{"@type":"ContactPoint",contactType:"customer service",telephone:COMPANY.phoneHref.slice(4),hoursAvailable:{"@type":"OpeningHoursSpecification",dayOfWeek:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],opens:CONTACT_AVAILABILITY.opens,closes:CONTACT_AVAILABILITY.closes}},areaServed:SERVICE_AREA_SCHEMA})}} />
       </body>
     </html>
   );

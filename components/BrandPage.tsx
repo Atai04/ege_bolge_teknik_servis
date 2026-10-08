@@ -50,6 +50,6 @@ export function BrandPage({ brand }: { brand: Brand }) {
 
     <section className="faq-section" aria-labelledby="brand-faq-title"><div className="container faq-layout"><div><p className="eyebrow">Sık sorulan sorular</p><h2 id="brand-faq-title">{brand.name} servis talebi hakkında</h2></div><div className="faq-list">{faq.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
 
-    <section className="contact-section"><div className="container contact-section__inner"><div><p className="eyebrow">İletişim</p><h2>{brand.name} cihazınız için bize ulaşın</h2><p>Çalışma saatlerimiz: {COMPANY.hours}. Bu saatlerde talebinizi telefonla paylaşabilirsiniz.</p><a className="text-link" href="/markalar">Tüm markaları incele →</a></div><ServiceActions /></div></section>
+    <section className="contact-section"><div className="container contact-section__inner"><div><p className="eyebrow">İletişim</p><h2>{brand.name} cihazınız için bize ulaşın</h2><p>Servis talebinizi 7/24 çağrı merkezimize iletebilirsiniz.</p><a className="text-link" href="/markalar">Tüm markaları incele →</a></div><ServiceActions /></div></section>
   </div>;
 }

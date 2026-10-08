@@ -52,7 +52,8 @@ test("region page renders 44 plain district labels; exclusion stays within İzmi
   const html = renderToStaticMarkup(createElement(ServiceAreas));
   assert.ok(html.includes("İzmir ve Aydın Hizmet Bölgeleri</h1>"));
   assert.equal((html.match(/<li>/g) || []).length, 44);
-  assert.ok(!html.includes("<a "));
+  assert.ok(html.includes('href="/iletisim"'));
+  for (const list of html.matchAll(/<ul class="province-districts">(.*?)<\/ul>/gs)) assert.ok(!list[1].includes("<a "));
   assert.ok(!html.includes("<details"));
   const aydinSection = html.slice(html.indexOf('aria-labelledby="province-aydin"'));
   assert.ok(!aydinSection.includes("Beydağ"));
@@ -101,9 +102,12 @@ test("actual layout keeps one LocalBusiness and the exact Buca physical address"
     assert.equal(businesses.length, 1);
     assert.deepEqual(businesses[0].address, {"@type":"PostalAddress",streetAddress:"Fırat Mah. 289/59 Sk. No:7/A",postalCode:"35380",addressLocality:"Buca",addressRegion:"İzmir",addressCountry:"TR"});
     assert.deepEqual(businesses[0].areaServed, SERVICE_AREA_SCHEMA);
-    assert.equal(COMPANY.hours, "Her gün 08:00–22:00");
-    assert.equal(COMPANY.openingHours, "Mo-Su 08:00-22:00");
-    assert.equal(businesses[0].openingHours, "Mo-Su 08:00-22:00");
+    assert.equal(COMPANY.contactAvailability, "7/24 Çağrı Merkezi");
+    assert.ok(!("openingHours" in businesses[0]));
+    assert.equal(businesses[0].contactPoint.contactType, "customer service");
+    assert.equal(businesses[0].contactPoint.hoursAvailable.opens, "00:00");
+    assert.equal(businesses[0].contactPoint.hoursAvailable.closes, "23:59");
+    assert.equal(businesses[0].contactPoint.hoursAvailable.dayOfWeek.length, 7);
     assert.equal(COMPANY.address, "Fırat Mah. 289/59 Sk. No:7/A, 35380 Buca / İzmir");
   } finally {
     Module._load = originalLoad;

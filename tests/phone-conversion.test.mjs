@@ -47,7 +47,9 @@ test("real conversion effect respects consent, exact href, and cleanup replay", 
   for (let i = 0; i < 5; i++) { const cleanup = harness.setup(); cleanup(); }
   const cleanup = harness.setup();
   assert.equal(harness.listeners.size, 1);
-  for (const href of [null, "tel:+900000000000", "tel:+905332319469?x=1", "TEL:+905332319469", "/iletisim"]) harness.click(href);
+  // Animation frames do not dispatch clicks; idle setup cannot emit conversions.
+  assert.equal(harness.calls.length, 0);
+  for (const href of [null, "tel:+900000000000", "tel:+905332319469?x=1", "TEL:+905332319469", "/iletisim", "/bosch-servisi", "/markalar", "/buzdolabi-servisi"]) harness.click(href);
   assert.equal(harness.calls.length, 0);
   harness.click("tel:+905332319469");
   assert.equal(harness.calls.length, 1);

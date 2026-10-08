@@ -1,3 +1,5 @@
+import { SERVICES } from "../lib/data";
+import { ServiceActions } from "./ServiceActions";
 import { IZMIR_SERVICE_AREAS, AYDIN_SERVICE_AREAS, SERVICE_PROVINCES } from "../lib/regions";
 
 export function ProvinceSummary() {
@@ -26,6 +28,9 @@ export function ServiceAreas() {
         {province.exclusions.length > 0 && <p className="province-exclusions">Hizmet kapsamı dışında: {province.exclusions.join(", ").replace(/, ([^,]*)$/, " ve $1")}.</p>}
       </section>)}
     </div>
+    <div className="section-heading related-title"><h2>İhtiyacınıza uygun hizmeti seçin</h2><p>Cihazınızın türüne göre hizmet kapsamını inceleyebilir, talebinizi telefonla iletebilirsiniz.</p></div>
+    <div className="related-links">{SERVICES.map(service => <a key={service.slug} href={`/${service.slug}`}>{service.name} →</a>)}</div>
+    <div className="related-title"><h2>7/24 Çağrı Merkezi</h2><ServiceActions /><p><a className="text-link" href="/iletisim">Adres ve iletişim bilgileri</a></p></div>
     <p className="disclaimer light-disclaimer">Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servis hizmeti sunmaktadır. Listelenen markaların yetkili servisi değildir.</p>
   </section>;
 }

@@ -1,6 +1,6 @@
 # Ege Bölge Teknik Servis Hizmetleri
 
-İzmir için hazırlanan, mobil dönüşüm ve yerel arama görünürlüğü odaklı teknik servis sitesi.
+İzmir ve Aydın için hazırlanan, mobil dönüşüm ve yerel arama görünürlüğü odaklı teknik servis sitesi.
 
 ## Çalıştırma
 
@@ -28,7 +28,7 @@ Marka ve rota regresyon kontrolleri: `node --test tests/brand-architecture.test.
 
 İzmir’in 30 idari ilçesinin 27’sinde hizmet verilir. Yalnızca Beydağ, Kiraz ve Ödemiş kapsam dışıdır. Aydın’ın 17 ilçesinde hizmet verilir; toplam 44 hizmet ilçesi vardır. Aydın hizmet bölgesidir; fiziksel işletme adresi Buca / İzmir olarak kalır.
 
-Çalışma saatleri: **Her gün 08:00–22:00**. Görünür saatler ve LocalBusiness saatleri `lib/data.ts` içindeki ortak saat verisinden üretilir.
+Müşteri iletişimi: **7/24 Çağrı Merkezi**. `lib/data.ts` içindeki `CONTACT_AVAILABILITY` yalnızca çağrı merkezi erişimini belirtir. Eski 08:00–22:00 bilgisinin teknisyen çalışma saatlerini tanımladığı doğrulanamadığından LocalBusiness `openingHours` yayımlanmaz. 7/24 iletişim, `ContactPoint.hoursAvailable` ile temsil edilir; 24 saat onarım veya yerinde servis iddiası değildir.
 
 ## İletişim ve çerezler
 
@@ -47,3 +47,9 @@ Kabul edilmiş izinle tam olarak `tel:+905332319469` bağlantısına tıklamak, 
 ## Yayın
 
 Vercel’de `www.egebolgeteknikservis.com` birincil domain olarak yapılandırılmalıdır. Kök domain yönlendirmesini Vercel domain ayarları yönetir; uygulama içinde ayrıca redirect kuralı eklemeyin. Search Console için sitemap adresi: `https://www.egebolgeteknikservis.com/sitemap.xml`.
+
+## SEO Phase 1
+
+Mevcut 45 içerik URL’si korunur. On hizmetin tamamında cihaza özgü içerik, hizmet odaklı başlık ve İzmir/Aydın kapsam özeti bulunur. Marka/kategori eşleşmeleri doğrulanana kadar boş kalır. Sitemap gerçek sayfa değişiklik tarihleri bulunmadığı için `lastModified` yayımlamaz. Reveal içeriği JavaScript olmadan görünürdür; hareket tercihi uygunsa yalnızca yerleşimi etkilemeyen geçiş uygulanır. Arial zaten birincil yazı tipi olduğundan kullanılmayan Geist indirmesi kaldırılmıştır.
+
+Phase 4 checksum dosyaları tarihsel kayıttır ve yeniden üretilmemiştir. Phase 1 öncesinde layout, homepage, CSS, catch-all sayfa ve marka dizininde bu kayıttan farklar vardı. Git geçmişi, layout farkının LocalBusiness kimliği/görseli; catch-all farkının metadata yardımcısı ve ServiceSchema eklenmesinden kaynaklandığını gösterir. Yetkilendirilen SEO dosyaları içerik/davranış testleriyle, değişmeyen dosyalar mevcut checksum denetimiyle korunur. `node --test tests/*.test.mjs` ve `tests/seo-phase1.test.mjs` mevcut rota, metadata, schema, bağlantı ve takip sözleşmelerini doğrular.

@@ -8,8 +8,17 @@ const origin = new URL(base).origin;
 assert.ok(["127.0.0.1", "localhost"].includes(new URL(base).hostname));
 const browser = await chromium.launch({ headless: true });
 try {
+  // JavaScript-disabled navigation must leave all server-rendered homepage content visible.
+  const noJsContext = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 320, height: 568 } });
+  await noJsContext.route("**/*", route => new URL(route.request().url()).origin === origin ? route.continue() : route.abort());
+  const noJsPage = await noJsContext.newPage();
+  await noJsPage.goto(base, { waitUntil: "networkidle" });
+  assert.ok(await noJsPage.locator("h1").isVisible());
+  assert.ok(await noJsPage.locator(".hero-copy a[href^='tel:']").isVisible());
+  assert.ok(await noJsPage.locator(".reveal").evaluateAll(nodes => nodes.every(node => getComputedStyle(node).opacity === "1")));
+  await noJsContext.close();
   for (const width of [320, 393, 440, 768, 1440]) {
-    for (const path of ["/", "/markalar", "/arcelik-servisi", "/bosch-servisi", "/samsung-servisi", "/vestel-servisi", "/mitsubishi-electric-servisi", "/mitsubishi-heavy-industries-servisi"]) {
+    for (const path of ["/", "/markalar", "/arcelik-servisi", "/bosch-servisi", "/samsung-servisi", "/vestel-servisi", "/mitsubishi-electric-servisi", "/mitsubishi-heavy-industries-servisi", "/beyaz-esya-servisi", "/buzdolabi-servisi", "/camasir-makinesi-servisi", "/bulasik-makinesi-servisi", "/kurutma-makinesi-servisi", "/klima-servisi", "/kombi-servisi", "/tv-tamiri", "/isi-pompasi-servisi", "/vrf-servisi", "/hizmet-bolgeleri", "/hakkimizda", "/iletisim"]) {
       const context = await browser.newContext({ viewport: { width, height: width === 440 ? 956 : 900 } });
       await context.route("**/*", route => new URL(route.request().url()).origin === origin ? route.continue() : route.abort());
       const page = await context.newPage(), errors = [];
@@ -37,9 +46,10 @@ try {
       await page.getByRole("button", { name: "Reddet", exact: true }).click();
       if (path === "/") {
         assert.equal(await page.locator(".hero-note").count(), 0);
-        assert.doesNotMatch(await page.locator(".hero-copy").innerText(), /Bağımsız özel teknik servis/);
-        assert.equal(await page.locator(".hero-hours").innerText(), "Her gün 08:00–22:00");
-        assert.equal(await page.locator(".hero-hours").evaluate(e => e === e.parentElement.lastElementChild), true);
+        assert.match(await page.locator(".hero-copy").innerText(), /Bağımsız Özel Teknik Servis/);
+        assert.equal(await page.locator(".hero-hours").innerText(), "7/24 ÇAĞRI MERKEZİ");
+        assert.equal(await page.locator(".hero-hours").evaluate(e => e.nextElementSibling.matches("a.hero-call")), true);
+        assert.ok((await page.locator(".hero-call").innerText()).includes("0533 231 9469"));
         if (mobile) {
           const heroCall = await page.locator(".hero-copy a[href^='tel:']").boundingBox();
           const fixedCall = await phone.boundingBox();

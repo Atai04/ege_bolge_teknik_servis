@@ -36,8 +36,8 @@ test("all 45 content routes and shared chrome offer phone contact without WhatsA
     const html = chrome + (url === "/" ? render(Home) : renderToStaticMarkup(await Page({params})));
     assert.doesNotMatch(html, /wa\.me|whatsapp/i, url);
     assert.doesNotMatch(html, /Servis talebi oluşturun/i, url);
-    assert.doesNotMatch(html, /7\s*\/\s*24|24\s*\/\s*7|24 saat açık|gece gündüz|08:00[– -]+19:00/i, url);
-    assert.ok(html.includes("Her gün 08:00–22:00"), url);
+    assert.doesNotMatch(html, /7\s*\/\s*24\s+(?:Teknik Servis|Tamir|Yerinde Servis)|24 Saat (?:Teknisyen|Onarım)|08:00[– -]+(?:19|22):00/i, url);
+    assert.ok(html.includes("7/24 Çağrı Merkezi"), url);
     const phones = [...html.matchAll(/href="(tel:[^"]+)"/g)].map(match => match[1]);
     assert.ok(phones.length >= 5, url);
     assert.ok(phones.every(href => href === "tel:+905332319469"), url);
@@ -63,9 +63,11 @@ test("mobile call control is one native phone link with visible number and decor
   assert.equal(COMPANY.phoneDisplay, "0533 231 9469");
 });
 
-test("approved UI work preserves business data, shared chrome, routes, SEO and protected configuration", () => {
-  // Approved UI scope only; historical hashes stay intact for all other files.
-  const approvedUIFiles = ["app/globals.css", "components/BrandDirectory.tsx", "app/page.tsx"];
+test("Phase 1 preserves protected configuration and native phone tracking", () => {
+  // Historical fixtures stay unchanged. These files have authorized Phase 1 SEO changes;
+  // semantic contracts are checked in seo-phase1.test.mjs and service-regions.test.mjs.
+  // The pre-existing layout/catch-all mismatch was investigated before editing.
+  const approvedUIFiles = ["app/globals.css", "components/BrandDirectory.tsx", "app/page.tsx", "app/layout.tsx", "app/[...slug]/page.tsx", "app/manifest.ts", "app/sitemap.ts", "components/SiteChrome.tsx", "components/BrandPage.tsx", "components/ServiceAreas.tsx", "components/ServiceVisual.tsx", "components/Reveal.tsx", "lib/brands.ts", "lib/routes.ts", "lib/seo.ts", "lib/service-landings.ts", "lib/data.ts"];
   for (const [file, expected] of Object.entries(baseline.sha256)) {
     if (approvedUIFiles.includes(file)) continue;
     const actual = createHash("sha256").update(fs.readFileSync(path.resolve(file))).digest("hex");
@@ -74,7 +76,9 @@ test("approved UI work preserves business data, shared chrome, routes, SEO and p
   const consent = fs.readFileSync("components/CookieConsent.tsx", "utf8");
   assert.ok(consent.includes('send_to: "AW-18410577740/WXDGCL6J55IdEMy-7MpE"'));
   assert.ok(consent.includes('const GOOGLE_ADS_TAG_ID = "AW-18410577740"'));
-  assert.equal(createHash("sha256").update(fs.readFileSync("lib/data.ts")).digest("hex"), baseline.dataWithoutObsoleteFieldSha256);
+  assert.equal(COMPANY.contactAvailability, "7/24 Çağrı Merkezi");
+  assert.equal(COMPANY.website, "https://www.egebolgeteknikservis.com");
+  assert.equal(COMPANY.email, "info@egebolgeteknikservis.com");
   assert.equal("whatsappUrl" in COMPANY, false);
   // No other application file may introduce a conversion call or destination.
   for (const directory of ["app", "components", "lib"]) {
@@ -89,11 +93,17 @@ test("approved UI work preserves business data, shared chrome, routes, SEO and p
 });
 
 
-test("homepage hero shows only business hours below its call CTA", () => {
+test("homepage hero identifies service scope and call-center availability", () => {
   const html = render(Home);
   const hero = html.match(/<section class="hero hero-photo">(.*?)<\/section>/s)[1];
-  assert.doesNotMatch(hero, /hero-note|Bağımsız özel teknik servis/);
-  assert.ok(hero.includes('<p class="hero-hours">Her gün 08:00–22:00</p>'));
+  assert.ok(hero.includes("Bağımsız Özel Teknik Servis"));
+  assert.ok(hero.includes("Beyaz Eşya, Klima, Kombi ve TV"));
+  assert.ok(hero.includes("7/24 ÇAĞRI MERKEZİ"));
+  assert.ok(hero.includes("Cihazınızda sorun mu var? Teknik servis desteği için 7/24 çağrı merkezimizi arayın."));
+  assert.ok(hero.includes("İzmir ve Aydın’da hizmet"));
+  assert.ok(hero.includes("0533 231 9469"));
+  assert.equal((hero.match(/href="tel:/g) || []).length, 1);
+  assert.ok(hero.indexOf("hero-hours") < hero.indexOf("hero-call"));
   assert.ok(hero.includes('href="tel:+905332319469"'));
-  assert.ok(chrome.includes("Her gün 08:00–22:00"));
+  assert.ok(chrome.includes("7/24 Çağrı Merkezi"));
 });

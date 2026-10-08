@@ -1,13 +1,14 @@
-export const BUSINESS_HOURS = { opens: "08:00", closes: "22:00" } as const;
-export const COMPANY={name:"Ege Bölge Teknik Servis Hizmetleri",phoneDisplay:"0533 231 9469",phoneHref:"tel:+905332319469",email:"info@egebolgeteknikservis.com",address:"Fırat Mah. 289/59 Sk. No:7/A, 35380 Buca / İzmir",hours:`Her gün ${BUSINESS_HOURS.opens}–${BUSINESS_HOURS.closes}`,openingHours:`Mo-Su ${BUSINESS_HOURS.opens}-${BUSINESS_HOURS.closes}`,website:"https://www.egebolgeteknikservis.com"};
+// Contact availability does not establish technician or repair operating hours.
+export const CONTACT_AVAILABILITY = { label: "7/24 Çağrı Merkezi", opens: "00:00", closes: "23:59" } as const;
+export const COMPANY={name:"Ege Bölge Teknik Servis Hizmetleri",phoneDisplay:"0533 231 9469",phoneHref:"tel:+905332319469",email:"info@egebolgeteknikservis.com",address:"Fırat Mah. 289/59 Sk. No:7/A, 35380 Buca / İzmir",contactAvailability:CONTACT_AVAILABILITY.label,website:"https://www.egebolgeteknikservis.com"};
 /** Individual appliance visuals support the relevant service card. The hero photograph
  * is generic illustrative imagery and does not represent an Ege Bölge employee. */
 export const SERVICE_VISUALS={
-  whiteGoods:{src:"/images/services/appliance-service-sheet.png",alt:"Beyaz eşya teknik servis hizmetleri"},
+  whiteGoods:{src:"/images/services/appliance-service-sheet.png",alt:"Çamaşır ve bulaşık makineleri, buzdolabı, kurutma makinesi, klima, kombi, televizyon ve dış ünitelerden oluşan görsel"},
   washingMachine:{src:"/images/services/camasir-makinesi-premium.webp",alt:"Modern çamaşır odasında çamaşır makinesi"},
   dishwasher:{src:"/images/services/bulasik-makinesi-premium.webp",alt:"Modern mutfakta bulaşık makinesi"},
   refrigerator:{src:"/images/services/buzdolabi-premium.webp",alt:"Modern mutfakta buzdolabı"},
-  dryer:{src:"/images/services/kurutma-makinesi-servisi.png",alt:"Kurutma makinesi teknik servis hizmeti"},
+  dryer:{src:"/images/services/kurutma-makinesi-servisi.png",alt:"Çamaşır odasında kurutma makinesi"},
   airConditioner:{src:"/images/services/klima-premium.webp",alt:"Modern salonda duvar tipi klima"},
   boiler:{src:"/images/services/kombi-premium.webp",alt:"Modern teknik alanda duvar tipi kombi"},
   tv:{src:"/images/services/televizyon-premium.webp",alt:"Modern oturma odasında televizyon"},

@@ -6,17 +6,168 @@ import { BrandDirectory } from "../components/BrandDirectory";
 import { Reveal } from "../components/Reveal";
 import { ServiceVisual } from "../components/ServiceVisual";
 
-const advantages = [["01", "Deneyimli Ekip", "Arızaya uygun teknik destek."], ["02", "Hızlı Yönlendirme", "Telefonla hızlı iletişim."], ["03", "Net Bilgilendirme", "Süreç açıkça paylaşılır."], ["04", "İzmir Geneli", "Birçok ilçede servis desteği."]];
-const faq = [["Nasıl iletişime geçebilirim?", "Telefonla cihaz ve ilçe bilginizi paylaşabilirsiniz. E-posta ikincil iletişim seçeneğidir."], ["Hangi cihazlar için hizmet veriyorsunuz?", "Beyaz eşya, klima, kombi, televizyon, ısı pompası ve VRF sistemleri için teknik servis desteği sunuyoruz."], ["İzmir'in hangi bölgelerine hizmet veriyorsunuz?", "Buca, Konak, Karabağlar, Bornova ve diğer listelenen ilçelerde hizmet planlaması yapılmaktadır."], ["Yetkili servis misiniz?", "Hayır. Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servistir. Listelenen markaların yetkili servisi değildir."]];
+const advantages = [
+  ["01", "Cihazınıza Uygun Destek", "Arıza belirtinizi bizimle paylaşın."], 
+  ["02", "Telefonla İletişim", "Talebinizi doğrudan paylaşın."], 
+  ["03", "Net Bilgilendirme", "Süreç açıkça paylaşılır."], 
+  ["04", "İzmir ve Aydın", "Hizmet bölgelerimizde servis desteği."]
+];
+
+const faq = [
+  ["Nasıl iletişime geçebilirim?", "Telefonla cihaz ve ilçe bilginizi paylaşabilirsiniz. E-posta ikincil iletişim seçeneğidir."], 
+  ["Hangi cihazlar için hizmet veriyorsunuz?", "Beyaz eşya, klima, kombi, televizyon, ısı pompası ve VRF sistemleri için teknik servis desteği sunuyoruz."], 
+  ["Hangi bölgelerde hizmet veriyorsunuz?", "İzmir’de listelenen 27 ilçede ve Aydın’ın 17 ilçesinde hizmet veriyoruz. İzmir’de Beydağ, Kiraz ve Ödemiş hizmet kapsamı dışındadır."], 
+  ["Yetkili servis misiniz?", "Hayır. Ege Bölge Teknik Servis Hizmetleri bağımsız özel teknik servistir. Listelenen markaların yetkili servisi değildir."]
+];
 
 export default function Home() {
-  return <>
-    <section className="hero hero-photo"><Image className="hero-background" src="/images/hero/teknik-servis-hero.png" alt="Klima ünitesinde bakım yapan teknik servis çalışanı" fill priority sizes="100vw" /><div className="hero-shade" /><div className="container hero-content"><Reveal className="hero-copy"><p className="eyebrow eyebrow-light">İzmir Geneli Teknik Servis</p><h1>Evinizdeki Teknolojiye <em>Güvenilir Servis</em></h1><p className="lead">Beyaz eşya, klima, kombi ve elektronik cihazlarda hızlı teknik destek.</p><div className="actions"><a className="button phone-button" href={COMPANY.phoneHref}><PhoneIcon />Hemen Ara</a></div><p className="hero-hours">{COMPANY.hours}</p></Reveal></div></section>
-    <section className="section services-section" id="hizmetler"><div className="container"><Reveal><div className="section-heading centered"><p className="eyebrow">Hizmetlerimiz</p><h2>Hangi cihazlara servis veriyoruz?</h2><p>İhtiyacınız olan hizmeti seçin.</p></div></Reveal><div className="service-grid">{SERVICES.map((service, index) => <Reveal key={service.slug} delay={index * 40}><article className="service-card"><a href={`/${service.slug}`} className="service-card-image" aria-label={`${service.name} sayfasını incele`}><ServiceVisual visual={service.visual as keyof typeof SERVICE_VISUALS} /></a><div className="service-card-copy"><p className="service-card-kicker">Bağımsız özel teknik servis</p><h3><a href={`/${service.slug}`}>{service.name}</a></h3><p>{service.description}</p><a href={COMPANY.phoneHref} className="service-card-cta">Hemen Ara <b aria-hidden="true">→</b></a></div></article></Reveal>)}</div></div></section>
-    <section className="brands-section"><div className="container"><Reveal><BrandDirectory theme="dark" /></Reveal></div></section>
-    <section className="advantage-section"><div className="container advantage-grid">{advantages.map(([number, title, text], index) => <Reveal key={title} delay={index * 55} className="advantage-card"><span className="number-icon">{number}</span><div><h2>{title}</h2><p>{text}</p></div></Reveal>)}</div></section>
-    <section className="dark-service-section"><div className="container dark-service-grid"><Reveal className="dark-service-copy"><p className="eyebrow eyebrow-orange">Servis desteği</p><h2>İletişime geçin, size yardımcı olalım.</h2><p>Telefonla cihaz ve ilçe bilginizi paylaşabilirsiniz.</p><ul className="check-list"><li>Telefon desteği</li><li>İlçeye göre hızlı planlama</li><li>Bağımsız özel teknik servis</li></ul><div className="actions"><a className="button orange" href={COMPANY.phoneHref}>Hemen Ara</a></div></Reveal><Reveal variant="fade-left" className="contact-card contact-card--dark"><p className="form-kicker">İletişim</p><h3>Telefonla bize ulaşın</h3><p>Cihazınızı ve bulunduğunuz ilçeyi paylaşmak için bizi arayın.</p><a className="button phone-button" href={COMPANY.phoneHref}><PhoneIcon />{COMPANY.phoneDisplay}</a></Reveal></div></section>
-    <section className="area-section" id="hizmet-bolgeleri"><div className="container area-layout"><Reveal><div><p className="eyebrow eyebrow-light">Hizmet Bölgeleri</p><h2>İzmir ve Aydın’da teknik servis desteği</h2><p>Bulunduğunuz il ve ilçeyi paylaşarak servis talebinizi iletebilirsiniz.</p><a className="button white-outline" href="/hizmet-bolgeleri">Tüm hizmet bölgelerini gör</a></div></Reveal><Reveal variant="fade-left"><ProvinceSummary /></Reveal></div></section>
-    <section className="faq-section" id="sss"><div className="container faq-layout"><Reveal><div><p className="eyebrow">Sık sorulan sorular</p><h2>Servis süreci hakkında merak edilenler</h2><p>Ek bilgiye ihtiyacınız olduğunda telefonla bize ulaşabilirsiniz.</p></div></Reveal><Reveal variant="fade-left" className="faq-list">{faq.map(([question, answer]) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</Reveal></div></section>
-  </>;
+  return (
+    <>
+      <section className="hero hero-photo">
+        <Image 
+          className="hero-background" 
+          src="/images/hero/teknik-servis-hero.png" 
+          alt="Klima ünitesinde bakım yapan teknik servis çalışanı" 
+          fill 
+          priority 
+          sizes="100vw" 
+        />
+        <div className="hero-shade" />
+        <div className="container hero-content">
+          <div className="hero-copy">
+            <p className="eyebrow eyebrow-light">Bağımsız Özel Teknik Servis</p>
+            <h1>Beyaz Eşya, Klima, Kombi ve TV <em>Teknik Servisi</em></h1>
+            <p className="hero-coverage">İzmir ve Aydın’da hizmet</p>
+            <p className="lead">Cihazınızda sorun mu var? Teknik servis desteği için 7/24 çağrı merkezimizi arayın.</p>
+            <div className="hero-contact">
+              <p className="hero-hours">
+                <span className="hero-contact-icon"><PhoneIcon /></span>
+                <strong>7/24 ÇAĞRI MERKEZİ</strong>
+              </p>
+              <a className="button hero-call" href={COMPANY.phoneHref}>
+                <span>Hemen Ara</span><strong>{COMPANY.phoneDisplay}</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section services-section" id="hizmetler">
+        <div className="container">
+          <Reveal>
+            <div className="section-heading centered">
+              <p className="eyebrow">Hizmetlerimiz</p>
+              <h2>Hangi cihazlara servis veriyoruz?</h2>
+              <p>İhtiyacınız olan hizmeti seçin.</p>
+            </div>
+          </Reveal>
+          <div className="service-grid">
+            {SERVICES.map((service, index) => (
+              <Reveal key={service.slug} delay={index * 40}>
+                <article className="service-card">
+                  <a href={`/${service.slug}`} className="service-card-image" aria-label={`${service.name} sayfasını incele`}>
+                    <ServiceVisual visual={service.visual as keyof typeof SERVICE_VISUALS} sizes="(max-width: 548px) calc(100vw - 28px), (max-width: 800px) 520px, (max-width: 1228px) 30vw, 379px" />
+                  </a>
+                  <div className="service-card-copy">
+                    <p className="service-card-kicker">Bağımsız özel teknik servis</p>
+                    <h3><a href={`/${service.slug}`}>{service.name}</a></h3>
+                    <p>{service.description}</p>
+                    <a href={COMPANY.phoneHref} className="service-card-cta">Hemen Ara <b aria-hidden="true">→</b></a>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="brands-section">
+        <div className="container">
+          <Reveal>
+            <BrandDirectory theme="dark" />
+            <a className="text-link light-link" href="/markalar">Tüm markaları incele →</a>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="advantage-section">
+        <div className="container advantage-grid">
+          {advantages.map(([number, title, text], index) => (
+            <Reveal key={title} delay={index * 55} className="advantage-card">
+              <span className="number-icon">{number}</span>
+              <div>
+                <h2>{title}</h2>
+                <p>{text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="dark-service-section">
+        <div className="container dark-service-grid">
+          <Reveal className="dark-service-copy">
+            <p className="eyebrow eyebrow-orange">Servis desteği</p>
+            <h2>İletişime geçin, size yardımcı olalım.</h2>
+            <p>Telefonla cihaz ve ilçe bilginizi paylaşabilirsiniz.</p>
+            <ul className="check-list">
+              <li>Telefon desteği</li>
+              <li>İl ve ilçenize göre servis talebi</li>
+              <li>Bağımsız özel teknik servis</li>
+            </ul>
+            <div className="actions">
+              <a className="button orange" href={COMPANY.phoneHref}>Hemen Ara</a>
+            </div>
+          </Reveal>
+          <Reveal variant="fade-left" className="contact-card contact-card--dark">
+            <p className="form-kicker">İletişim</p>
+            <h3>Telefonla bize ulaşın</h3>
+            <p>Cihazınızı ve bulunduğunuz ilçeyi paylaşmak için bizi arayın.</p>
+            <a className="button phone-button" href={COMPANY.phoneHref}><PhoneIcon />{COMPANY.phoneDisplay}</a>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="area-section" id="hizmet-bolgeleri">
+        <div className="container area-layout">
+          <Reveal>
+            <div>
+              <p className="eyebrow eyebrow-light">Hizmet Bölgeleri</p>
+              <h2>İzmir ve Aydın’da teknik servis desteği</h2>
+              <p>Bulunduğunuz il ve ilçeyi paylaşarak servis talebinizi iletebilirsiniz.</p>
+              <a className="button white-outline" href="/hizmet-bolgeleri">Tüm hizmet bölgelerini gör</a>
+            </div>
+          </Reveal>
+          <Reveal variant="fade-left">
+            <ProvinceSummary />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="faq-section" id="sss">
+        <div className="container faq-layout">
+          <Reveal>
+            <div>
+              <p className="eyebrow">Sık sorulan sorular</p>
+              <h2>Servis süreci hakkında merak edilenler</h2>
+              <p>Ek bilgiye ihtiyacınız olduğunda telefonla bize ulaşabilirsiniz.</p>
+            </div>
+          </Reveal>
+          <Reveal variant="fade-left" className="faq-list">
+            {faq.map(([question, answer]) => (
+              <details key={question}>
+                <summary>{question}<span>+</span></summary>
+                <p>
+                  {answer}
+                  {question === "Hangi bölgelerde hizmet veriyorsunuz?" && (
+                    <> <a className="text-link" href="/hizmet-bolgeleri">Hizmet bölgelerini inceleyin.</a></>
+                  )}
+                </p>
+              </details>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+    </>
+  );
 }
