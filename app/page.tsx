@@ -68,7 +68,6 @@ export default function Home() {
                     <ServiceVisual visual={service.visual as keyof typeof SERVICE_VISUALS} sizes="(max-width: 548px) calc(100vw - 28px), (max-width: 800px) 520px, (max-width: 1228px) 30vw, 379px" />
                   </a>
                   <div className="service-card-copy">
-                    <p className="service-card-kicker">Bağımsız özel teknik servis</p>
                     <h3><a href={`/${service.slug}`}>{service.name}</a></h3>
                     <p>{service.description}</p>
                     <a href={COMPANY.phoneHref} className="service-card-cta">Hemen Ara <b aria-hidden="true">→</b></a>

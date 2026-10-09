@@ -6,7 +6,6 @@ import { ServiceActions } from "./ServiceActions";
 
 export function BrandPage({ brand }: { brand: Brand }) {
   const services = SERVICES.filter(service => brand.supportedServices.includes(service.slug));
-  const disclosure = `Bağımsız özel servistir. ${brand.name} markasının yetkili servisi değildir.`;
   const faq = [
     [`${brand.name} yetkili servisi misiniz?`, `Hayır. Ege Bölge Teknik Servis Hizmetleri bağımsız özel servistir. ${brand.name} markasının yetkili servisi değildir.`],
     [`${brand.name} cihazım için hangi bilgileri paylaşmalıyım?`, brand.preparation.text],
@@ -27,7 +26,6 @@ export function BrandPage({ brand }: { brand: Brand }) {
     <section className="service-hero"><div className="container brand-page__hero">
       <nav className="breadcrumb" aria-label="Sayfa yolu"><a href="/">Ana Sayfa</a><span aria-hidden="true"> / </span><a href="/markalar">Markalar</a><span aria-hidden="true"> / </span><span aria-current="page">{brand.name} Servisi</span></nav>
       <p className="eyebrow">EGE BÖLGE TEKNİK SERVİS</p><h1>{brand.name} Servisi</h1>
-      <p className="disclaimer light-disclaimer brand-page__disclosure">{disclosure}</p>
       <p className="lead">{brand.shortDescription}</p><ServiceActions />
     </div></section>
 

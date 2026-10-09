@@ -81,7 +81,8 @@ test("brand pages render disclosure, unique metadata, breadcrumbs and native con
     assert.ok(html.includes(`${brand.name} Servisi</h1>`));
     assert.ok(html.includes(`<span aria-current="page">${brand.name} Servisi</span>`));
     assert.ok(html.includes('<p class="eyebrow">EGE BÖLGE TEKNİK SERVİS</p>'));
-    assert.ok(html.includes(`Bağımsız özel servistir. ${brand.name} markasının yetkili servisi değildir.`));
+    assert.ok(html.includes(`Hayır. Ege Bölge Teknik Servis Hizmetleri bağımsız özel servistir. ${brand.name} markasının yetkili servisi değildir.`));
+    assert.ok(!html.includes("brand-page__disclosure"));
     assert.deepEqual(counts(html), { phoneLinks: 2, whatsappLinks: 0 });
     assert.ok(html.includes(`href="${COMPANY.phoneHref}"`));
     assert.doesNotMatch(html, /wa\.me|whatsapp/i);
