@@ -1,3 +1,5 @@
+import { ContentGuide } from "./ContentGuide";
+import { BRAND_GUIDES } from "../lib/brand-guides";
 import { IZMIR_SERVICE_AREAS, AYDIN_SERVICE_AREAS } from "../lib/regions";
 import { ProvinceSummary } from "./ServiceAreas";
 import { COMPANY, SERVICES } from "../lib/data";
@@ -6,7 +8,9 @@ import { ServiceActions } from "./ServiceActions";
 
 export function BrandPage({ brand }: { brand: Brand }) {
   const services = SERVICES.filter(service => brand.supportedServices.includes(service.slug));
+  const guide = BRAND_GUIDES[brand.slug];
   const faq = [
+    ...(guide?.questions ?? []),
     [`${brand.name} yetkili servisi misiniz?`, `Hayır. Ege Bölge Teknik Servis Hizmetleri bağımsız özel servistir. ${brand.name} markasının yetkili servisi değildir.`],
     [`${brand.name} cihazım için hangi bilgileri paylaşmalıyım?`, brand.preparation.text],
     ["Cihazım için yapılabilecek işlemleri nasıl öğrenebilirim?", "Cihaz türünü, modelini ve ihtiyacınızı telefonla paylaşın. İşlem kapsamı cihaz bilgisi ve durumu değerlendirilerek netleştirilir; yalnızca marka adı yapılabilecek işlemleri belirlemez."],
@@ -33,6 +37,8 @@ export function BrandPage({ brand }: { brand: Brand }) {
       <div className="section-heading"><h2 id="brand-services-title">{brand.name} için hizmetlerimiz</h2></div>
       <div className="service-options"><ul className="service-issues">{services.map(service => <li key={service.slug}><a href={`/${service.slug}`}>{service.name}<span aria-hidden="true"> →</span></a></li>)}</ul></div>
     </section>}
+
+    {guide && <ContentGuide guide={guide} />}
 
     <section className="section container brand-page__preparation" aria-labelledby="brand-preparation-title">
       <div className="section-heading"><p className="eyebrow">Görüşme öncesi</p><h2 id="brand-preparation-title">{brand.preparation.title}</h2><p>{brand.preparation.text}</p></div>

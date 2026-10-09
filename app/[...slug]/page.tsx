@@ -1,3 +1,5 @@
+import { ContentGuide, GuideQuestions } from "../../components/ContentGuide";
+import { SERVICE_GUIDES } from "../../lib/service-guides";
 import { ServiceAreas, ProvinceSummary } from "../../components/ServiceAreas";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -135,6 +137,8 @@ function Service({ service }: { service: (typeof SERVICES)[number] }) {
           {landing.details.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </section>
+      <ContentGuide guide={SERVICE_GUIDES[service.slug]} />
+      <GuideQuestions guide={SERVICE_GUIDES[service.slug]} />
       <section className="area-section" aria-labelledby="service-areas-title">
         <div className="container area-layout">
           <div><h2 id="service-areas-title">{landing.areasTitle}</h2>
