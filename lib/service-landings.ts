@@ -25,7 +25,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "tv-tamiri": {
     title: "Televizyon Tamiri | TV Servisi | Ege Bölge",
     description: "İzmir ve Aydın’da LED, LCD ve Smart TV'lerde görüntü, ses ve açılmama sorunları için bağımsız özel televizyon servisi. TV tamiri için telefonla ulaşın.",
-    eyebrow: "Televizyon Teknik Servisi",
+    eyebrow: "EGE BÖLGE TEKNİK SERVİS",
     heading: "Televizyon Tamiri",
     intro: "LED, LCD ve Smart TV'lerde görüntü, ses, açılmama ve aydınlatma sorunları için bağımsız özel teknik servis desteği.",
     issuesTitle: "Televizyonunuzda hangi sorun var?",
@@ -52,7 +52,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "klima-servisi": {
     title: "Klima Servisi | Klima Tamiri | Ege Bölge",
     description: "İzmir ve Aydın’da klima arızası, bakım, soğutma ve ısıtma sorunları için bağımsız özel klima servisi. Cihazınızın sorununu telefonla paylaşın.",
-    eyebrow: "Klima Teknik Servisi",
+    eyebrow: "EGE BÖLGE TEKNİK SERVİS",
     heading: "Klima Servisi",
     intro: "Klima arızası, bakım, soğutma ve ısıtma sorunları için bağımsız özel teknik servis desteği.",
     issuesTitle: "Klimanızda hangi sorun var?",
@@ -79,7 +79,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "kombi-servisi": {
     title: "Kombi Servisi | Kombi Tamiri | Ege Bölge",
     description: "İzmir ve Aydın’da kombi ısıtma, sıcak su, çalışma ve hata kodu sorunları için bağımsız özel kombi servisi. Teknik destek için telefonla ulaşın.",
-    eyebrow: "Kombi Teknik Servisi",
+    eyebrow: "EGE BÖLGE TEKNİK SERVİS",
     heading: "Kombi Servisi",
     intro: "Kombi ısıtma, sıcak su, çalışma ve hata kodu sorunları için bağımsız özel teknik servis desteği.",
     issuesTitle: "Kombinizde hangi sorun var?",
@@ -106,7 +106,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "beyaz-esya-servisi": {
     title: "Beyaz Eşya Tamiri ve Servisi | Ege Bölge",
     description: "İzmir ve Aydın’da çamaşır makinesi, bulaşık makinesi, buzdolabı ve kurutma makinesi için bağımsız özel beyaz eşya servisi. Telefonla bize ulaşın.",
-    eyebrow: "Beyaz Eşya Teknik Servisi",
+    eyebrow: "EGE BÖLGE TEKNİK SERVİS",
     heading: "Beyaz Eşya Servisi",
     intro: "Çamaşır makinesi, bulaşık makinesi, buzdolabı ve kurutma makinesi arızaları için bağımsız özel teknik servis desteği.",
     serviceGroup: {
@@ -137,7 +137,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "buzdolabi-servisi": {
     "title": "Buzdolabı Tamiri ve Servisi | Ege Bölge",
     "description": "İzmir ve Aydın’da buzdolabı soğutma, ses ve su sızıntısı sorunları için bağımsız özel servis. Model ve arıza belirtisiyle bize ulaşın.",
-    "eyebrow": "Bağımsız Özel Teknik Servis",
+    "eyebrow": "EGE BÖLGE TEKNİK SERVİS",
     "heading": "Buzdolabı Tamiri",
     "intro": "Buzdolabınızın soğutma, ses veya su sızıntısı sorunları için bağımsız özel servis desteği hakkında bize ulaşabilirsiniz.",
     "issuesTitle": "Buzdolabınızda neler fark ettiniz?",
@@ -162,7 +162,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "camasir-makinesi-servisi": {
     "title": "Çamaşır Makinesi Tamiri | Ege Bölge",
     "description": "İzmir ve Aydın’da çamaşır makinesi yıkama, sıkma ve tahliye sorunları için bağımsız özel servis. Arıza belirtinizi telefonla paylaşın.",
-    "eyebrow": "Bağımsız Özel Teknik Servis",
+    "eyebrow": "EGE BÖLGE TEKNİK SERVİS",
     "heading": "Çamaşır Makinesi Tamiri",
     "intro": "Çamaşır makinenizde yıkama, sıkma, su alma veya tahliye sorunu olduğunda yaşadığınız belirtiyi telefonla paylaşabilirsiniz.",
     "issuesTitle": "Yıkamanın hangi aşamasında sorun var?",
@@ -187,7 +187,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "bulasik-makinesi-servisi": {
     "title": "Bulaşık Makinesi Tamiri | Ege Bölge",
     "description": "İzmir ve Aydın’da bulaşık makinesi yıkama, su alma ve tahliye sorunları için bağımsız özel servis. Talebinizi EBTS’ye iletin.",
-    "eyebrow": "Bağımsız Özel Teknik Servis",
+    "eyebrow": "EGE BÖLGE TEKNİK SERVİS",
     "heading": "Bulaşık Makinesi Tamiri",
     "intro": "Bulaşık makinenizde temiz yıkamama, su alma, tahliye veya çalışma sorunu için bağımsız özel servis talebinizi iletebilirsiniz.",
     "issuesTitle": "Bulaşık makinenizde hangi belirti var?",
@@ -212,7 +212,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "kurutma-makinesi-servisi": {
     "title": "Kurutma Makinesi Tamiri | Ege Bölge",
     "description": "İzmir ve Aydın’da kurutma makinesi kurutmama, ısıtma ve durma sorunları için bağımsız özel servis. Cihazınızın durumunu telefonla anlatın.",
-    "eyebrow": "Bağımsız Özel Teknik Servis",
+    "eyebrow": "EGE BÖLGE TEKNİK SERVİS",
     "heading": "Kurutma Makinesi Tamiri",
     "intro": "Kurutma makineniz çamaşırları yeterince kurutmuyor, ısıtmıyor veya çalışma sırasında duruyorsa servis talebinizi bizimle paylaşın.",
     "issuesTitle": "Kurutma sırasında ne oluyor?",
@@ -237,7 +237,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "isi-pompasi-servisi": {
     "title": "Isı Pompası Servisi | Ege Bölge",
     "description": "İzmir ve Aydın’da ısı pompası bakım ve arıza talepleri için bağımsız özel servis. Sistem bilgilerinizi paylaşarak işlem kapsamını görüşün.",
-    "eyebrow": "Bağımsız Özel Teknik Servis",
+    "eyebrow": "EGE BÖLGE TEKNİK SERVİS",
     "heading": "Isı Pompası Servisi",
     "intro": "Isı pompanızın bakım veya arıza değerlendirmesi ihtiyacı için cihaz bilgilerinizi ve gözlemlediğiniz durumu telefonla iletebilirsiniz.",
     "issuesTitle": "Sistemde hangi değişikliği fark ettiniz?",
@@ -262,7 +262,7 @@ export const SERVICE_LANDINGS: Record<(typeof SERVICES)[number]["slug"], Service
   "vrf-servisi": {
     "title": "VRF Klima Servisi | Ege Bölge",
     "description": "İzmir ve Aydın’da VRF klima sistemleri için bakım ve teknik destek talepleri. Sistem ve belirti bilgisiyle bağımsız özel servis kapsamını görüşün.",
-    "eyebrow": "Bağımsız Özel Teknik Servis",
+    "eyebrow": "EGE BÖLGE TEKNİK SERVİS",
     "heading": "VRF Klima Sistemleri Servisi",
     "intro": "VRF klima sisteminizin bakım veya teknik destek ihtiyacını EBTS’ye iletebilirsiniz. Sistem bilgisi ve yaşadığınız belirti üzerinden talebin kapsamını görüşün.",
     "issuesTitle": "VRF sisteminizde hangi belirti var?",

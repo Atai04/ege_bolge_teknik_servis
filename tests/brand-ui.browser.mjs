@@ -46,7 +46,7 @@ try {
       await page.getByRole("button", { name: "Reddet", exact: true }).click();
       if (path === "/") {
         assert.equal(await page.locator(".hero-note").count(), 0);
-        assert.match(await page.locator(".hero-copy").innerText(), /Bağımsız Özel Teknik Servis/);
+        assert.match(await page.locator(".hero-copy").innerText(), /EGE BÖLGE SERVİS/);
         assert.equal(await page.locator(".hero-hours").innerText(), "7/24 ÇAĞRI MERKEZİ");
         assert.equal(await page.locator(".hero-hours").evaluate(e => e.nextElementSibling.matches("a.hero-call")), true);
         assert.ok((await page.locator(".hero-call").innerText()).includes("0533 231 9469"));

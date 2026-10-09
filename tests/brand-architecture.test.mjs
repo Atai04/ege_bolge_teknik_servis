@@ -73,9 +73,14 @@ test("brand pages render disclosure, unique metadata, breadcrumbs and native con
     titles.add(meta.title); descriptions.add(meta.description); introductions.add(brand.shortDescription);
     assert.equal(meta.alternates.canonical, "/" + brand.slug);
     assert.equal(meta.openGraph.url, "/" + brand.slug);
+    assert.equal(meta.title, `${brand.name} Servisi | Ege Bölge Teknik Servis`);
+    assert.equal(meta.openGraph.title, meta.title);
+    assert.equal(meta.twitter.title, meta.title);
     const html = render(await Page({ params }));
     assert.equal((html.match(/<h1>/g) || []).length, 1);
-    assert.ok(html.includes(`${brand.name} Özel Servisi</h1>`));
+    assert.ok(html.includes(`${brand.name} Servisi</h1>`));
+    assert.ok(html.includes(`<span aria-current="page">${brand.name} Servisi</span>`));
+    assert.ok(html.includes('<p class="eyebrow">EGE BÖLGE TEKNİK SERVİS</p>'));
     assert.ok(html.includes(`Bağımsız özel servistir. ${brand.name} markasının yetkili servisi değildir.`));
     assert.deepEqual(counts(html), { phoneLinks: 2, whatsappLinks: 0 });
     assert.ok(html.includes(`href="${COMPANY.phoneHref}"`));
@@ -84,6 +89,7 @@ test("brand pages render disclosure, unique metadata, breadcrumbs and native con
     for (const service of SERVICES) assert.ok(!html.includes(`href="/${service.slug}"`));
     const schema = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
     assert.equal(schema["@type"], "BreadcrumbList");
+    assert.equal(schema.itemListElement[2].name, `${brand.name} Servisi`);
     assert.equal(schema.itemListElement[2].item, `${COMPANY.website}/${brand.slug}`);
     assert.deepEqual(schema.itemListElement.map(item => item.position), [1, 2, 3]);
     assert.ok(!html.includes("AggregateRating"));
@@ -152,5 +158,19 @@ test("brand cards contain only all 28 brand names, with one central disclosure b
       const name = BRAND_DIRECTORY.find(brand => brand.slug === slug).name;
       assert.equal(content, `<span class="brand-directory__name">${name}</span>`);
     }
+  }
+});
+
+
+test("all service heroes show EBTS identity while retaining their service H1 and disclosure", async () => {
+  const { SERVICE_LANDINGS } = require("../lib/service-landings.ts");
+  for (const route of PAGE_ROUTES.filter(route => route.kind === "service")) {
+    const html = render(await Page({ params: Promise.resolve({ slug: [route.slug] }) }));
+    const hero = html.match(/<section class="service-hero">(.*?)<\/section>/s)[1];
+    assert.equal((html.match(/<h1>/g) || []).length, 1);
+    assert.ok(hero.includes(`<h1>${SERVICE_LANDINGS[route.slug].heading}</h1>`));
+    assert.ok(hero.includes('<p class="eyebrow">EGE BÖLGE TEKNİK SERVİS</p>'));
+    assert.ok(hero.includes("Listelenen markaların yetkili servisi değildir."));
+    assert.ok(hero.includes('href="tel:+905332319469"'));
   }
 });

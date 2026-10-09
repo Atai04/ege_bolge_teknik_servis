@@ -35,17 +35,16 @@ export default function Home() {
         <div className="hero-shade" />
         <div className="container hero-content">
           <div className="hero-copy">
-            <p className="eyebrow eyebrow-light">Bağımsız Özel Teknik Servis</p>
+            <p className="eyebrow eyebrow-light">EGE BÖLGE SERVİS</p>
             <h1>Beyaz Eşya, Klima, Kombi ve TV <em>Teknik Servisi</em></h1>
-            <p className="hero-coverage">İzmir ve Aydın’da hizmet</p>
-            <p className="lead">Cihazınızda sorun mu var? Teknik servis desteği için 7/24 çağrı merkezimizi arayın.</p>
+            <p className="lead">Klima, beyaz eşya, kombi ve televizyon arızalarında servis desteği için 0533 231 9469 numaralı çağrı merkezimizi arayarak randevu oluşturabilirsiniz.</p>
             <div className="hero-contact">
               <p className="hero-hours">
                 <span className="hero-contact-icon"><PhoneIcon /></span>
                 <strong>7/24 ÇAĞRI MERKEZİ</strong>
               </p>
-              <a className="button hero-call" href={COMPANY.phoneHref}>
-                <span>Hemen Ara</span><strong>{COMPANY.phoneDisplay}</strong>
+              <a className="button orange hero-call" href={COMPANY.phoneHref}>
+                Hemen Ara · {COMPANY.phoneDisplay}
               </a>
             </div>
           </div>

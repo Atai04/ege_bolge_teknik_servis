@@ -24,7 +24,7 @@ function brand(
   supportedServices: readonly ServiceSlug[] = [],
 ): Brand {
   return { name, slug, supportedServices, shortDescription, preparation,
-    seoTitle: `${name} Özel Servisi | Ege Bölge Teknik Servis`, seoDescription };
+    seoTitle: `${name} Servisi | Ege Bölge Teknik Servis`, seoDescription };
 }
 
 export const BRAND_DIRECTORY: readonly Brand[] = [

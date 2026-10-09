@@ -18,15 +18,15 @@ export function BrandPage({ brand }: { brand: Brand }) {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: `${COMPANY.website}/` },
       { "@type": "ListItem", position: 2, name: "Markalar", item: `${COMPANY.website}/markalar` },
-      { "@type": "ListItem", position: 3, name: `${brand.name} Özel Servisi`, item: `${COMPANY.website}/${brand.slug}` },
+      { "@type": "ListItem", position: 3, name: `${brand.name} Servisi`, item: `${COMPANY.website}/${brand.slug}` },
     ],
   };
 
   return <div className="service-landing brand-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs).replace(/</g, "\\u003c") }} />
     <section className="service-hero"><div className="container brand-page__hero">
-      <nav className="breadcrumb" aria-label="Sayfa yolu"><a href="/">Ana Sayfa</a><span aria-hidden="true"> / </span><a href="/markalar">Markalar</a><span aria-hidden="true"> / </span><span aria-current="page">{brand.name} Özel Servisi</span></nav>
-      <p className="eyebrow">İzmir ve Aydın Bağımsız Teknik Servis</p><h1>{brand.name} Özel Servisi</h1>
+      <nav className="breadcrumb" aria-label="Sayfa yolu"><a href="/">Ana Sayfa</a><span aria-hidden="true"> / </span><a href="/markalar">Markalar</a><span aria-hidden="true"> / </span><span aria-current="page">{brand.name} Servisi</span></nav>
+      <p className="eyebrow">EGE BÖLGE TEKNİK SERVİS</p><h1>{brand.name} Servisi</h1>
       <p className="disclaimer light-disclaimer brand-page__disclosure">{disclosure}</p>
       <p className="lead">{brand.shortDescription}</p><ServiceActions />
     </div></section>

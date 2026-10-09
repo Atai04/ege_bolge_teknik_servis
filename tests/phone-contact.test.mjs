@@ -96,11 +96,13 @@ test("Phase 1 preserves protected configuration and native phone tracking", () =
 test("homepage hero identifies service scope and call-center availability", () => {
   const html = render(Home);
   const hero = html.match(/<section class="hero hero-photo">(.*?)<\/section>/s)[1];
-  assert.ok(hero.includes("Bağımsız Özel Teknik Servis"));
+  assert.ok(hero.includes('class="eyebrow eyebrow-light">EGE BÖLGE SERVİS</p>'));
+  assert.doesNotMatch(hero, /Bağımsız Özel Teknik Servis|hero-coverage|İzmir|Aydın/);
   assert.ok(hero.includes("Beyaz Eşya, Klima, Kombi ve TV"));
   assert.ok(hero.includes("7/24 ÇAĞRI MERKEZİ"));
-  assert.ok(hero.includes("Cihazınızda sorun mu var? Teknik servis desteği için 7/24 çağrı merkezimizi arayın."));
-  assert.ok(hero.includes("İzmir ve Aydın’da hizmet"));
+  assert.ok(hero.includes("Klima, beyaz eşya, kombi ve televizyon arızalarında servis desteği için 0533 231 9469 numaralı çağrı merkezimizi arayarak randevu oluşturabilirsiniz."));
+  assert.ok(hero.includes("Hemen Ara · 0533 231 9469"));
+  assert.ok(hero.includes('class="button orange hero-call"'));
   assert.ok(hero.includes("0533 231 9469"));
   assert.equal((hero.match(/href="tel:/g) || []).length, 1);
   assert.ok(hero.indexOf("hero-hours") < hero.indexOf("hero-call"));
