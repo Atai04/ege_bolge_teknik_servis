@@ -35,18 +35,14 @@
   .hero-hours strong{font-size:clamp(1rem,4.5vw,1.4rem)}
   .hero-call{min-height:58px;border-radius:10px}
 }
-/* Short screens keep the complete call action above the fixed phone control. */
+/* Short viewports reduce spacing, never type size; content may scroll naturally. */
 @media(max-width:480px) and (max-height:700px){
-  .hero-content{width:calc(100% - 32px);padding-top:14px}
-  .hero-copy{gap:0}
-  .hero-copy>.eyebrow{font-size:.68rem;margin-bottom:10px}
-  .hero-copy h1{font-size:1.5rem;line-height:1.1;margin-bottom:10px}
-  .hero-copy .lead{font-size:.875rem;line-height:1.4;margin-bottom:10px}
-  .hero-contact{padding:8px;border-radius:12px}
-  .hero-hours{gap:8px;margin-bottom:8px}
-  .hero-contact-icon{width:28px;height:28px}
-  .hero-hours strong{font-size:1rem}
-  .hero-call{min-height:44px;font-size:.9rem;border-radius:7px}
+  .hero-content{padding-top:20px}
+  .hero-copy>.eyebrow{margin-bottom:12px}
+  .hero-copy h1{margin-bottom:20px}
+  .hero-copy .lead{margin-bottom:24px}
+  .hero-contact{padding:16px}
+  .hero-hours{margin-bottom:14px}
 }
 
 /* Homepage sections */
